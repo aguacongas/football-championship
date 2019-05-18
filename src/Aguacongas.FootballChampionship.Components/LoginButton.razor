@@ -1,12 +1,3 @@
 ﻿@inherits LoginButtonModel
 
-@if (AwsHelper.UserName == null)
-{
-    <button class="btn btn-primary" onclick="@(async () => await AwsJsInterop.SignInAsync(Provider))">@Text</button>
-}
-else
-{
-    <div>
-        Bonjour @AwsHelper.UserName
-    </div>
-}
+<button class="btn btn-primary" onclick="@(async () => await AwsJsInterop.SignInAsync(Provider))">@Text</button>

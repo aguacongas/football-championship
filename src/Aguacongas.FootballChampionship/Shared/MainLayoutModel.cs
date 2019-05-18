@@ -11,11 +11,21 @@ namespace Aguacongas.FootballChampionship.Shared
 {
     public class MainLayoutModel: LayoutComponentBase
     {
-        [Inject]
-        public IComponentContext ComponentContext { get; set; }
+        private AwsHelper _awsHelper;
 
         [Inject]
-        public IJSRuntime JSRuntime { get; set; }
+        public AwsHelper AwsHelper
+        {
+            get { return _awsHelper; }
+            set
+            {
+                _awsHelper = value;
+                _awsHelper.UserChanged += UserChanged;
+            }
+        }
+
+        [Inject]
+        public IComponentContext ComponentContext { get; set; }
 
         [Inject]
         public AwsJsInterop AwsJsInterop { get; set; }
@@ -28,6 +38,11 @@ namespace Aguacongas.FootballChampionship.Shared
                 await AwsJsInterop.ListenAsync();
             }
             await base.OnAfterRenderAsync();
+        }
+
+        private void UserChanged(object sender, EventArgs e)
+        {
+            StateHasChanged();
         }
     }
 }

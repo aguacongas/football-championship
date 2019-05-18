@@ -3,7 +3,7 @@ const path = require('path');
 
 module.exports = {
     mode: 'development',
-    entry: './src/amplify.js',
+    entry: './js/amplify.js',
     output: {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'content')

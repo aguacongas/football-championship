@@ -1,7 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Aguacongas.FootballChampionship.Components
 {
@@ -15,9 +12,5 @@ namespace Aguacongas.FootballChampionship.Components
 
         [Inject]
         public AwsJsInterop AwsJsInterop { get; set; }
-
-        [Inject]
-        public AwsHelper AwsHelper { get; set; }
-
     }
 }
