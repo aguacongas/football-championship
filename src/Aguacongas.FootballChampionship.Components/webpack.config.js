@@ -1,13 +1,12 @@
-﻿const CopyWebpackPlugin = require('copy-webpack-plugin');
-const webpack = require('webpack');
+﻿const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
     mode: 'development',
-    entry: './src/app.js',
+    entry: './src/amplify.js',
     output: {
         filename: '[name].bundle.js',
-        path: path.resolve(__dirname, 'dist')
+        path: path.resolve(__dirname, 'content')
     },
     module: {
         rules: [
@@ -17,13 +16,7 @@ module.exports = {
             }
         ]
     },
-    devServer: {
-        contentBase: './dist',
-        overlay: true,
-        hot: true
-    },
     plugins: [
-        new CopyWebpackPlugin(['index.html']),
         new webpack.HotModuleReplacementPlugin()
     ]
 };

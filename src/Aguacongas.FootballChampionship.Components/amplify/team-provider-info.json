@@ -1,0 +1,21 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "aguacongasfootballch-dev-20190517192750-authRole",
+            "UnauthRoleArn": "arn:aws:iam::585251669588:role/aguacongasfootballch-dev-20190517192750-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::585251669588:role/aguacongasfootballch-dev-20190517192750-authRole",
+            "Region": "eu-west-2",
+            "DeploymentBucketName": "aguacongasfootballch-dev-20190517192750-deployment",
+            "UnauthRoleName": "aguacongasfootballch-dev-20190517192750-unauthRole",
+            "StackName": "aguacongasfootballch-dev-20190517192750",
+            "StackId": "arn:aws:cloudformation:eu-west-2:585251669588:stack/aguacongasfootballch-dev-20190517192750/17bef160-78c9-11e9-87b4-0ac355ff12be"
+        },
+        "categories": {
+            "auth": {
+                "cognito0f49edcb": {
+                    "hostedUIProviderCreds": "[{\"ProviderName\":\"Facebook\",\"client_id\":\"426341914812531\",\"client_secret\":\"45a2292bb1fa99db12af6d63b4b60a34\"},{\"ProviderName\":\"Google\",\"client_id\":\"818322595124-ljo53bar3rr2qcac3u80br4htp0imgd9.apps.googleusercontent.com\",\"client_secret\":\"JOcjgpBx3cJOXsRHAr3Wf32o\"}]"
+                }
+            }
+        }
+    }
+}

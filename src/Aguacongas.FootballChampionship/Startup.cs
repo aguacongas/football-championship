@@ -7,6 +7,7 @@ namespace Aguacongas.FootballChampionship
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAwsAmplify();
         }
 
         public void Configure(IComponentsApplicationBuilder app)

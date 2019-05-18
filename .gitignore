@@ -328,5 +328,4 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
-/src/Aguacongas.FootballChampionship.Components/amplify
 /credentials.json
