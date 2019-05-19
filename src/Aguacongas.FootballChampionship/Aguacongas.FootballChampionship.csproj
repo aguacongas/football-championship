@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Aguacongas.FootballChampionship.Components\Aguacongas.FootballChampionship.Components.csproj" />
-    <ProjectReference Include="..\Aguacongas.FootballChampionship.Services\Aguacongas.FootballChampionship.Services.csproj" />
   </ItemGroup>
 
 </Project>

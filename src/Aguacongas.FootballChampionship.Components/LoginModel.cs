@@ -31,6 +31,9 @@ namespace Aguacongas.FootballChampionship.Components
         [Parameter]
         public string LogoutText { get; set; }
 
+        [Parameter]
+        public string GreetingTemplate { get; set; } = "Welcome {0}!";
+
         private void UserChanged(object sender, EventArgs e)
         {
             StateHasChanged();

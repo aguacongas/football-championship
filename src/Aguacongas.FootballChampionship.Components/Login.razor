@@ -1,21 +1,18 @@
 ﻿@inherits LoginModel
 
-@if (AwsHelper.Initialized)
+@if (!string.IsNullOrEmpty(AwsHelper.UserName))
 {
-    if (!string.IsNullOrEmpty(AwsHelper.UserName))
+    <div>@string.Format(GreetingTemplate, AwsHelper.UserName)</div>
+    <button class="btn btn-primary" onclick="@(async () => await AwsJsInterop.SignOutAsync())">@LogoutText</button>
+}
+else if (ProviderList != null && ProviderList.Any())
+{
+    foreach (var provider in ProviderList)
     {
-        <div>Bonjour @AwsHelper.UserName!</div>
-        <button class="btn btn-primary" onclick="@(async () => await AwsJsInterop.SignOutAsync())">@LogoutText</button>
+        <LoginButton Provider="@provider.Name" Text="@provider.LoginText" IconUrl="@provider.IconUrl" />
     }
-    else if (ProviderList.Any())
-    {
-        foreach (var provider in ProviderList)
-        {
-            <LoginButton Provider="@provider.Name" Text="@provider.LoginText" />
-        }
-    }
-    else
-    {
-        <LoginButton Text="@LoginText" />
-    }
+}
+else
+{
+    <LoginButton Text="@LoginText" />
 }
