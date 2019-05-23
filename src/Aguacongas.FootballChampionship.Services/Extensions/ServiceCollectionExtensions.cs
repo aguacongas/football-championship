@@ -1,4 +1,4 @@
-﻿using Aguacongas.FootballChampionship.Components;
+﻿using Aguacongas.FootballChampionship.Services;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

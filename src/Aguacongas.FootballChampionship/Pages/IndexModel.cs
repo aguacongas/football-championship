@@ -1,6 +1,8 @@
 ﻿using Aguacongas.FootballChampionship.Components;
+using Aguacongas.FootballChampionship.Services;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Aguacongas.FootballChampionship.Pages
 {
@@ -34,5 +36,14 @@ namespace Aguacongas.FootballChampionship.Pages
                 IconUrl = "https://www.amazon.com/favicon.ico"
             }
         };
+
+        [Inject]
+        public AwsJsInterop AwsJsInterop { get; set; }
+
+
+        protected override async Task OnAfterRenderAsync()
+        {
+            await base.OnAfterRenderAsync();
+        }
     }
 }

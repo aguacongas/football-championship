@@ -24,7 +24,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Aguacongas.FootballChampionship.Services\Aguacongas.FootballChampionship.Services.csproj" />
+    <Folder Include="amplify\#current-cloud-backend\api\" />
   </ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="npm run build" Condition="'$(Configuration)'=='Debug'" />
+    <Exec Command="npm run build-release" Condition="'$(Configuration)'=='Release'" />
+  </Target>
 
 </Project>

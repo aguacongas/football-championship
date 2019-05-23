@@ -1,7 +1,7 @@
 ﻿using Microsoft.JSInterop;
 using System;
 
-namespace Aguacongas.FootballChampionship.Components
+namespace Aguacongas.FootballChampionship.Services
 {
     public class AwsHelper
     {

@@ -1,0 +1,10 @@
+{
+    "AppSyncApiName": "aguacongasfootballch",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authcognito3c04b188",
+            "Outputs.UserPoolId"
+        ]
+    }
+}

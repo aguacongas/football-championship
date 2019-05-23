@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Aguacongas.FootballChampionship.Services;
+using Microsoft.AspNetCore.Components;
 
 namespace Aguacongas.FootballChampionship.Components
 {

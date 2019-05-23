@@ -1,0 +1,64 @@
+type Competition 
+  @model 
+  @auth(rules: [
+      {allow: groups, groups: ["Admin"], queries: [get, list], mutations: [create, update, delete]},
+      {allow: groups, groups: ["User"], queries: [get, list], mutations: null}
+    ])
+{
+  id: ID!
+  title: String!
+  from: AWSDate!
+  to: AWSDate!
+  matches: [Match!]! @connection(name: "CompetitionMatches")
+}
+
+type Match
+  @model
+  @auth(rules: [
+      {allow: groups, groups: ["Admin"], queries: [get, list], mutations: [create, update, delete]},
+      {allow: groups, groups: ["User"], queries: [get, list], mutations: null}
+    ])
+{
+  id: ID!
+  competition: Competition! @connection(name: "CompetitionMatches")
+  beginAt: AWSDateTime!
+  matchTeams: [MatchTeam!]! @connection(name: "MatchTeamMatchs")
+  bets: [Bet!]! @connection(name: "MatchBets")
+  scores: [Int!]!
+}
+
+type Team
+  @model
+  @auth(rules: [
+      {allow: groups, groups: ["Admin"], queries: [get, list], mutations: [create, update, delete]},
+      {allow: groups, groups: ["User"], queries: [get, list], mutations: null}
+    ])
+{
+  id: ID!
+  name: String!
+  matchTeams: [MatchTeam!]! @connection(name: "MatchTeamTeams")
+}
+
+type MatchTeam
+  @model
+  @auth(rules: [
+      {allow: groups, groups: ["Admin"], queries: [get, list], mutations: [create, update, delete]},
+      {allow: groups, groups: ["User"], queries: [get, list], mutations: null}
+    ])
+{
+  team: Team! @connection(name: "MatchTeamTeams")
+  match: Match! @connection(name: "MatchTeamMatchs")
+}
+
+type Bet
+  @model
+  @auth(rules: [
+      {allow: owner},
+      {allow: groups, groups: ["User"], queries: [get, list], mutations: null}
+    ])
+{
+  id: ID!
+  userName: String!
+  match: Match! @connection(name: "MatchBets")
+  scores: [Int!]!
+}

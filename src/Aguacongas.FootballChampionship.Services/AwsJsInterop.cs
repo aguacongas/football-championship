@@ -1,10 +1,9 @@
 ﻿using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace Aguacongas.FootballChampionship.Components
+namespace Aguacongas.FootballChampionship.Services
 {
     public class AwsJsInterop
     {
@@ -54,6 +53,29 @@ namespace Aguacongas.FootballChampionship.Components
         public Task SignOutAsync()
         {
             return _jsRuntime.InvokeAsync<object>("amplifyWrapper.auth.signout", _awsHelper);
+        }
+
+        public async Task<TResponse> GraphQlAsync<TResponse>(string operation, object parameters)
+        {
+            var result = await  _jsRuntime
+                .InvokeAsync<GraphQlResponse<TResponse>>("amplifyWrapper.graphql.operation",
+                    operation,
+                    parameters);
+            Console.WriteLine(Json.Serialize(result));
+            return result.Data;
+        }
+
+        public async Task GraphSubscribeAsync<THelper>(string operation, THelper helper, string callback)
+        {
+            await _jsRuntime
+                .InvokeAsync<object>("amplifyWrapper.graphql.operation",
+                    operation,
+                    helper,
+                    callback);
+        }
+        class GraphQlResponse<T>
+        {
+            public T Data { get; set; }
         }
     }
 }

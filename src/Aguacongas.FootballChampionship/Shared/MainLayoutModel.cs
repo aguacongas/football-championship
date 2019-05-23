@@ -1,4 +1,5 @@
 ﻿using Aguacongas.FootballChampionship.Components;
+using Aguacongas.FootballChampionship.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Layouts;
 using Microsoft.JSInterop;
@@ -20,7 +21,10 @@ namespace Aguacongas.FootballChampionship.Shared
             set
             {
                 _awsHelper = value;
-                _awsHelper.UserChanged += UserChanged;
+                _awsHelper.UserChanged += async (s, e) =>
+                {
+                    await UserChanged(s, e);
+                };
             }
         }
 
@@ -40,9 +44,38 @@ namespace Aguacongas.FootballChampionship.Shared
             await base.OnAfterRenderAsync();
         }
 
-        private void UserChanged(object sender, EventArgs e)
+        private async Task UserChanged(object sender, EventArgs e)
         {
             StateHasChanged();
+            if (AwsHelper.UserName != null)
+            {
+                await AwsJsInterop.GraphQlAsync<object>(@"query ListCompetitions(
+    $filter: ModelCompetitionFilterInput
+    $limit: Int
+    $nextToken: String
+) {
+    listCompetitions(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+        id
+        title
+        from
+        to
+    }   
+    nextToken
+    }
+}
+", 
+                new {
+                    Filter = new
+                    {
+                        From = new
+                        {
+                            Ge = "2020- 01-01"
+                        }
+                    },
+                    Limit = 10    
+                });
+            }
         }
     }
 }
