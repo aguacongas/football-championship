@@ -27,4 +27,13 @@
     <ProjectReference Include="..\Aguacongas.FootballChampionship.Services\Aguacongas.FootballChampionship.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <!-- extends watching group to include *.razor files -->
+    <Watch Include="**\*.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Watch Remove="LoginHeader.razor" />
+  </ItemGroup>
+
 </Project>

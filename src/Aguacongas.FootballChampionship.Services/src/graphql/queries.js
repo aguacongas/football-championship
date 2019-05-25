@@ -51,6 +51,10 @@ export const getMatch = `query GetMatch($id: ID!) {
     }
     beginAt
     matchTeams {
+      items {
+        id
+        isHome
+      }
       nextToken
     }
     bets {
@@ -97,6 +101,10 @@ export const getTeam = `query GetTeam($id: ID!) {
     id
     name
     matchTeams {
+      items {
+        id
+        isHome
+      }
       nextToken
     }
   }
@@ -121,6 +129,8 @@ export const listTeams = `query ListTeams(
 `;
 export const getMatchTeam = `query GetMatchTeam($id: ID!) {
   getMatchTeam(id: $id) {
+    id
+    isHome
     team {
       id
       name
@@ -155,6 +165,8 @@ export const listMatchTeams = `query ListMatchTeams(
 ) {
   listMatchTeams(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
+      id
+      isHome
       team {
         id
         name

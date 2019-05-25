@@ -1,18 +1,20 @@
 ﻿@inherits LoginModel
 
-@if (!string.IsNullOrEmpty(AwsHelper.UserName))
-{
-    <div>@string.Format(GreetingTemplate, AwsHelper.UserName)</div>
-    <button class="btn btn-primary" onclick="@(async () => await AwsJsInterop.SignOutAsync())">@LogoutText</button>
-}
-else if (ProviderList != null && ProviderList.Any())
-{
-    foreach (var provider in ProviderList)
+<div class="fc-login">
+    @if (AwsHelper.IsConnected)
     {
-        <LoginButton Provider="@provider.Name" Text="@provider.LoginText" IconUrl="@provider.IconUrl" />
+        <div class="fc-login-gretting-text">@string.Format(GreetingTemplate, AwsHelper.UserName)</div>
+        <button class="btn btn-primary" onclick="@(async () => await AwsJsInterop.SignOutAsync())">@LogoutText</button>
     }
-}
-else
-{
-    <LoginButton Text="@LoginText" />
-}
+    else if (ProviderList != null && ProviderList.Any())
+    {
+        foreach (var provider in ProviderList)
+        {
+            <LoginButton Provider="@provider.Name" Text="@provider.LoginText" IconUrl="@provider.IconUrl" />
+        }
+    }
+    else
+    {
+        <LoginButton Text="@LoginText" />
+    }
+</div>

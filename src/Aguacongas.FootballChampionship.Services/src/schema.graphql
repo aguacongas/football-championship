@@ -23,8 +23,7 @@ type Match
   competition: Competition! @connection(name: "CompetitionMatches")
   beginAt: AWSDateTime!
   matchTeams: [MatchTeam!]! @connection(name: "MatchTeamMatchs")
-  bets: [Bet!]! 
-	@connection(name: "MatchBets")
+  bets: [Bet!]! @connection(name: "MatchBets")
   scores: [Int!]!
 }
 

@@ -66,6 +66,10 @@ export const createMatch = `mutation CreateMatch($input: CreateMatchInput!) {
     }
     beginAt
     matchTeams {
+      items {
+        id
+        isHome
+      }
       nextToken
     }
     bets {
@@ -94,6 +98,10 @@ export const updateMatch = `mutation UpdateMatch($input: UpdateMatchInput!) {
     }
     beginAt
     matchTeams {
+      items {
+        id
+        isHome
+      }
       nextToken
     }
     bets {
@@ -122,6 +130,10 @@ export const deleteMatch = `mutation DeleteMatch($input: DeleteMatchInput!) {
     }
     beginAt
     matchTeams {
+      items {
+        id
+        isHome
+      }
       nextToken
     }
     bets {
@@ -141,6 +153,10 @@ export const createTeam = `mutation CreateTeam($input: CreateTeamInput!) {
     id
     name
     matchTeams {
+      items {
+        id
+        isHome
+      }
       nextToken
     }
   }
@@ -151,6 +167,10 @@ export const updateTeam = `mutation UpdateTeam($input: UpdateTeamInput!) {
     id
     name
     matchTeams {
+      items {
+        id
+        isHome
+      }
       nextToken
     }
   }
@@ -161,6 +181,10 @@ export const deleteTeam = `mutation DeleteTeam($input: DeleteTeamInput!) {
     id
     name
     matchTeams {
+      items {
+        id
+        isHome
+      }
       nextToken
     }
   }
@@ -168,6 +192,8 @@ export const deleteTeam = `mutation DeleteTeam($input: DeleteTeamInput!) {
 `;
 export const createMatchTeam = `mutation CreateMatchTeam($input: CreateMatchTeamInput!) {
   createMatchTeam(input: $input) {
+    id
+    isHome
     team {
       id
       name
@@ -197,6 +223,8 @@ export const createMatchTeam = `mutation CreateMatchTeam($input: CreateMatchTeam
 `;
 export const updateMatchTeam = `mutation UpdateMatchTeam($input: UpdateMatchTeamInput!) {
   updateMatchTeam(input: $input) {
+    id
+    isHome
     team {
       id
       name
@@ -226,6 +254,8 @@ export const updateMatchTeam = `mutation UpdateMatchTeam($input: UpdateMatchTeam
 `;
 export const deleteMatchTeam = `mutation DeleteMatchTeam($input: DeleteMatchTeamInput!) {
   deleteMatchTeam(input: $input) {
+    id
+    isHome
     team {
       id
       name

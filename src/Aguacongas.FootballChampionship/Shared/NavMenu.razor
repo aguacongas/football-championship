@@ -1,7 +1,9 @@
-﻿<div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="">Aguacongas.FootballChampionship</a>
+﻿@inherits NavMenuModel
+
+<div class="top-row pl-4 navbar navbar-light">
+    <a class="navbar-brand" href="">Football Championship</a>
     <button class="navbar-toggler" onclick="@ToggleNavMenu">
-        <span class="navbar-toggler-icon"></span>
+        <span class="navbar-toggler-icon"></span> 
     </button>
 </div>
 
@@ -22,16 +24,10 @@
                 <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
             </NavLink>
         </li>
+        <li class="nav-item px-3">
+            <a class="nav-link" href=""onclick="@(async () => await AwsJsInterop.SignOutAsync())">
+                <span class="oi oi-account-logout" aria-hidden="true"></span> Logout
+            </a>
+        </li>
     </ul>
 </div>
-
-@functions {
-    bool collapseNavMenu = true;
-
-    string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
-}

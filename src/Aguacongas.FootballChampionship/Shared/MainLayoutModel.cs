@@ -1,11 +1,10 @@
 ﻿using Aguacongas.FootballChampionship.Components;
+using Aguacongas.FootballChampionship.Model;
 using Aguacongas.FootballChampionship.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Layouts;
-using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Aguacongas.FootballChampionship.Shared
@@ -34,6 +33,36 @@ namespace Aguacongas.FootballChampionship.Shared
         [Inject]
         public AwsJsInterop AwsJsInterop { get; set; }
 
+        protected IEnumerable<Provider> ProviderList { get; } = new List<Provider>
+        {
+            new Provider
+            {
+                Name = "Google",
+                LoginText = "Login with Google",
+                IconUrl = "https://pbs.twimg.com/profile_images/1057899591708753921/PSpUS-Hp_bigger.jpg"
+            },
+            new Provider
+            {
+                Name = "Facebook",
+                LoginText = "Login with Facebook",
+                IconUrl = "https://static.xx.fbcdn.net/rsrc.php/yo/r/iRmz9lCMBD2.ico"
+            }
+            ,
+            new Provider
+            {
+                Name = "Microsoft",
+                LoginText = "Login with Microsoft",
+                IconUrl = "https://apps.dev.microsoft.com/favicon.ico?v=2"
+            },
+            new Provider
+            {
+                Name = "LoginWithAmazon",
+                LoginText = "Login with Amazon",
+                IconUrl = "https://www.amazon.com/favicon.ico"
+            }
+        };
+
+
         protected override async Task OnAfterRenderAsync()
         {
             if (ComponentContext.IsConnected)
@@ -49,31 +78,16 @@ namespace Aguacongas.FootballChampionship.Shared
             StateHasChanged();
             if (AwsHelper.UserName != null)
             {
-                await AwsJsInterop.GraphQlAsync<object>(@"query ListCompetitions(
-    $filter: ModelCompetitionFilterInput
-    $limit: Int
-    $nextToken: String
-) {
-    listCompetitions(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-        id
-        title
-        from
-        to
-    }   
-    nextToken
-    }
-}
-", 
-                new {
+                var response = await AwsJsInterop.GraphQlAsync<CompetitionList>(Queries.LIST_COMPETITIONS, 
+                new
+                {
                     Filter = new
                     {
-                        From = new
+                        From = new 
                         {
-                            Ge = "2020- 01-01"
+                            Ge = DateTimeOffset.Now
                         }
-                    },
-                    Limit = 10    
+                    }
                 });
             }
         }

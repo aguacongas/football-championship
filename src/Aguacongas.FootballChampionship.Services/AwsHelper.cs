@@ -8,6 +8,8 @@ namespace Aguacongas.FootballChampionship.Services
         public bool Initialized { get; private set; }
         public string UserName { get; private set; }
 
+        public bool IsConnected { get; private set; }
+
         public event EventHandler<EventArgs> UserChanged;
 
         [JSInvokable]
@@ -15,6 +17,7 @@ namespace Aguacongas.FootballChampionship.Services
         {
             Initialized = true;
             UserName = userName;
+            IsConnected = !string.IsNullOrEmpty(userName);
             UserChanged?.Invoke(this, new EventArgs());
         }
     }

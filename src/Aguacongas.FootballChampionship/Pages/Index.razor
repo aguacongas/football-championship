@@ -2,4 +2,31 @@
 
 @inherits IndexModel
 
-<Login ProviderList="@ProviderList" LogoutText="Logout" GreetingTemplate="Bonjour {0}!" />
+<h1>Competition</h1>
+
+@if (CompetionList == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>From</th>
+                <th>To</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var competition in CompetionList)
+            {
+                <tr>
+                    <td>@competition.Title</td>
+                    <td>@competition.From.Date.ToShortDateString()</td>
+                    <td>@competition.To.Date.ToShortDateString()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

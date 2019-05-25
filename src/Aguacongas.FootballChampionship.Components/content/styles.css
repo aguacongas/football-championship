@@ -3,6 +3,15 @@
     used from a library project/package.
 */
 
-.btn > img {
+.fc-loginbtn > img {
     height: 32px;
+}
+
+.fc-login-header-greating-text {
+    display: inline-block
+}
+
+.fc-loginbtn {
+    width: 210px;
+    margin-bottom: 5px;
 }

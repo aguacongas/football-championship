@@ -2,19 +2,42 @@
 
 @if (AwsHelper.Initialized)
 {
-    <div class="sidebar">
-        <NavMenu />
-    </div>
-
-    <div class="main">
-        <div class="top-row px-4">
-            <a href="http://blazor.net" target="_blank" class="ml-md-auto">About</a>
+    @if (AwsHelper.IsConnected)
+    {
+        <div class="sidebar">
+            <NavMenu />
         </div>
 
-        <div class="content px-4">
-            @Body
+        <div class="main">
+            <div class="top-row px-4">
+                <div class="ml-md-auto">
+                    <LoginHeader LogoutText="Logout" GreetingTemplate="{0}" />
+                </div>
+            </div>
+
+            <div class="content px-4">
+                @Body
+            </div>
         </div>
-    </div>
+    }
+    else
+    {
+        <div class="sidebar">
+            <div class="top-row pl-4 navbar navbar-light">
+                <a class="navbar-brand" href="">Football Championship</a>
+            </div>
+        </div>
+
+        <div class="main">
+            <div class="top-row px-4">
+            </div>
+
+            <div class="content px-4">
+                <Login ProviderList="@ProviderList" LogoutText="Logout" GreetingTemplate="Bonjour {0}!" />
+            </div>
+        </div>
+
+    }
 }
 else
 {

@@ -2,6 +2,7 @@
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #f6f6f6;
 }
 
 app {
@@ -20,29 +21,22 @@ app {
     flex: 1;
 }
 
-    .main .top-row {
+    .main .top-row,
+    .sidebar .top-row {
         background-color: #e6e6e6;
         border-bottom: 1px solid #d6d5d5;
     }
 
-.sidebar {
-    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+.sidebar .navbar-brand {
+    font-size: 1.1rem;
 }
 
-    .sidebar .top-row {
-        background-color: rgba(0,0,0,0.4);
-    }
-
-    .sidebar .navbar-brand {
-        font-size: 1.1rem;
-    }
-
-    .sidebar .oi {
-        width: 2rem;
-        font-size: 1.1rem;
-        vertical-align: text-top;
-        top: -2px;
-    }
+.sidebar .oi {
+    width: 2rem;
+    font-size: 1.1rem;
+    vertical-align: text-top;
+    top: -2px;
+}
 
 .nav-item {
     font-size: 0.9rem;
@@ -58,7 +52,7 @@ app {
     }
 
     .nav-item a {
-        color: #d7d7d7;
+        color: #575757;
         border-radius: 4px;
         height: 3rem;
         display: flex;
@@ -67,13 +61,13 @@ app {
     }
 
         .nav-item a.active {
-            background-color: rgba(255,255,255,0.25);
-            color: white;
+            background-color: rgba(0,0,0,0.25);
+            color: #000;
         }
 
         .nav-item a:hover {
-            background-color: rgba(255,255,255,0.1);
-            color: white;
+            background-color: rgba(0, 0, 0, 0.1);
+            color: #000;
         }
 
 .content {
@@ -81,7 +75,7 @@ app {
 }
 
 .navbar-toggler {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 .valid.modified:not([type=checkbox]) {
@@ -131,5 +125,9 @@ app {
     .sidebar .collapse {
         /* Never collapse the sidebar for wide screens */
         display: block;
+    }
+
+    .nav-item:last-of-type {
+        display: none;
     }
 }

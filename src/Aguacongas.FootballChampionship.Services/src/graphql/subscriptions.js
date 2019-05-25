@@ -66,6 +66,10 @@ export const onCreateMatch = `subscription OnCreateMatch {
     }
     beginAt
     matchTeams {
+      items {
+        id
+        isHome
+      }
       nextToken
     }
     bets {
@@ -94,6 +98,10 @@ export const onUpdateMatch = `subscription OnUpdateMatch {
     }
     beginAt
     matchTeams {
+      items {
+        id
+        isHome
+      }
       nextToken
     }
     bets {
@@ -122,6 +130,10 @@ export const onDeleteMatch = `subscription OnDeleteMatch {
     }
     beginAt
     matchTeams {
+      items {
+        id
+        isHome
+      }
       nextToken
     }
     bets {
@@ -141,6 +153,10 @@ export const onCreateTeam = `subscription OnCreateTeam {
     id
     name
     matchTeams {
+      items {
+        id
+        isHome
+      }
       nextToken
     }
   }
@@ -151,6 +167,10 @@ export const onUpdateTeam = `subscription OnUpdateTeam {
     id
     name
     matchTeams {
+      items {
+        id
+        isHome
+      }
       nextToken
     }
   }
@@ -161,6 +181,10 @@ export const onDeleteTeam = `subscription OnDeleteTeam {
     id
     name
     matchTeams {
+      items {
+        id
+        isHome
+      }
       nextToken
     }
   }
@@ -168,6 +192,8 @@ export const onDeleteTeam = `subscription OnDeleteTeam {
 `;
 export const onCreateMatchTeam = `subscription OnCreateMatchTeam {
   onCreateMatchTeam {
+    id
+    isHome
     team {
       id
       name
@@ -197,6 +223,8 @@ export const onCreateMatchTeam = `subscription OnCreateMatchTeam {
 `;
 export const onUpdateMatchTeam = `subscription OnUpdateMatchTeam {
   onUpdateMatchTeam {
+    id
+    isHome
     team {
       id
       name
@@ -226,6 +254,8 @@ export const onUpdateMatchTeam = `subscription OnUpdateMatchTeam {
 `;
 export const onDeleteMatchTeam = `subscription OnDeleteMatchTeam {
   onDeleteMatchTeam {
+    id
+    isHome
     team {
       id
       name
