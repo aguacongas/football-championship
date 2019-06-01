@@ -23,11 +23,9 @@ window.amplifyWrapper = {
             function setUser() {
                 Auth.currentAuthenticatedUser()
                     .then(user => {
-                        const userName = user.attributes.name || user.attributes.email;
-                        dotnetHelper.invokeMethodAsync("SetUser", userName)
-                            .then(_ => {
-                                console.log(user);
-                            });
+                        user.signInUserSession.idToken.payload.groups = user.signInUserSession.idToken.payload["cognito:groups"];
+                        dotnetHelper.invokeMethodAsync("SetUser", user)
+                            .then(_ => {});
                     })
                     .catch(() => dotnetHelper.invokeMethodAsync("SetUser", null)
                         .then(_ => console.log("Not signed in")));

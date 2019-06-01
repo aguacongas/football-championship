@@ -2,15 +2,17 @@
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace Aguacongas.FootballChampionship.Components
+namespace Aguacongas.FootballChampionship.AwsLogin.Components
 {
-    public class LoginModel: ComponentBase, IDisposable
+    public class LoginHeaderModel : ComponentBase, IDisposable
     {
-        private AwsHelper _awsHelper;
+        private IAwsHelper _awsHelper;
 
         [Inject]
-        public AwsHelper AwsHelper {
+        public IAwsHelper AwsHelper
+        {
             get { return _awsHelper; }
             set
             {
@@ -20,20 +22,12 @@ namespace Aguacongas.FootballChampionship.Components
             }
         }
 
-        [Inject]
-        public AwsJsInterop AwsJsInterop { get; set; }
-
-        [Parameter]
-        public IEnumerable<Provider> ProviderList { get; set; }
-
-        [Parameter]
-        public string LoginText { get; set; }
-
         [Parameter]
         public string LogoutText { get; set; }
 
         [Parameter]
         public string GreetingTemplate { get; set; } = "Welcome {0}!";
+
 
         private void UserChanged(object sender, EventArgs e)
         {
@@ -67,5 +61,6 @@ namespace Aguacongas.FootballChampionship.Components
             Dispose(true);
         }
         #endregion
+
     }
 }

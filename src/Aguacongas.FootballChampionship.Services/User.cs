@@ -1,4 +1,4 @@
-﻿namespace Aguacongas.FootballChampionship.Components
+﻿namespace Aguacongas.FootballChampionship.Services
 {
     public class User
     {

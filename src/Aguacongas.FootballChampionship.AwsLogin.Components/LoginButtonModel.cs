@@ -1,12 +1,12 @@
 ﻿using Aguacongas.FootballChampionship.Services;
 using Microsoft.AspNetCore.Components;
 
-namespace Aguacongas.FootballChampionship.Components
+namespace Aguacongas.FootballChampionship.AwsLogin.Components
 {
     public class LoginButtonModel : ComponentBase
     {
         [Inject]
-        public AwsJsInterop AwsJsInterop { get; set; }
+        public IAwsJsInterop AwsJsInterop { get; set; }
 
         [Parameter]
         public string Text { get; set; }

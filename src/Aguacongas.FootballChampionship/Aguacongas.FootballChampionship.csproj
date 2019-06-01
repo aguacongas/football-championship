@@ -14,15 +14,26 @@
     <PackageReference Include="Microsoft.AspNetCore.Blazor" Version="3.0.0-preview5-19227-01" />
     <PackageReference Include="Microsoft.AspNetCore.Blazor.Build" Version="3.0.0-preview5-19227-01" PrivateAssets="all" />
     <PackageReference Include="Microsoft.AspNetCore.Blazor.DevServer" Version="3.0.0-preview5-19227-01" PrivateAssets="all" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Aguacongas.FootballChampionship.Components\Aguacongas.FootballChampionship.Components.csproj" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.2.0" />
   </ItemGroup>
 
   <ItemGroup>
     <!-- extends watching group to include *.razor files -->
     <Watch Include="..\**\*.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Watch Remove="Admin\Pages\Admin.razor" />
+    <Watch Remove="Admin\Pages\_Imports.razor" />
+    <Watch Remove="Admin\_Imports.razor" />
+    <Watch Remove="Shared\MainLayout.razor" />
+    <Watch Remove="Shared\NavMenu.razor" />
+    <Watch Remove="Shared\_Imports.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Aguacongas.FootballChampionship.AwsLogin.Components\Aguacongas.FootballChampionship.AwsLogin.Components.csproj" />
+    <ProjectReference Include="..\Aguacongas.FootballChampionship.Services\Aguacongas.FootballChampionship.Services.csproj" />
   </ItemGroup>
 
 </Project>

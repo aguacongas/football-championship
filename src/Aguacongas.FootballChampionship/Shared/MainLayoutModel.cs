@@ -1,9 +1,6 @@
-﻿using Aguacongas.FootballChampionship.Components;
-using Aguacongas.FootballChampionship.Model;
-using Aguacongas.FootballChampionship.Services;
+﻿using Aguacongas.FootballChampionship.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Layouts;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,18 +8,17 @@ namespace Aguacongas.FootballChampionship.Shared
 {
     public class MainLayoutModel: LayoutComponentBase
     {
-        private AwsHelper _awsHelper;
-
+        private IAwsHelper _awsHelper;
         [Inject]
-        public AwsHelper AwsHelper
+        public IAwsHelper AwsHelper
         {
             get { return _awsHelper; }
             set
             {
                 _awsHelper = value;
-                _awsHelper.UserChanged += async (s, e) =>
+                _awsHelper.UserChanged += (e, a) =>
                 {
-                    await UserChanged(s, e);
+                    StateHasChanged();
                 };
             }
         }
@@ -31,7 +27,7 @@ namespace Aguacongas.FootballChampionship.Shared
         public IComponentContext ComponentContext { get; set; }
 
         [Inject]
-        public AwsJsInterop AwsJsInterop { get; set; }
+        public IAwsJsInterop AwsJsInterop { get; set; }
 
         protected IEnumerable<Provider> ProviderList { get; } = new List<Provider>
         {
@@ -71,25 +67,6 @@ namespace Aguacongas.FootballChampionship.Shared
                 await AwsJsInterop.ListenAsync();
             }
             await base.OnAfterRenderAsync();
-        }
-
-        private async Task UserChanged(object sender, EventArgs e)
-        {
-            StateHasChanged();
-            if (AwsHelper.UserName != null)
-            {
-                var response = await AwsJsInterop.GraphQlAsync<CompetitionList>(Queries.LIST_COMPETITIONS, 
-                new
-                {
-                    Filter = new
-                    {
-                        From = new 
-                        {
-                            Ge = DateTimeOffset.Now
-                        }
-                    }
-                });
-            }
         }
     }
 }

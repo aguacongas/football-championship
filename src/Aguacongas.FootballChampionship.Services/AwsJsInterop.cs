@@ -5,15 +5,15 @@ using System.Threading.Tasks;
 
 namespace Aguacongas.FootballChampionship.Services
 {
-    public class AwsJsInterop
+    public class AwsJsInterop : IAwsJsInterop
     {
         private readonly IJSRuntime _jsRuntime;
-        private readonly AwsHelper _awsHelper;
+        private readonly IAwsHelper _awsHelper;
 
         private bool configured;
         private bool listing;
 
-        public AwsJsInterop(IJSRuntime jSRuntime, AwsHelper awsHelper)
+        public AwsJsInterop(IJSRuntime jSRuntime, IAwsHelper awsHelper)
         {
             _jsRuntime = jSRuntime;
             _awsHelper = awsHelper;
@@ -55,10 +55,10 @@ namespace Aguacongas.FootballChampionship.Services
             return _jsRuntime.InvokeAsync<object>("amplifyWrapper.auth.signout", _awsHelper);
         }
 
-        public async Task<TResponse> GraphQlAsync<TResponse>(string operation, object parameters)
+        public async Task<TResponse> GraphQlAsync<TResponse>(string operation, object parameters = null)
         {
-            var result = await  _jsRuntime
-                .InvokeAsync<GraphQlResponse<TResponse>>("amplifyWrapper.graphql.operation",
+            var result = await _jsRuntime
+                .InvokeAsync<GraphQlData<TResponse>>("amplifyWrapper.graphql.operation",
                     operation,
                     parameters);
             Console.WriteLine(Json.Serialize(result));
@@ -72,10 +72,6 @@ namespace Aguacongas.FootballChampionship.Services
                     operation,
                     helper,
                     callback);
-        }
-        class GraphQlResponse<T>
-        {
-            public T Data { get; set; }
         }
     }
 }

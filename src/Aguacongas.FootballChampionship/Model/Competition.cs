@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Aguacongas.FootballChampionship.Services;
+using System;
 
 namespace Aguacongas.FootballChampionship.Model
 {
@@ -14,5 +12,7 @@ namespace Aguacongas.FootballChampionship.Model
         public DateTimeOffset From { get; set; }
 
         public DateTimeOffset To { get; set; }
+
+        public AwsGraphQlList<Match> Matches { get; set; }
     }
 }

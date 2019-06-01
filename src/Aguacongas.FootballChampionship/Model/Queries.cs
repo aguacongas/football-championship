@@ -22,5 +22,30 @@ namespace Aguacongas.FootballChampionship.Model
     nextToken
     }
 }";
+        public const string LIST_MATCH = @"query ListMatchs(
+  $filter: ModelMatchFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listMatchs(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id 
+      placeHolderAway
+      placeHolderHome
+      matchTeams {
+        items {
+          id
+          isHome
+          team {
+            id
+            name
+          }
+        }
+      }
+      scores
+    }
+    nextToken
+  }
+}";
     }
 }

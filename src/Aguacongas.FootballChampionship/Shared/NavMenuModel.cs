@@ -8,7 +8,10 @@ namespace Aguacongas.FootballChampionship.Shared
         private bool collapseNavMenu = true;
 
         [Inject]
-        public AwsJsInterop AwsJsInterop { get; set; }
+        public IAwsJsInterop AwsJsInterop { get; set; }
+
+        [Inject]
+        public IAwsHelper AwsHelper { get; set; }
 
         protected string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 

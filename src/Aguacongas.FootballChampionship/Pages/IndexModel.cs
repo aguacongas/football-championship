@@ -1,5 +1,4 @@
-﻿using Aguacongas.FootballChampionship.Components;
-using Aguacongas.FootballChampionship.Model;
+﻿using Aguacongas.FootballChampionship.Model;
 using Aguacongas.FootballChampionship.Services;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -11,7 +10,7 @@ namespace Aguacongas.FootballChampionship.Pages
     public class IndexModel : ComponentBase
     {
         [Inject]
-        public AwsJsInterop AwsJsInterop { get; set; }
+        public IAwsJsInterop AwsJsInterop { get; set; }
 
         protected IEnumerable<Competition> CompetionList { get; private set; }
 

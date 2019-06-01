@@ -1,0 +1,51 @@
+﻿@page "/admin"
+
+@inherits AdminModel
+
+<h1>Import competition</h1>
+
+<p>Import a competition from FIFA api</p>
+
+<EditForm Model="@ImportCompetition" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="competitionId">Competition Id</label>
+        <InputNumber id="competitionId" bind-Value="@ImportCompetition.CompetitionId" />
+    </div>
+
+    <div class="form-group">
+        <label for="competitionId">Season Id</label>
+        <InputNumber id="competitionId" bind-Value="@ImportCompetition.SeasonId" />
+    </div>
+
+    <div class="form-group">
+        <label for="competitionId">Stage Id</label>
+        <InputNumber id="competitionId" bind-Value="@ImportCompetition.StageId" />
+    </div>
+
+    <button type="submit">Submit</button>
+</EditForm>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Date</th>
+            <th>Home</th>
+            <th>Away</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var match in MatchList)
+        {
+        <tr>
+            <td>@match.Id</td>
+            <td>@match.BeginAt.ToShortDateString()</td>
+            <td>@match.PlaceHolderHome</td>
+            <td>@match.PlaceHolderAway</td>
+        </tr>
+        }
+    </tbody>
+</table>

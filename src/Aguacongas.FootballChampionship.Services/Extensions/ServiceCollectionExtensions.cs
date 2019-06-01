@@ -6,8 +6,8 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddAwsAmplify(this IServiceCollection services)
         {
-            return services.AddSingleton<AwsHelper>()
-                .AddSingleton<AwsJsInterop>();
+            return services.AddSingleton<IAwsHelper, AwsHelper>()
+                .AddSingleton<IAwsJsInterop, AwsJsInterop>();
         }
     }
 }
