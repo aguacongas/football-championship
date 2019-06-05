@@ -64,7 +64,10 @@ namespace Aguacongas.FootballChampionship.Model
           }
         }
       }
-      scores
+      scores {
+        isHome
+        value
+      }
     }
     nextToken
   }
@@ -82,5 +85,22 @@ namespace Aguacongas.FootballChampionship.Model
     to
   }
 }";
+
+        public const string LIST_BET = @"query ListBets($filter: ModelBetFilterInput, $limit: Int, $nextToken: String) {
+  listBets(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      userName
+      match {
+        id
+      }
+      scores {
+        isHome
+        value
+      }
     }
+    nextToken
+  }
+}";
+    }    
 }

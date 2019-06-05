@@ -18,20 +18,66 @@ else
         <hr />
         @foreach (var match in group)
         {
-            <div class="row">
-                <div class="col">
-                    <div>@match.BeginAt.ToShortTimeString()</div>
-                    <div class="small"><em>@match.LocalizedNames.GetLocalizedValue()</em></div>
-                    <div class="small">@match.Group.GetLocalizedValue()</div>
-                    <div class="small">@match.Number</div>
+            <EditForm Model="@match.Bet" OnValidSubmit="@(async () => await SaveBet(match.Bet))">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div class="row">
+                    <div class="col-4">
+                        <div>@match.BeginAt.ToShortTimeString()</div>
+                        <div class="small"><em>@match.LocalizedNames.GetLocalizedValue()</em></div>
+                        <div class="small">@match.Group.GetLocalizedValue()</div>
+                        <div>
+                            <span class="small">@match.Number</span>
+                            @if (CanBet(match))
+                            {
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="far fa-save"></i>
+                                </button>
+                            }
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <div><b>@GetTeamName(match, true)</b></div>
+                            </div>
+                            <div class="col">
+                                <div><b>@GetTeamName(match, false)</b></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                @if (CanBet(match))
+                                {
+                                    <InputNumber Class="bet form-control" bind-Value="@match.Bet.HomeValue" />
+                                }
+                                else
+                                {
+                                    <em>@match.Scores.First(s => s.IsHome).Value</em>
+                                    <div class="small">
+                                        @match.Bet.HomeValue
+                                    </div>
+                                }
+                            </div>
+                            <div class="col">
+                                @if (CanBet(match))
+                                {
+                                    <InputNumber Class="bet form-control" bind-Value="@match.Bet.AwayValue" />
+                                }
+                                else
+                                {
+                                    <em>@match.Scores.First(s => !s.IsHome).Value</em>
+                                    <div class="small">
+                                        @match.Bet.AwayValue
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col">
-                    <div><b>@GetTeamName(match, true)</b></div>
-                </div>
-                <div class="col">
-                    <div><b>@GetTeamName(match, false)</b></div>
-                </div>
-            </div>
+            </EditForm>
         }
+
     }
 }

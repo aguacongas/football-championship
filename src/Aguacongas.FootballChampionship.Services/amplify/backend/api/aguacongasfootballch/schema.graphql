@@ -29,9 +29,8 @@ type Match
   placeHolderAway: String!
   localizedNames: [LocalizedName!]
   matchTeams: [MatchTeam!]! @connection(name: "MatchTeamMatchs")
-  bets: [Bet!]! 
-	@connection(name: "MatchBets")
-  scores: [Int!]
+  bets: [Bet!]! @connection(name: "MatchBets")
+  scores: [Score!]
 }
 
 type Team
@@ -68,10 +67,18 @@ type Bet
     ])
 {
   id: ID!
+  owner: String!
   userName: String!
   match: Match! @connection(name: "MatchBets")
-  scores: [Int!]!
+  competitionId: ID! 
+  scores: [Score!]!
 }
+
+type Score {
+  isHome: Boolean!
+  value: Int!
+}
+
 
 type LocalizedName {
   locale: String!
@@ -83,7 +90,6 @@ input ModelMatchFilterInput {
 	beginAt: ModelStringFilterInput
 	placeHolderHome: ModelStringFilterInput
 	placeHolderAway: ModelStringFilterInput
-	scores: ModelIntFilterInput
     matchCompetitionId: ModelIDFilterInput
 	and: [ModelMatchFilterInput]
 	or: [ModelMatchFilterInput]

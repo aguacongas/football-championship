@@ -18,6 +18,9 @@ namespace Aguacongas.FootballChampionship.Pages
         protected string Stage { get; set; }
 
         [Inject]
+        public IAwsHelper AwsHelper { private get; set; }
+
+        [Inject]
         public IAwsJsInterop AwsJsInterop { get; set; }
 
         [Inject]
@@ -34,7 +37,8 @@ namespace Aguacongas.FootballChampionship.Pages
             var competitionId = $"{Id}/{Stage}";
             var competitionResponses = await AwsJsInterop.GraphQlAsync<CompetitionResponses>(Queries.GET_COMPETITION, new { id = competitionId });
             Competition = competitionResponses.GetCompetition;
-            var matchesResponse = await AwsJsInterop.GraphQlAsync<MatchesResponse>(Queries.LIST_MATCH,
+
+            var matchesResponseTask = AwsJsInterop.GraphQlAsync<MatchesResponse>(Queries.LIST_MATCH,
             new
             {
                 Filter = new
@@ -46,9 +50,51 @@ namespace Aguacongas.FootballChampionship.Pages
                 },
                 Limit = 1000
             });
-            MatchGroup = matchesResponse.ListMatchs.Items
+
+            var betsResponseTask = AwsJsInterop.GraphQlAsync<BetResponses>(Queries.LIST_BET,
+            new
+            {
+                Filter = new
+                {
+                    Owner = new
+                    {
+                        Eq = AwsHelper.User.Username
+                    },
+                    And = new
+                    {
+                        CompetitionId = new
+                        {
+                            Eq = competitionId
+                        }
+                    }
+                },
+                Limit = 1000
+            });
+
+            await Task.WhenAll(matchesResponseTask, betsResponseTask);
+            var matchesResponse = matchesResponseTask.Result;            
+            var betsResponse = betsResponseTask.Result;
+
+            var matches = matchesResponse.ListMatchs.Items;
+            MatchGroup = matches
                 .OrderBy(m => m.BeginAt)
                 .GroupBy(m => m.BeginAt.Date);
+
+            var betsScore = betsResponse.ListBets.Items.Select(b => new BetScore
+            {
+                Id = b.Id,
+                MatchId = b.Match.Id,
+                HomeValue = b.Scores.FirstOrDefault(s => s.IsHome)?.Value,
+                AwayValue = b.Scores.FirstOrDefault(s => !s.IsHome)?.Value
+            });
+
+            foreach (var match in matches)
+            {
+                match.Bet = betsScore.FirstOrDefault(b => b.MatchId == match.Id) ?? new BetScore
+                {
+                    MatchId = match.Id
+                };
+            }
 
             Resources.CultureChanged += (e, a) =>
             {
@@ -70,6 +116,39 @@ namespace Aguacongas.FootballChampionship.Pages
             }
 
             return match.PlaceHolderAway;
+        }
+
+        protected async Task SaveBet(BetScore bet)
+        {
+            await AwsJsInterop.GraphQlAsync<object>(bet.Id == null ? Mutations.CREATE_BET : Mutations.UPDATE_BET, new
+            {
+                input = new
+                {
+                    owner = AwsHelper.User.Username,
+                    userName = AwsHelper.UserName,
+                    competitionId = Competition.Id,
+                    betMatchId = bet.MatchId,
+                    scores = new object[]
+                    {
+                        new
+                        {
+                            isHome = true,
+                            value = bet.HomeValue
+                        },
+                        new
+                        {
+                            isHome = false,
+                            value = bet.AwayValue
+                        }
+                    }
+                }
+            });
+        }
+
+        protected bool CanBet(Match match)
+        {
+            return DateTimeOffset.Now < match.BeginAt &&
+                (match.Scores == null || !match.Scores.Any());
         }
     }
 }

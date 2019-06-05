@@ -18,7 +18,6 @@ export const onCreateCompetition = `subscription OnCreateCompetition {
         beginAt
         placeHolderHome
         placeHolderAway
-        scores
       }
       nextToken
     }
@@ -42,7 +41,6 @@ export const onUpdateCompetition = `subscription OnUpdateCompetition {
         beginAt
         placeHolderHome
         placeHolderAway
-        scores
       }
       nextToken
     }
@@ -66,7 +64,6 @@ export const onDeleteCompetition = `subscription OnDeleteCompetition {
         beginAt
         placeHolderHome
         placeHolderAway
-        scores
       }
       nextToken
     }
@@ -111,12 +108,16 @@ export const onCreateMatch = `subscription OnCreateMatch {
     bets {
       items {
         id
+        owner
         userName
-        scores
+        competitionId
       }
       nextToken
     }
-    scores
+    scores {
+      isHome
+      value
+    }
   }
 }
 `;
@@ -158,12 +159,16 @@ export const onUpdateMatch = `subscription OnUpdateMatch {
     bets {
       items {
         id
+        owner
         userName
-        scores
+        competitionId
       }
       nextToken
     }
-    scores
+    scores {
+      isHome
+      value
+    }
   }
 }
 `;
@@ -205,12 +210,16 @@ export const onDeleteMatch = `subscription OnDeleteMatch {
     bets {
       items {
         id
+        owner
         userName
-        scores
+        competitionId
       }
       nextToken
     }
-    scores
+    scores {
+      isHome
+      value
+    }
   }
 }
 `;
@@ -309,7 +318,10 @@ export const onCreateMatchTeam = `subscription OnCreateMatchTeam {
       bets {
         nextToken
       }
-      scores
+      scores {
+        isHome
+        value
+      }
     }
   }
 }
@@ -355,7 +367,10 @@ export const onUpdateMatchTeam = `subscription OnUpdateMatchTeam {
       bets {
         nextToken
       }
-      scores
+      scores {
+        isHome
+        value
+      }
     }
   }
 }
@@ -401,7 +416,10 @@ export const onDeleteMatchTeam = `subscription OnDeleteMatchTeam {
       bets {
         nextToken
       }
-      scores
+      scores {
+        isHome
+        value
+      }
     }
   }
 }
@@ -409,6 +427,7 @@ export const onDeleteMatchTeam = `subscription OnDeleteMatchTeam {
 export const onCreateBet = `subscription OnCreateBet {
   onCreateBet {
     id
+    owner
     userName
     match {
       id
@@ -436,15 +455,23 @@ export const onCreateBet = `subscription OnCreateBet {
       bets {
         nextToken
       }
-      scores
+      scores {
+        isHome
+        value
+      }
     }
-    scores
+    competitionId
+    scores {
+      isHome
+      value
+    }
   }
 }
 `;
 export const onUpdateBet = `subscription OnUpdateBet {
   onUpdateBet {
     id
+    owner
     userName
     match {
       id
@@ -472,15 +499,23 @@ export const onUpdateBet = `subscription OnUpdateBet {
       bets {
         nextToken
       }
-      scores
+      scores {
+        isHome
+        value
+      }
     }
-    scores
+    competitionId
+    scores {
+      isHome
+      value
+    }
   }
 }
 `;
 export const onDeleteBet = `subscription OnDeleteBet {
   onDeleteBet {
     id
+    owner
     userName
     match {
       id
@@ -508,9 +543,16 @@ export const onDeleteBet = `subscription OnDeleteBet {
       bets {
         nextToken
       }
-      scores
+      scores {
+        isHome
+        value
+      }
     }
-    scores
+    competitionId
+    scores {
+      isHome
+      value
+    }
   }
 }
 `;

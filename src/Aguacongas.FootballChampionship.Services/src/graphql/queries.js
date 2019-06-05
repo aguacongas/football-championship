@@ -18,7 +18,6 @@ export const getCompetition = `query GetCompetition($id: ID!) {
         beginAt
         placeHolderHome
         placeHolderAway
-        scores
       }
       nextToken
     }
@@ -86,12 +85,16 @@ export const getMatch = `query GetMatch($id: ID!) {
     bets {
       items {
         id
+        owner
         userName
-        scores
+        competitionId
       }
       nextToken
     }
-    scores
+    scores {
+      isHome
+      value
+    }
   }
 }
 `;
@@ -127,7 +130,10 @@ export const listMatchs = `query ListMatchs(
       bets {
         nextToken
       }
-      scores
+      scores {
+        isHome
+        value
+      }
     }
     nextToken
   }
@@ -213,7 +219,10 @@ export const getMatchTeam = `query GetMatchTeam($id: ID!) {
       bets {
         nextToken
       }
-      scores
+      scores {
+        isHome
+        value
+      }
     }
   }
 }
@@ -237,7 +246,6 @@ export const listMatchTeams = `query ListMatchTeams(
         beginAt
         placeHolderHome
         placeHolderAway
-        scores
       }
     }
     nextToken
@@ -247,6 +255,7 @@ export const listMatchTeams = `query ListMatchTeams(
 export const getBet = `query GetBet($id: ID!) {
   getBet(id: $id) {
     id
+    owner
     userName
     match {
       id
@@ -274,9 +283,16 @@ export const getBet = `query GetBet($id: ID!) {
       bets {
         nextToken
       }
-      scores
+      scores {
+        isHome
+        value
+      }
     }
-    scores
+    competitionId
+    scores {
+      isHome
+      value
+    }
   }
 }
 `;
@@ -284,6 +300,7 @@ export const listBets = `query ListBets($filter: ModelBetFilterInput, $limit: In
   listBets(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
+      owner
       userName
       match {
         id
@@ -291,9 +308,12 @@ export const listBets = `query ListBets($filter: ModelBetFilterInput, $limit: In
         beginAt
         placeHolderHome
         placeHolderAway
-        scores
       }
-      scores
+      competitionId
+      scores {
+        isHome
+        value
+      }
     }
     nextToken
   }

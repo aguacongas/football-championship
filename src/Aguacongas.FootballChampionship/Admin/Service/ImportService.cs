@@ -71,7 +71,7 @@ namespace Aguacongas.FootballChampionship.Admin.Service
             var importedMatchList = matchesResponse.ListMatchs.Items.OrderBy(m => m.BeginAt);
             matchesResponse.ListMatchs.Items = importedMatchList;
 
-            var mutation = competition.Id == null ? Mutations.CREATE_COMPETITION : Mutations.UPDATE_COMPETITION;
+            var mutation = competition.Id == null ? Model.Mutations.CREATE_COMPETITION : Model.Mutations.UPDATE_COMPETITION;
             
             var matches = response.Results.OrderBy(r => r.Date);
             var firstMatch = matches.First();
@@ -131,7 +131,7 @@ namespace Aguacongas.FootballChampionship.Admin.Service
                         )
                         .Distinct(_localizedNameComparer);
 
-            var competitionResponses = await _awsJsInterop.GraphQlAsync<CompetitionResponses>(Mutations.UPDATE_COMPETITION, new
+            var competitionResponses = await _awsJsInterop.GraphQlAsync<CompetitionResponses>(Model.Mutations.UPDATE_COMPETITION, new
             {
                 input = new
                 {
@@ -152,7 +152,7 @@ namespace Aguacongas.FootballChampionship.Admin.Service
 
             var localizedNames = fifaMatch.StageName.Select(n => new LocalizedName { Locale = n.Locale, Value = n.Description });
             var group = fifaMatch.GroupName.Select(n => new LocalizedName { Locale = n.Locale, Value = n.Description });
-            var mutation = Mutations.CREATE_MATCH;
+            var mutation = Model.Mutations.CREATE_MATCH;
             var savedMatch = competition.Matches.Items.FirstOrDefault(i => i.Id == fifaMatch.IdMatch);
             if (savedMatch != null)
             {
@@ -163,7 +163,7 @@ namespace Aguacongas.FootballChampionship.Admin.Service
                 group = savedMatch.Group
                     .Concat(group)
                     .Distinct(_localizedNameComparer);
-                mutation = Mutations.UPDATE_MATCH;
+                mutation = Model.Mutations.UPDATE_MATCH;
             }
             
             var matchResponses = await _awsJsInterop.GraphQlAsync<MatchResponses>(mutation, new
@@ -206,7 +206,7 @@ namespace Aguacongas.FootballChampionship.Admin.Service
                 homeMatchTeam = matchTeams.FirstOrDefault(mt => mt.Team.Id == homeTeam.Id);
                 if (homeMatchTeam == null)
                 {
-                    var homeMatchTeamResponse = await _awsJsInterop.GraphQlAsync<MatchTeamResponses>(Mutations.CREATE_MATCH_TEAM, new
+                    var homeMatchTeamResponse = await _awsJsInterop.GraphQlAsync<MatchTeamResponses>(Model.Mutations.CREATE_MATCH_TEAM, new
                     {
                         input = new
                         {
@@ -228,7 +228,7 @@ namespace Aguacongas.FootballChampionship.Admin.Service
                 awayMatchTeam = matchTeams.FirstOrDefault(mt => mt.Team.Id == awayTeam.Id);
                 if (awayMatchTeam == null)
                 {
-                    var awayMatchTeamResponse = await _awsJsInterop.GraphQlAsync<MatchTeamResponses>(Mutations.CREATE_MATCH_TEAM, new
+                    var awayMatchTeamResponse = await _awsJsInterop.GraphQlAsync<MatchTeamResponses>(Model.Mutations.CREATE_MATCH_TEAM, new
                     {
                         input = new
                         {
@@ -263,7 +263,7 @@ namespace Aguacongas.FootballChampionship.Admin.Service
             var savedTeam = teamResponse.GetTeam;
             if (savedTeam?.Id == null)
             {
-                teamResponse = await _awsJsInterop.GraphQlAsync<TeamResponses>(Mutations.CREATE_TEAM, new
+                teamResponse = await _awsJsInterop.GraphQlAsync<TeamResponses>(Model.Mutations.CREATE_TEAM, new
                 {
                     input = new
                     {
@@ -277,7 +277,7 @@ namespace Aguacongas.FootballChampionship.Admin.Service
             else
             {
                 savedTeam.LocalizedNames = savedTeam.LocalizedNames ?? new List<LocalizedName>();
-                teamResponse = await _awsJsInterop.GraphQlAsync<TeamResponses>(Mutations.UPDATE_TEAM, new
+                teamResponse = await _awsJsInterop.GraphQlAsync<TeamResponses>(Model.Mutations.UPDATE_TEAM, new
                 {
                     input = new
                     {
