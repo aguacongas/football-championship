@@ -2,9 +2,9 @@
 
 @inherits IndexModel
 
-<h1>Competition</h1>
+    <h1>@Resources["Competition"]</h1>
 
-@if (CompetionList == null)
+@if (CompetitionList == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -13,18 +13,18 @@ else
     <table class="table">
         <thead>
             <tr>
-                <th>Title</th>
-                <th>From</th>
-                <th>To</th>
+                <th>@Resources["Title"]</th>
+                <th>@Resources["From"]</th>
+                <th>@Resources["To"]</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var competition in CompetionList)
+            @foreach (var competition in CompetitionList)
             {
                 <tr>
-                    <td>@competition.Title</td>
-                    <td>@competition.From.Date.ToShortDateString()</td>
-                    <td>@competition.To.Date.ToShortDateString()</td>
+                    <td><a href="/@competition.Id">@competition.LocalizedNames.GetLocalizedValue()</a></td>
+                    <td>@competition.From.Date.ToLongDateString()</td>
+                    <td>@competition.To.Date.ToLongDateString()</td>
                 </tr>
             }
         </tbody>

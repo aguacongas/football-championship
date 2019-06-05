@@ -2,9 +2,9 @@
 
 @inherits AdminModel
 
-<h1>Import competition</h1>
+<h1>@Resources["Import competition"]</h1>
 
-<p>Import a competition from FIFA api</p>
+<p>@Resources["Import a competition from FIFA api"]</p>
 
 <EditForm Model="@ImportCompetition" OnValidSubmit="@HandleValidSubmit">
     <DataAnnotationsValidator />
@@ -25,7 +25,7 @@
         <InputNumber id="competitionId" bind-Value="@ImportCompetition.StageId" />
     </div>
 
-    <button type="submit">Submit</button>
+    <button type="submit" disabled="@Pending">Submit</button>
 </EditForm>
 
 <table class="table">

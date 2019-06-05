@@ -1,5 +1,10 @@
-﻿using Aguacongas.FootballChampionship.Services;
+﻿using Aguacongas.FootballChampionship.Localization;
+using Aguacongas.FootballChampionship.Model;
+using Aguacongas.FootballChampionship.Services;
 using Microsoft.AspNetCore.Components;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Aguacongas.FootballChampionship.Shared
 {
@@ -13,11 +18,37 @@ namespace Aguacongas.FootballChampionship.Shared
         [Inject]
         public IAwsHelper AwsHelper { get; set; }
 
+        [Inject]
+        public IResources Resources { get; set; }
+
         protected string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+        protected IEnumerable<Competition> CompetitionList { get; private set; }
 
         protected void ToggleNavMenu()
         {
             collapseNavMenu = !collapseNavMenu;
+        }
+
+        protected override async Task OnInitAsync()
+        {
+            var response = await AwsJsInterop.GraphQlAsync<CompetitionList>(Queries.LIST_COMPETITIONS,
+                new
+                {
+                    Filter = new
+                    {
+                        From = new
+                        {
+                            Ge = DateTimeOffset.Now
+                        }
+                    }
+                });
+            CompetitionList = response.ListCompetitions.Items;
+
+            Resources.CultureChanged += (e, a) =>
+            {
+                StateHasChanged();
+            };
         }
     }
 }

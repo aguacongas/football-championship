@@ -5,12 +5,19 @@ export const getCompetition = `query GetCompetition($id: ID!) {
   getCompetition(id: $id) {
     id
     title
+    localizedNames {
+      locale
+      value
+    }
     from
     to
     matches {
       items {
         id
+        number
         beginAt
+        placeHolderHome
+        placeHolderAway
         scores
       }
       nextToken
@@ -27,6 +34,10 @@ export const listCompetitions = `query ListCompetitions(
     items {
       id
       title
+      localizedNames {
+        locale
+        value
+      }
       from
       to
       matches {
@@ -43,13 +54,28 @@ export const getMatch = `query GetMatch($id: ID!) {
     competition {
       id
       title
+      localizedNames {
+        locale
+        value
+      }
       from
       to
       matches {
         nextToken
       }
     }
+    group {
+      locale
+      value
+    }
+    number
     beginAt
+    placeHolderHome
+    placeHolderAway
+    localizedNames {
+      locale
+      value
+    }
     matchTeams {
       items {
         id
@@ -83,7 +109,18 @@ export const listMatchs = `query ListMatchs(
         from
         to
       }
+      group {
+        locale
+        value
+      }
+      number
       beginAt
+      placeHolderHome
+      placeHolderAway
+      localizedNames {
+        locale
+        value
+      }
       matchTeams {
         nextToken
       }
@@ -100,6 +137,10 @@ export const getTeam = `query GetTeam($id: ID!) {
   getTeam(id: $id) {
     id
     name
+    localizedNames {
+      locale
+      value
+    }
     matchTeams {
       items {
         id
@@ -119,6 +160,10 @@ export const listTeams = `query ListTeams(
     items {
       id
       name
+      localizedNames {
+        locale
+        value
+      }
       matchTeams {
         nextToken
       }
@@ -134,6 +179,10 @@ export const getMatchTeam = `query GetMatchTeam($id: ID!) {
     team {
       id
       name
+      localizedNames {
+        locale
+        value
+      }
       matchTeams {
         nextToken
       }
@@ -146,7 +195,18 @@ export const getMatchTeam = `query GetMatchTeam($id: ID!) {
         from
         to
       }
+      group {
+        locale
+        value
+      }
+      number
       beginAt
+      placeHolderHome
+      placeHolderAway
+      localizedNames {
+        locale
+        value
+      }
       matchTeams {
         nextToken
       }
@@ -173,7 +233,10 @@ export const listMatchTeams = `query ListMatchTeams(
       }
       match {
         id
+        number
         beginAt
+        placeHolderHome
+        placeHolderAway
         scores
       }
     }
@@ -193,7 +256,18 @@ export const getBet = `query GetBet($id: ID!) {
         from
         to
       }
+      group {
+        locale
+        value
+      }
+      number
       beginAt
+      placeHolderHome
+      placeHolderAway
+      localizedNames {
+        locale
+        value
+      }
       matchTeams {
         nextToken
       }
@@ -213,7 +287,10 @@ export const listBets = `query ListBets($filter: ModelBetFilterInput, $limit: In
       userName
       match {
         id
+        number
         beginAt
+        placeHolderHome
+        placeHolderAway
         scores
       }
       scores

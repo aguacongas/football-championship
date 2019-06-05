@@ -11,8 +11,9 @@
         <div class="main">
             <div class="top-row px-4">
                 <div class="ml-md-auto">
-                    <LoginHeader LogoutText="Logout" GreetingTemplate="{0}" />
+                    <LoginHeader LogoutText="@Resources["Logout"]" GreetingTemplate="{0}" />
                 </div>
+                <LangMenu />
             </div>
 
             <div class="content px-4">
@@ -30,10 +31,13 @@
 
         <div class="main">
             <div class="top-row px-4">
+                <div class="ml-md-auto">
+                    <LangMenu />
+                </div>
             </div>
 
             <div class="content px-4">
-                <Login ProviderList="@ProviderList" LogoutText="Logout" GreetingTemplate="Bonjour {0}!" />
+                <Login ProviderList="@ProviderList" LogoutText="@Resources["Logout"]" GreetingTemplate="@Resources["Hello {0}!"]" />
             </div>
         </div>
 
@@ -41,5 +45,21 @@
 }
 else
 {
-    <div>Loading...</div>
+    <div class="sidebar">
+        <div class="top-row pl-4 navbar navbar-light">
+            <a class="navbar-brand" href="">Football Championship</a>
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="top-row px-4">
+            <div class="ml-md-auto">
+                <LangMenu />
+            </div>
+        </div>
+
+        <div class="content px-4">
+            <div>@Resources["Loading..."]</div>
+        </div>
+    </div>
 }

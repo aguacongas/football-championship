@@ -1,4 +1,6 @@
-﻿namespace Aguacongas.FootballChampionship.Model
+﻿using System.Collections.Generic;
+
+namespace Aguacongas.FootballChampionship.Model
 {
     public class MatchTeam
     {
@@ -7,6 +9,8 @@
         public bool IsHome { get; set; }
 
         public Team Team { get; set; }
+
+        public IEnumerable<LocalizedName> LocalizedNames { get; set; }
 
         public Match Match { get; set; }
     }

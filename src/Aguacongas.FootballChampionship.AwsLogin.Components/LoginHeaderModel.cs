@@ -1,8 +1,6 @@
 ﻿using Aguacongas.FootballChampionship.Services;
 using Microsoft.AspNetCore.Components;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Aguacongas.FootballChampionship.AwsLogin.Components
 {

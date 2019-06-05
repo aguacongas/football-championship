@@ -5,12 +5,19 @@ export const createCompetition = `mutation CreateCompetition($input: CreateCompe
   createCompetition(input: $input) {
     id
     title
+    localizedNames {
+      locale
+      value
+    }
     from
     to
     matches {
       items {
         id
+        number
         beginAt
+        placeHolderHome
+        placeHolderAway
         scores
       }
       nextToken
@@ -22,12 +29,19 @@ export const updateCompetition = `mutation UpdateCompetition($input: UpdateCompe
   updateCompetition(input: $input) {
     id
     title
+    localizedNames {
+      locale
+      value
+    }
     from
     to
     matches {
       items {
         id
+        number
         beginAt
+        placeHolderHome
+        placeHolderAway
         scores
       }
       nextToken
@@ -39,12 +53,19 @@ export const deleteCompetition = `mutation DeleteCompetition($input: DeleteCompe
   deleteCompetition(input: $input) {
     id
     title
+    localizedNames {
+      locale
+      value
+    }
     from
     to
     matches {
       items {
         id
+        number
         beginAt
+        placeHolderHome
+        placeHolderAway
         scores
       }
       nextToken
@@ -58,13 +79,28 @@ export const createMatch = `mutation CreateMatch($input: CreateMatchInput!) {
     competition {
       id
       title
+      localizedNames {
+        locale
+        value
+      }
       from
       to
       matches {
         nextToken
       }
     }
+    group {
+      locale
+      value
+    }
+    number
     beginAt
+    placeHolderHome
+    placeHolderAway
+    localizedNames {
+      locale
+      value
+    }
     matchTeams {
       items {
         id
@@ -90,13 +126,28 @@ export const updateMatch = `mutation UpdateMatch($input: UpdateMatchInput!) {
     competition {
       id
       title
+      localizedNames {
+        locale
+        value
+      }
       from
       to
       matches {
         nextToken
       }
     }
+    group {
+      locale
+      value
+    }
+    number
     beginAt
+    placeHolderHome
+    placeHolderAway
+    localizedNames {
+      locale
+      value
+    }
     matchTeams {
       items {
         id
@@ -122,13 +173,28 @@ export const deleteMatch = `mutation DeleteMatch($input: DeleteMatchInput!) {
     competition {
       id
       title
+      localizedNames {
+        locale
+        value
+      }
       from
       to
       matches {
         nextToken
       }
     }
+    group {
+      locale
+      value
+    }
+    number
     beginAt
+    placeHolderHome
+    placeHolderAway
+    localizedNames {
+      locale
+      value
+    }
     matchTeams {
       items {
         id
@@ -152,6 +218,10 @@ export const createTeam = `mutation CreateTeam($input: CreateTeamInput!) {
   createTeam(input: $input) {
     id
     name
+    localizedNames {
+      locale
+      value
+    }
     matchTeams {
       items {
         id
@@ -166,6 +236,10 @@ export const updateTeam = `mutation UpdateTeam($input: UpdateTeamInput!) {
   updateTeam(input: $input) {
     id
     name
+    localizedNames {
+      locale
+      value
+    }
     matchTeams {
       items {
         id
@@ -180,6 +254,10 @@ export const deleteTeam = `mutation DeleteTeam($input: DeleteTeamInput!) {
   deleteTeam(input: $input) {
     id
     name
+    localizedNames {
+      locale
+      value
+    }
     matchTeams {
       items {
         id
@@ -197,6 +275,10 @@ export const createMatchTeam = `mutation CreateMatchTeam($input: CreateMatchTeam
     team {
       id
       name
+      localizedNames {
+        locale
+        value
+      }
       matchTeams {
         nextToken
       }
@@ -209,7 +291,18 @@ export const createMatchTeam = `mutation CreateMatchTeam($input: CreateMatchTeam
         from
         to
       }
+      group {
+        locale
+        value
+      }
+      number
       beginAt
+      placeHolderHome
+      placeHolderAway
+      localizedNames {
+        locale
+        value
+      }
       matchTeams {
         nextToken
       }
@@ -228,6 +321,10 @@ export const updateMatchTeam = `mutation UpdateMatchTeam($input: UpdateMatchTeam
     team {
       id
       name
+      localizedNames {
+        locale
+        value
+      }
       matchTeams {
         nextToken
       }
@@ -240,7 +337,18 @@ export const updateMatchTeam = `mutation UpdateMatchTeam($input: UpdateMatchTeam
         from
         to
       }
+      group {
+        locale
+        value
+      }
+      number
       beginAt
+      placeHolderHome
+      placeHolderAway
+      localizedNames {
+        locale
+        value
+      }
       matchTeams {
         nextToken
       }
@@ -259,6 +367,10 @@ export const deleteMatchTeam = `mutation DeleteMatchTeam($input: DeleteMatchTeam
     team {
       id
       name
+      localizedNames {
+        locale
+        value
+      }
       matchTeams {
         nextToken
       }
@@ -271,7 +383,18 @@ export const deleteMatchTeam = `mutation DeleteMatchTeam($input: DeleteMatchTeam
         from
         to
       }
+      group {
+        locale
+        value
+      }
+      number
       beginAt
+      placeHolderHome
+      placeHolderAway
+      localizedNames {
+        locale
+        value
+      }
       matchTeams {
         nextToken
       }
@@ -295,7 +418,18 @@ export const createBet = `mutation CreateBet($input: CreateBetInput!) {
         from
         to
       }
+      group {
+        locale
+        value
+      }
+      number
       beginAt
+      placeHolderHome
+      placeHolderAway
+      localizedNames {
+        locale
+        value
+      }
       matchTeams {
         nextToken
       }
@@ -320,7 +454,18 @@ export const updateBet = `mutation UpdateBet($input: UpdateBetInput!) {
         from
         to
       }
+      group {
+        locale
+        value
+      }
+      number
       beginAt
+      placeHolderHome
+      placeHolderAway
+      localizedNames {
+        locale
+        value
+      }
       matchTeams {
         nextToken
       }
@@ -345,7 +490,18 @@ export const deleteBet = `mutation DeleteBet($input: DeleteBetInput!) {
         from
         to
       }
+      group {
+        locale
+        value
+      }
+      number
       beginAt
+      placeHolderHome
+      placeHolderAway
+      localizedNames {
+        locale
+        value
+      }
       matchTeams {
         nextToken
       }

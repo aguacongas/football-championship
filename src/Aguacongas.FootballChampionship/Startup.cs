@@ -1,5 +1,7 @@
+using Aguacongas.FootballChampionship.Localization;
 using Microsoft.AspNetCore.Components.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using System.Globalization;
 
 namespace Aguacongas.FootballChampionship
 {
@@ -8,11 +10,13 @@ namespace Aguacongas.FootballChampionship
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAwsAmplify()
-                .AddAdminServices();
+                .AddAdminServices()
+                .AddBrowserJsInterop()
+                .AddSingleton<IResources, Resources>();
         }
 
         public void Configure(IComponentsApplicationBuilder app)
-        {
+        {            
             app.AddComponent<App>("app");
         }
     }

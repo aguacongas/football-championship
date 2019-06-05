@@ -1,0 +1,37 @@
+﻿@page "/{id}/{stage}"
+
+@inherits CompetitionModel
+
+@if (Competition != null)
+{
+    <h1>@Competition.LocalizedNames.GetLocalizedValue()</h1>
+}
+@if (MatchGroup == null)
+{
+    <p><em>@Resources["Loading..."]</em></p>
+}
+else
+{
+    foreach (var group in MatchGroup)
+    {
+        <h3>@group.Key.ToLongDateString()</h3>
+        <hr />
+        @foreach (var match in group)
+        {
+            <div class="row">
+                <div class="col">
+                    <div>@match.BeginAt.ToShortTimeString()</div>
+                    <div class="small"><em>@match.LocalizedNames.GetLocalizedValue()</em></div>
+                    <div class="small">@match.Group.GetLocalizedValue()</div>
+                    <div class="small">@match.Number</div>
+                </div>
+                <div class="col">
+                    <div><b>@GetTeamName(match, true)</b></div>
+                </div>
+                <div class="col">
+                    <div><b>@GetTeamName(match, false)</b></div>
+                </div>
+            </div>
+        }
+    }
+}

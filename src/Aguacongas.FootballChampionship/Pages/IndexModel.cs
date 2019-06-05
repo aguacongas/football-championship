@@ -1,4 +1,5 @@
-﻿using Aguacongas.FootballChampionship.Model;
+﻿using Aguacongas.FootballChampionship.Localization;
+using Aguacongas.FootballChampionship.Model;
 using Aguacongas.FootballChampionship.Services;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -12,7 +13,10 @@ namespace Aguacongas.FootballChampionship.Pages
         [Inject]
         public IAwsJsInterop AwsJsInterop { get; set; }
 
-        protected IEnumerable<Competition> CompetionList { get; private set; }
+        [Inject]
+        public IResources Resources { get; set; }
+
+        protected IEnumerable<Model.Competition> CompetitionList { get; private set; }
 
         protected override  async Task OnInitAsync()
         {
@@ -27,7 +31,12 @@ namespace Aguacongas.FootballChampionship.Pages
                         }
                     }
                 });
-            CompetionList = response.ListCompetitions.Items;
+            CompetitionList = response.ListCompetitions.Items;
+
+            Resources.CultureChanged += (e, a) =>
+            {
+                StateHasChanged();
+            };
         }
     }
 }

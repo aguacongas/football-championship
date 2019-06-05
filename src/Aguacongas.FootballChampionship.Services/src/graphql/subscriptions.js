@@ -5,12 +5,19 @@ export const onCreateCompetition = `subscription OnCreateCompetition {
   onCreateCompetition {
     id
     title
+    localizedNames {
+      locale
+      value
+    }
     from
     to
     matches {
       items {
         id
+        number
         beginAt
+        placeHolderHome
+        placeHolderAway
         scores
       }
       nextToken
@@ -22,12 +29,19 @@ export const onUpdateCompetition = `subscription OnUpdateCompetition {
   onUpdateCompetition {
     id
     title
+    localizedNames {
+      locale
+      value
+    }
     from
     to
     matches {
       items {
         id
+        number
         beginAt
+        placeHolderHome
+        placeHolderAway
         scores
       }
       nextToken
@@ -39,12 +53,19 @@ export const onDeleteCompetition = `subscription OnDeleteCompetition {
   onDeleteCompetition {
     id
     title
+    localizedNames {
+      locale
+      value
+    }
     from
     to
     matches {
       items {
         id
+        number
         beginAt
+        placeHolderHome
+        placeHolderAway
         scores
       }
       nextToken
@@ -58,13 +79,28 @@ export const onCreateMatch = `subscription OnCreateMatch {
     competition {
       id
       title
+      localizedNames {
+        locale
+        value
+      }
       from
       to
       matches {
         nextToken
       }
     }
+    group {
+      locale
+      value
+    }
+    number
     beginAt
+    placeHolderHome
+    placeHolderAway
+    localizedNames {
+      locale
+      value
+    }
     matchTeams {
       items {
         id
@@ -90,13 +126,28 @@ export const onUpdateMatch = `subscription OnUpdateMatch {
     competition {
       id
       title
+      localizedNames {
+        locale
+        value
+      }
       from
       to
       matches {
         nextToken
       }
     }
+    group {
+      locale
+      value
+    }
+    number
     beginAt
+    placeHolderHome
+    placeHolderAway
+    localizedNames {
+      locale
+      value
+    }
     matchTeams {
       items {
         id
@@ -122,13 +173,28 @@ export const onDeleteMatch = `subscription OnDeleteMatch {
     competition {
       id
       title
+      localizedNames {
+        locale
+        value
+      }
       from
       to
       matches {
         nextToken
       }
     }
+    group {
+      locale
+      value
+    }
+    number
     beginAt
+    placeHolderHome
+    placeHolderAway
+    localizedNames {
+      locale
+      value
+    }
     matchTeams {
       items {
         id
@@ -152,6 +218,10 @@ export const onCreateTeam = `subscription OnCreateTeam {
   onCreateTeam {
     id
     name
+    localizedNames {
+      locale
+      value
+    }
     matchTeams {
       items {
         id
@@ -166,6 +236,10 @@ export const onUpdateTeam = `subscription OnUpdateTeam {
   onUpdateTeam {
     id
     name
+    localizedNames {
+      locale
+      value
+    }
     matchTeams {
       items {
         id
@@ -180,6 +254,10 @@ export const onDeleteTeam = `subscription OnDeleteTeam {
   onDeleteTeam {
     id
     name
+    localizedNames {
+      locale
+      value
+    }
     matchTeams {
       items {
         id
@@ -197,6 +275,10 @@ export const onCreateMatchTeam = `subscription OnCreateMatchTeam {
     team {
       id
       name
+      localizedNames {
+        locale
+        value
+      }
       matchTeams {
         nextToken
       }
@@ -209,7 +291,18 @@ export const onCreateMatchTeam = `subscription OnCreateMatchTeam {
         from
         to
       }
+      group {
+        locale
+        value
+      }
+      number
       beginAt
+      placeHolderHome
+      placeHolderAway
+      localizedNames {
+        locale
+        value
+      }
       matchTeams {
         nextToken
       }
@@ -228,6 +321,10 @@ export const onUpdateMatchTeam = `subscription OnUpdateMatchTeam {
     team {
       id
       name
+      localizedNames {
+        locale
+        value
+      }
       matchTeams {
         nextToken
       }
@@ -240,7 +337,18 @@ export const onUpdateMatchTeam = `subscription OnUpdateMatchTeam {
         from
         to
       }
+      group {
+        locale
+        value
+      }
+      number
       beginAt
+      placeHolderHome
+      placeHolderAway
+      localizedNames {
+        locale
+        value
+      }
       matchTeams {
         nextToken
       }
@@ -259,6 +367,10 @@ export const onDeleteMatchTeam = `subscription OnDeleteMatchTeam {
     team {
       id
       name
+      localizedNames {
+        locale
+        value
+      }
       matchTeams {
         nextToken
       }
@@ -271,7 +383,18 @@ export const onDeleteMatchTeam = `subscription OnDeleteMatchTeam {
         from
         to
       }
+      group {
+        locale
+        value
+      }
+      number
       beginAt
+      placeHolderHome
+      placeHolderAway
+      localizedNames {
+        locale
+        value
+      }
       matchTeams {
         nextToken
       }
@@ -295,7 +418,18 @@ export const onCreateBet = `subscription OnCreateBet {
         from
         to
       }
+      group {
+        locale
+        value
+      }
+      number
       beginAt
+      placeHolderHome
+      placeHolderAway
+      localizedNames {
+        locale
+        value
+      }
       matchTeams {
         nextToken
       }
@@ -320,7 +454,18 @@ export const onUpdateBet = `subscription OnUpdateBet {
         from
         to
       }
+      group {
+        locale
+        value
+      }
+      number
       beginAt
+      placeHolderHome
+      placeHolderAway
+      localizedNames {
+        locale
+        value
+      }
       matchTeams {
         nextToken
       }
@@ -345,7 +490,18 @@ export const onDeleteBet = `subscription OnDeleteBet {
         from
         to
       }
+      group {
+        locale
+        value
+      }
+      number
       beginAt
+      placeHolderHome
+      placeHolderAway
+      localizedNames {
+        locale
+        value
+      }
       matchTeams {
         nextToken
       }

@@ -6,6 +6,10 @@
   createCompetition(input: $input) {
     id
     title
+    localizedNames {
+      locale
+      value
+    }
     from
     to
   }
@@ -15,6 +19,10 @@
   updateCompetition(input: $input) {
     id
     title
+    localizedNames {
+      locale
+      value
+    }
     from
     to
   }
@@ -25,14 +33,24 @@
   createMatch(input: $input) {
     id
     beginAt
+    group {
+      locale
+      value
+    }
+    number
     placeHolderAway
     placeHolderHome
+    localizedNames {
+      locale
+      value
+    }
     matchTeams {
       items {
         id
         isHome
         team {
           id
+          name
         }
       }
     }
@@ -42,14 +60,24 @@
   updateMatch(input: $input) {
     id
     beginAt
+    group {
+      locale
+      value
+    }
+    number
     placeHolderAway
     placeHolderHome
+    localizedNames {
+      locale
+      value
+    }
     matchTeams {
       items {
         id
         isHome
         team {
           id
+          name
         }
       }
     }
@@ -59,6 +87,10 @@
   createTeam(input: $input) {
     id
     name
+    localizedNames {
+      locale
+      value
+    }
   }
 }";
 
@@ -66,6 +98,10 @@
   updateTeam(input: $input) {
     id
     name
+    localizedNames {
+      locale
+      value
+    }
   }
 }";
         public const string CREATE_MATCH_TEAM = @"mutation CreateMatchTeam($input: CreateMatchTeamInput!) {

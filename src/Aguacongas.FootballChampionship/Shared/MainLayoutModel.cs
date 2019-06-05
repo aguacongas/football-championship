@@ -1,7 +1,12 @@
-﻿using Aguacongas.FootballChampionship.Services;
+﻿using Aguacongas.FootballChampionship.Interop;
+using Aguacongas.FootballChampionship.Localization;
+using Aguacongas.FootballChampionship.Model;
+using Aguacongas.FootballChampionship.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Layouts;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Aguacongas.FootballChampionship.Shared
@@ -29,35 +34,69 @@ namespace Aguacongas.FootballChampionship.Shared
         [Inject]
         public IAwsJsInterop AwsJsInterop { get; set; }
 
-        protected IEnumerable<Provider> ProviderList { get; } = new List<Provider>
-        {
-            new Provider
-            {
-                Name = "Google",
-                LoginText = "Login with Google",
-                IconUrl = "https://pbs.twimg.com/profile_images/1057899591708753921/PSpUS-Hp_bigger.jpg"
-            },
-            new Provider
-            {
-                Name = "Facebook",
-                LoginText = "Login with Facebook",
-                IconUrl = "https://static.xx.fbcdn.net/rsrc.php/yo/r/iRmz9lCMBD2.ico"
-            }
-            ,
-            new Provider
-            {
-                Name = "Microsoft",
-                LoginText = "Login with Microsoft",
-                IconUrl = "https://apps.dev.microsoft.com/favicon.ico?v=2"
-            },
-            new Provider
-            {
-                Name = "LoginWithAmazon",
-                LoginText = "Login with Amazon",
-                IconUrl = "https://www.amazon.com/favicon.ico"
-            }
-        };
+        [Inject]
+        public IResources Resources { get; set; }
 
+        [Inject]
+        public IBrowserJsInterop BrowserJsInterop { get; set; }
+
+        protected IEnumerable<Provider> ProviderList { get; private set; }
+
+        protected override async Task OnInitAsync()
+        {
+            await base.OnInitAsync();
+            
+            var culture = await BrowserJsInterop.GetItem<string>("culture");
+            if (culture == null)
+            {
+                culture = await BrowserJsInterop.GetLanguage();
+            }
+            if (!Queries.CULTURE_LIST.Any(c => culture == c))
+            {
+                culture = "en-GB";
+            }
+
+            Resources.SetCulture(culture);
+            CreateProviderList();
+
+            Resources.CultureChanged += (e, a) =>
+            {
+                CreateProviderList();
+                StateHasChanged();
+            };
+        }
+
+        private void CreateProviderList()
+        {
+            ProviderList = new List<Provider>
+            {
+                new Provider
+                {
+                    Name = "Google",
+                    LoginText = Resources["Login with Google"],
+                    IconUrl = "https://pbs.twimg.com/profile_images/1057899591708753921/PSpUS-Hp_bigger.jpg"
+                },
+                new Provider
+                {
+                    Name = "Facebook",
+                    LoginText = Resources["Login with Facebook"],
+                    IconUrl = "https://static.xx.fbcdn.net/rsrc.php/yo/r/iRmz9lCMBD2.ico"
+                }
+                ,
+                new Provider
+                {
+                    Name = "Microsoft",
+                    LoginText = Resources["Login with Microsoft"],
+                    IconUrl = "https://apps.dev.microsoft.com/favicon.ico?v=2"
+                },
+                new Provider
+                {
+                    Name = "LoginWithAmazon",
+                    LoginText = Resources["Login with Amazon"],
+                    IconUrl = "https://www.amazon.com/favicon.ico"
+                }
+            };
+        }
 
         protected override async Task OnAfterRenderAsync()
         {

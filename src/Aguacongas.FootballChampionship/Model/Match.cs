@@ -10,11 +10,17 @@ namespace Aguacongas.FootballChampionship.Model
     {
         public string Id { get; set; }
 
+        public IEnumerable<LocalizedName> Group { get; set; }
+
+        public int Number { get; set; }
+
         public DateTime BeginAt { get; set; }
 
         public string PlaceHolderHome { get; set; }
 
         public string PlaceHolderAway { get; set; }
+
+        public IEnumerable<LocalizedName> LocalizedNames { get; set; }
 
         public AwsGraphQlList<MatchTeam> MatchTeams { get; set; }
     }

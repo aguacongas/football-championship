@@ -1,0 +1,16 @@
+﻿@inherits LangMenuModel
+
+@if (LanguageList != null)
+{
+    <div class="lang">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            @Language
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            @foreach (var language in LanguageList)
+            {
+                <a class="dropdown-item" href="@UriHelper.GetAbsoluteUri()" onclick="@(async () => await SetLanguage(language))">@language</a>
+            }
+        </div>
+    </div>
+}

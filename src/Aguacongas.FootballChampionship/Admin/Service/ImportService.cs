@@ -5,7 +5,6 @@ using Aguacongas.FootballChampionship.Model.Admin;
 using Aguacongas.FootballChampionship.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Http.Extensions;
-using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +15,7 @@ namespace Aguacongas.FootballChampionship.Admin.Service
 {
     public class ImportService : IImportService
     {
+        private static LocalizedNameComparer _localizedNameComparer = new LocalizedNameComparer();
         private readonly HttpClient _client;
         private readonly IAwsJsInterop _awsJsInterop;
 
@@ -31,9 +31,11 @@ namespace Aguacongas.FootballChampionship.Admin.Service
 
         public async Task ImportCompetitionFromFIFA(ImportCompetition importCompetition)
         {
-            var queryBuilder = new QueryBuilder();
-            queryBuilder.Add("IdCompetition", importCompetition.CompetitionId.ToString());
-            queryBuilder.Add("IdSeason", importCompetition.SeasonId.ToString());
+            var queryBuilder = new QueryBuilder
+            {
+                { "IdCompetition", importCompetition.CompetitionId.ToString() },
+                { "IdSeason", importCompetition.SeasonId.ToString() }
+            };
             if (importCompetition.StageId.HasValue)
             {
                 queryBuilder.Add("idStage", importCompetition.StageId.Value.ToString());
@@ -46,7 +48,7 @@ namespace Aguacongas.FootballChampionship.Admin.Service
             }
 
             var competitionId = $"{importCompetition.CompetitionId}/{importCompetition.SeasonId}";
-            var competitionResponses = await _awsJsInterop.GraphQlAsync<CompetitionResponses>(Model.Queries.GET_COMPETITION, new { id = competitionId });
+            var competitionResponses = await _awsJsInterop.GraphQlAsync<CompetitionResponses>(FootballChampionship.Model.Queries.GET_COMPETITION, new { id = competitionId });
             var competition = competitionResponses.GetCompetition;
             if (competition == null)
             {
@@ -92,42 +94,110 @@ namespace Aguacongas.FootballChampionship.Admin.Service
                     Id = competitionId,
                     Title = firstMatch.CompetitionName.First().Description,
                     From =  firstMatch.Date.ToAwsDate(),
-                    To = lastMatch.Date > competition.To ? lastMatch.Date.ToAwsDate() : competition.To.Date.ToAwsDate()
+                    To = lastMatch.Date > competition.To ? lastMatch.Date.ToAwsDate() : competition.To.Date.ToAwsDate(),
+                    localizedNames = firstMatch.CompetitionName.Select(n => new LocalizedName { Locale = n.Locale, Value = n.Description })
                 }
             });
 
             competition = competition.Id == null ? competitionResponses.CreateCompetition : competitionResponses.UpdateCompetition;
 
             competition.Matches = matchesResponse.ListMatchs;
+            competition.Matches.Items = competition.Matches.Items.ToList();
+
             CompetitionUpdated?.Invoke(competition);
 
             foreach (var match in matches)
             {
                 await UpdateMatch(competition, match);
             }
+
+            await UpdateMatches(competitionId, competition, queryBuilder, "fr-FR");
+            await UpdateMatches(competitionId, competition, queryBuilder, "de-DE");
         }
 
+        private async Task UpdateMatches(string competitionId, Competition competition, QueryBuilder queryBuilder, string language)
+        {
+            var qb = new QueryBuilder(queryBuilder)
+            {
+                { "language", language }
+            };
+
+            var response = await _client.GetJsonAsync<FifaResponse<Model.FIFA.Match>>($"https://api.fifa.com/api/v1/calendar/matches?{qb.ToQueryString()}");
+            var matches = response.Results.OrderBy(r => r.Date);
+            var firstMatch = matches.First();
+
+            competition.LocalizedNames = competition.LocalizedNames.Concat(
+                            firstMatch.CompetitionName.Select(n => new LocalizedName { Locale = n.Locale, Value = n.Description })
+                        )
+                        .Distinct(_localizedNameComparer);
+
+            var competitionResponses = await _awsJsInterop.GraphQlAsync<CompetitionResponses>(Mutations.UPDATE_COMPETITION, new
+            {
+                input = new
+                {
+                    Id = competitionId,
+                    localizedNames = competition.LocalizedNames
+                }
+            });
+           
+            foreach (var match in matches)
+            {
+                await UpdateMatch(competition, match);
+            }
+        }
         private async Task UpdateMatch(Competition competition, Model.FIFA.Match fifaMatch)
         {
             var homeTeam = await GetOrCreateTeam(fifaMatch.Home);
             var awayTeam = await GetOrCreateTeam(fifaMatch.Away);
+
+            var localizedNames = fifaMatch.StageName.Select(n => new LocalizedName { Locale = n.Locale, Value = n.Description });
+            var group = fifaMatch.GroupName.Select(n => new LocalizedName { Locale = n.Locale, Value = n.Description });
+            var mutation = Mutations.CREATE_MATCH;
+            var savedMatch = competition.Matches.Items.FirstOrDefault(i => i.Id == fifaMatch.IdMatch);
+            if (savedMatch != null)
+            {
+                savedMatch.LocalizedNames = savedMatch.LocalizedNames ?? new List<LocalizedName>();
+                localizedNames = savedMatch.LocalizedNames
+                    .Concat(localizedNames)
+                    .Distinct(_localizedNameComparer);
+                group = savedMatch.Group
+                    .Concat(group)
+                    .Distinct(_localizedNameComparer);
+                mutation = Mutations.UPDATE_MATCH;
+            }
             
-            var mutation = competition.Matches.Items.Any(i => i.Id == fifaMatch.IdMatch)
-                ? Mutations.UPDATE_MATCH
-                : Mutations.CREATE_MATCH;
             var matchResponses = await _awsJsInterop.GraphQlAsync<MatchResponses>(mutation, new
             {
                 input = new
                 {
                     id = fifaMatch.IdMatch,
+                    group,
+                    number = fifaMatch.MatchNumber,
                     matchCompetitionId = competition.Id,
                     beginAt = fifaMatch.Date,
                     placeHolderHome = homeTeam?.Name ?? fifaMatch.PlaceHolderA,
-                    placeHolderAway = awayTeam?.Name ?? fifaMatch.PlaceHolderB
+                    placeHolderAway = awayTeam?.Name ?? fifaMatch.PlaceHolderB,
+                    localizedNames
                 }
             });
 
             var match = matchResponses.CreateMatch ?? matchResponses.UpdateMatch;
+            if (savedMatch != null)
+            {
+                savedMatch.BeginAt = match.BeginAt;
+                savedMatch.Group = match.Group;
+                savedMatch.LocalizedNames = match.LocalizedNames;
+                savedMatch.MatchTeams = match.MatchTeams;
+                savedMatch.Number = match.Number;
+                savedMatch.PlaceHolderAway = match.PlaceHolderAway;
+                savedMatch.PlaceHolderHome = match.PlaceHolderHome;                
+            }
+            else
+            {
+                var matchList = (IList<FootballChampionship.Model.Match>) competition.Matches.Items;
+                matchList.Add(match);
+            }
+
             var matchTeams = match.MatchTeams.Items;
 
             MatchTeam homeMatchTeam = null;
@@ -198,13 +268,42 @@ namespace Aguacongas.FootballChampionship.Admin.Service
                     input = new
                     {
                         id = team.IdTeam,
-                        name = team.TeamName.First().Description
+                        name = team.TeamName.First().Description,
+                        localizedNames = team.TeamName.Select(n => new LocalizedName { Locale = n.Locale, Value = n.Description})
                     }
                 });
                 savedTeam = teamResponse.CreateTeam;
             }
+            else
+            {
+                savedTeam.LocalizedNames = savedTeam.LocalizedNames ?? new List<LocalizedName>();
+                teamResponse = await _awsJsInterop.GraphQlAsync<TeamResponses>(Mutations.UPDATE_TEAM, new
+                {
+                    input = new
+                    {
+                        id = team.IdTeam,
+                        localizedNames = savedTeam.LocalizedNames.Concat(team.TeamName
+                            .Select(n => new LocalizedName { Locale = n.Locale, Value = n.Description }))
+                            .Distinct(_localizedNameComparer)
+                    }
+                });
+                savedTeam = teamResponse.UpdateTeam;
+            }
 
             return savedTeam;
+        }
+
+        class LocalizedNameComparer : IEqualityComparer<LocalizedName>
+        {
+            public bool Equals(LocalizedName x, LocalizedName y)
+            {
+                return x.Locale == y.Locale;
+            }
+
+            public int GetHashCode(LocalizedName obj)
+            {
+                return -1;
+            }
         }
     }
 }

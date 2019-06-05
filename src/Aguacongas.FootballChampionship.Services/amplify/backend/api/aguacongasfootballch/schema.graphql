@@ -7,6 +7,7 @@ type Competition
 {
   id: ID!
   title: String!
+  localizedNames: [LocalizedName!]
   from: AWSDate!
   to: AWSDate!
   matches: [Match!]! @connection(name: "CompetitionMatches", sortField: "beginAt")
@@ -21,11 +22,16 @@ type Match
 {
   id: ID!
   competition: Competition! @connection(name: "CompetitionMatches")
+  group: [LocalizedName!]
+  number: Int
   beginAt: AWSDateTime!
+  placeHolderHome: String!
+  placeHolderAway: String!
+  localizedNames: [LocalizedName!]
   matchTeams: [MatchTeam!]! @connection(name: "MatchTeamMatchs")
   bets: [Bet!]! 
 	@connection(name: "MatchBets")
-  scores: [Int!]!
+  scores: [Int!]
 }
 
 type Team
@@ -37,6 +43,7 @@ type Team
 {
   id: ID!
   name: String!
+  localizedNames: [LocalizedName!]
   matchTeams: [MatchTeam!]! @connection(name: "MatchTeamTeams")
 }
 
@@ -64,4 +71,59 @@ type Bet
   userName: String!
   match: Match! @connection(name: "MatchBets")
   scores: [Int!]!
+}
+
+type LocalizedName {
+  locale: String!
+  value: String!
+}
+
+input ModelMatchFilterInput {
+	id: ModelIDFilterInput
+	beginAt: ModelStringFilterInput
+	placeHolderHome: ModelStringFilterInput
+	placeHolderAway: ModelStringFilterInput
+	scores: ModelIntFilterInput
+    matchCompetitionId: ModelIDFilterInput
+	and: [ModelMatchFilterInput]
+	or: [ModelMatchFilterInput]
+	not: ModelMatchFilterInput
+}
+
+input ModelIDFilterInput {
+	ne: ID
+	eq: ID
+	le: ID
+	lt: ID
+	ge: ID
+	gt: ID
+	contains: ID
+	notContains: ID
+	between: [ID]
+	beginsWith: ID
+}
+
+input ModelStringFilterInput {
+	ne: String
+	eq: String
+	le: String
+	lt: String
+	ge: String
+	gt: String
+	contains: String
+	notContains: String
+	between: [String]
+	beginsWith: String
+}
+
+input ModelIntFilterInput {
+	ne: Int
+	eq: Int
+	le: Int
+	lt: Int
+	ge: Int
+	gt: Int
+	contains: Int
+	notContains: Int
+	between: [Int]
 }

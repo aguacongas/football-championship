@@ -7,5 +7,6 @@ namespace Aguacongas.FootballChampionship.Admin.Model
         public Team GetTeam { get; set; }
 
         public Team CreateTeam { get; set; }
+        public Team UpdateTeam { get; set; }
     }
 }
