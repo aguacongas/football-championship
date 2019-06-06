@@ -1,6 +1,6 @@
 ﻿using Aguacongas.FootballChampionship.Localization;
 using Aguacongas.FootballChampionship.Model;
-using Aguacongas.FootballChampionship.Services;
+using Aguacongas.FootballChampionship.Service;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
@@ -18,13 +18,14 @@ namespace Aguacongas.FootballChampionship.Pages
         protected string Stage { get; set; }
 
         [Inject]
-        public IAwsHelper AwsHelper { private get; set; }
-
-        [Inject]
-        public IAwsJsInterop AwsJsInterop { get; set; }
+        public ICompetitionService CompetitionService { private get; set; }
 
         [Inject]
         public IResources Resources { get; set; }
+
+        [Inject]
+        public IGraphQlSubscriber GraphQlSubscriber { private get; set; }
+
 
         protected Model.Competition Competition { get; private set; }
 
@@ -33,73 +34,26 @@ namespace Aguacongas.FootballChampionship.Pages
         protected override async Task OnInitAsync()
         {
             await base.OnInitAsync();
-
-            var competitionId = $"{Id}/{Stage}";
-            var competitionResponses = await AwsJsInterop.GraphQlAsync<CompetitionResponses>(Queries.GET_COMPETITION, new { id = competitionId });
-            Competition = competitionResponses.GetCompetition;
-
-            var matchesResponseTask = AwsJsInterop.GraphQlAsync<MatchesResponse>(Queries.LIST_MATCH,
-            new
+            
+            GraphQlSubscriber.MatchUpdated = match =>
             {
-                Filter = new
+                var cm = CompetitionService.Matches.FirstOrDefault(m => m.Id == match.Id);
+                if (cm != null)
                 {
-                    MatchCompetitionId = new
-                    {
-                        Eq = competitionId
-                    }
-                },
-                Limit = 1000
-            });
-
-            var betsResponseTask = AwsJsInterop.GraphQlAsync<BetResponses>(Queries.LIST_BET,
-            new
-            {
-                Filter = new
-                {
-                    Owner = new
-                    {
-                        Eq = AwsHelper.User.Username
-                    },
-                    And = new
-                    {
-                        CompetitionId = new
-                        {
-                            Eq = competitionId
-                        }
-                    }
-                },
-                Limit = 1000
-            });
-
-            await Task.WhenAll(matchesResponseTask, betsResponseTask);
-            var matchesResponse = matchesResponseTask.Result;            
-            var betsResponse = betsResponseTask.Result;
-
-            var matches = matchesResponse.ListMatchs.Items;
-            MatchGroup = matches
-                .OrderBy(m => m.BeginAt)
-                .GroupBy(m => m.BeginAt.Date);
-
-            var betsScore = betsResponse.ListBets.Items.Select(b => new BetScore
-            {
-                Id = b.Id,
-                MatchId = b.Match.Id,
-                HomeValue = b.Scores.FirstOrDefault(s => s.IsHome)?.Value,
-                AwayValue = b.Scores.FirstOrDefault(s => !s.IsHome)?.Value
-            });
-
-            foreach (var match in matches)
-            {
-                match.Bet = betsScore.FirstOrDefault(b => b.MatchId == match.Id) ?? new BetScore
-                {
-                    MatchId = match.Id
-                };
-            }
-
+                    cm.Scores = match.Scores;
+                    StateHasChanged();
+                }
+            };
+            
             Resources.CultureChanged += (e, a) =>
             {
                 StateHasChanged();
             };
+
+            await CompetitionService.Initialize($"{Id}/{Stage}");
+
+            Competition = CompetitionService.Competition;
+            MatchGroup = CompetitionService.MatchGroup;
         }
 
         protected string GetTeamName(Match match, bool isHome)
@@ -118,37 +72,20 @@ namespace Aguacongas.FootballChampionship.Pages
             return match.PlaceHolderAway;
         }
 
+        protected string GetErrorMessage(Match match, bool isHome)
+        {
+            return string.Format(Resources["The score for {0} is required."], GetTeamName(match, isHome));
+        }
         protected async Task SaveBet(BetScore bet)
         {
-            await AwsJsInterop.GraphQlAsync<object>(bet.Id == null ? Mutations.CREATE_BET : Mutations.UPDATE_BET, new
-            {
-                input = new
-                {
-                    owner = AwsHelper.User.Username,
-                    userName = AwsHelper.UserName,
-                    competitionId = Competition.Id,
-                    betMatchId = bet.MatchId,
-                    scores = new object[]
-                    {
-                        new
-                        {
-                            isHome = true,
-                            value = bet.HomeValue
-                        },
-                        new
-                        {
-                            isHome = false,
-                            value = bet.AwayValue
-                        }
-                    }
-                }
-            });
+            await CompetitionService.SaveBet(bet);
+            StateHasChanged();
         }
 
         protected bool CanBet(Match match)
         {
-            return DateTimeOffset.Now < match.BeginAt &&
+            return DateTime.Now < match.BeginAt &&
                 (match.Scores == null || !match.Scores.Any());
-        }
+        }        
     }
 }

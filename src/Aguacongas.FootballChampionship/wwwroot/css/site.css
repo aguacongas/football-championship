@@ -104,6 +104,10 @@ app {
     width: 64px;
 }
 
+.oi-check {
+    color: green;
+}
+
 @media (max-width: 767.98px) {
     .main .top-row {
         display: none;

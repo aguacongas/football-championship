@@ -35,5 +35,15 @@ namespace Aguacongas.FootballChampionship.Interop
         {
             return await _jsRuntime.InvokeAsync<string>("browserJsFunctions.location.pathname");
         }
+
+        public async Task<int> GetBrowserTimeZoneOffset()
+        {
+            return await _jsRuntime.InvokeAsync<int>("browserJsFunctions.getBrowserTimeZoneOffset");
+        }
+
+        public async Task<string> GetBrowserTimeZoneIdentifier()
+        {
+            return await _jsRuntime.InvokeAsync<string>("browserJsFunctions.getBrowserTimeZoneIdentifier");
+        }
     }
 }

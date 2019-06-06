@@ -11,6 +11,8 @@ type Competition
   from: AWSDate!
   to: AWSDate!
   matches: [Match!]! @connection(name: "CompetitionMatches", sortField: "beginAt")
+  bets: [Bet!] @connection(name: "CompetitionBets")
+  results: [Result!] @connection(name: "CompetitionResults", sortField: "value")
 }
 
 type Match
@@ -70,15 +72,29 @@ type Bet
   owner: String!
   userName: String!
   match: Match! @connection(name: "MatchBets")
-  competitionId: ID! 
+  competition: Competition! @connection(name: "CompetitionBets")
   scores: [Score!]!
 }
+
+type Result
+  @model
+  @auth(rules: [
+	  {allow: owner},
+      {allow: groups, groups: ["Admin"], queries: [get, list], mutations: [create, update, delete]},
+      {allow: groups, groups: ["User"], queries: [get, list], mutations: null}
+    ])
+ {
+   id: ID!
+   owner: String!
+   userName: String!
+   value: Int!
+   competition: Competition! @connection(name: "CompetitionResults")  
+ }
 
 type Score {
   isHome: Boolean!
   value: Int!
 }
-
 
 type LocalizedName {
   locale: String!
@@ -94,6 +110,28 @@ input ModelMatchFilterInput {
 	and: [ModelMatchFilterInput]
 	or: [ModelMatchFilterInput]
 	not: ModelMatchFilterInput
+}
+
+input ModelBetFilterInput {
+	id: ModelIDFilterInput
+	owner: ModelStringFilterInput
+	userName: ModelStringFilterInput
+	betCompetitionId: ModelIDFilterInput
+	betMatchId: ModelIDFilterInput
+	and: [ModelBetFilterInput]
+	or: [ModelBetFilterInput]
+	not: ModelBetFilterInput
+}
+
+input ModelResultFilterInput {
+	id: ModelIDFilterInput
+	owner: ModelStringFilterInput
+	userName: ModelStringFilterInput
+	value: ModelIntFilterInput
+	resultCompetitionId: ModelIDFilterInput
+	and: [ModelResultFilterInput]
+	or: [ModelResultFilterInput]
+	not: ModelResultFilterInput
 }
 
 input ModelIDFilterInput {

@@ -7,7 +7,8 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddBrowserJsInterop(this IServiceCollection services)
         {
-            return services.AddSingleton<IBrowserJsInterop, BrowserJsInterop>();
+            return services.AddSingleton<IBrowserJsInterop, BrowserJsInterop>()
+                .AddSingleton<IBrowserDateTime, BrowserDateTime>();
         }
     }
 }

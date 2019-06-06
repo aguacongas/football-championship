@@ -16,6 +16,8 @@ namespace Aguacongas.FootballChampionship.Model
 
         public DateTime BeginAt { get; set; }
 
+        public DateTime BeginAtLocal { get; set; }
+
         public string PlaceHolderHome { get; set; }
 
         public string PlaceHolderAway { get; set; }

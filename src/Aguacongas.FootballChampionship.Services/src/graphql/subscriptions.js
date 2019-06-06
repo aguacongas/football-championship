@@ -12,13 +12,12 @@ export const onCreateCompetition = `subscription OnCreateCompetition {
     from
     to
     matches {
-      items {
-        id
-        number
-        beginAt
-        placeHolderHome
-        placeHolderAway
-      }
+      nextToken
+    }
+    bets {
+      nextToken
+    }
+    results {
       nextToken
     }
   }
@@ -35,13 +34,12 @@ export const onUpdateCompetition = `subscription OnUpdateCompetition {
     from
     to
     matches {
-      items {
-        id
-        number
-        beginAt
-        placeHolderHome
-        placeHolderAway
-      }
+      nextToken
+    }
+    bets {
+      nextToken
+    }
+    results {
       nextToken
     }
   }
@@ -58,13 +56,12 @@ export const onDeleteCompetition = `subscription OnDeleteCompetition {
     from
     to
     matches {
-      items {
-        id
-        number
-        beginAt
-        placeHolderHome
-        placeHolderAway
-      }
+      nextToken
+    }
+    bets {
+      nextToken
+    }
+    results {
       nextToken
     }
   }
@@ -76,15 +73,8 @@ export const onCreateMatch = `subscription OnCreateMatch {
     competition {
       id
       title
-      localizedNames {
-        locale
-        value
-      }
       from
       to
-      matches {
-        nextToken
-      }
     }
     group {
       locale
@@ -99,19 +89,9 @@ export const onCreateMatch = `subscription OnCreateMatch {
       value
     }
     matchTeams {
-      items {
-        id
-        isHome
-      }
       nextToken
     }
     bets {
-      items {
-        id
-        owner
-        userName
-        competitionId
-      }
       nextToken
     }
     scores {
@@ -127,15 +107,8 @@ export const onUpdateMatch = `subscription OnUpdateMatch {
     competition {
       id
       title
-      localizedNames {
-        locale
-        value
-      }
       from
       to
-      matches {
-        nextToken
-      }
     }
     group {
       locale
@@ -150,19 +123,9 @@ export const onUpdateMatch = `subscription OnUpdateMatch {
       value
     }
     matchTeams {
-      items {
-        id
-        isHome
-      }
       nextToken
     }
     bets {
-      items {
-        id
-        owner
-        userName
-        competitionId
-      }
       nextToken
     }
     scores {
@@ -178,15 +141,8 @@ export const onDeleteMatch = `subscription OnDeleteMatch {
     competition {
       id
       title
-      localizedNames {
-        locale
-        value
-      }
       from
       to
-      matches {
-        nextToken
-      }
     }
     group {
       locale
@@ -201,19 +157,9 @@ export const onDeleteMatch = `subscription OnDeleteMatch {
       value
     }
     matchTeams {
-      items {
-        id
-        isHome
-      }
       nextToken
     }
     bets {
-      items {
-        id
-        owner
-        userName
-        competitionId
-      }
       nextToken
     }
     scores {
@@ -232,10 +178,6 @@ export const onCreateTeam = `subscription OnCreateTeam {
       value
     }
     matchTeams {
-      items {
-        id
-        isHome
-      }
       nextToken
     }
   }
@@ -250,10 +192,6 @@ export const onUpdateTeam = `subscription OnUpdateTeam {
       value
     }
     matchTeams {
-      items {
-        id
-        isHome
-      }
       nextToken
     }
   }
@@ -268,10 +206,6 @@ export const onDeleteTeam = `subscription OnDeleteTeam {
       value
     }
     matchTeams {
-      items {
-        id
-        isHome
-      }
       nextToken
     }
   }
@@ -284,44 +218,13 @@ export const onCreateMatchTeam = `subscription OnCreateMatchTeam {
     team {
       id
       name
-      localizedNames {
-        locale
-        value
-      }
-      matchTeams {
-        nextToken
-      }
     }
     match {
       id
-      competition {
-        id
-        title
-        from
-        to
-      }
-      group {
-        locale
-        value
-      }
       number
       beginAt
       placeHolderHome
       placeHolderAway
-      localizedNames {
-        locale
-        value
-      }
-      matchTeams {
-        nextToken
-      }
-      bets {
-        nextToken
-      }
-      scores {
-        isHome
-        value
-      }
     }
   }
 }
@@ -333,44 +236,13 @@ export const onUpdateMatchTeam = `subscription OnUpdateMatchTeam {
     team {
       id
       name
-      localizedNames {
-        locale
-        value
-      }
-      matchTeams {
-        nextToken
-      }
     }
     match {
       id
-      competition {
-        id
-        title
-        from
-        to
-      }
-      group {
-        locale
-        value
-      }
       number
       beginAt
       placeHolderHome
       placeHolderAway
-      localizedNames {
-        locale
-        value
-      }
-      matchTeams {
-        nextToken
-      }
-      bets {
-        nextToken
-      }
-      scores {
-        isHome
-        value
-      }
     }
   }
 }
@@ -382,44 +254,13 @@ export const onDeleteMatchTeam = `subscription OnDeleteMatchTeam {
     team {
       id
       name
-      localizedNames {
-        locale
-        value
-      }
-      matchTeams {
-        nextToken
-      }
     }
     match {
       id
-      competition {
-        id
-        title
-        from
-        to
-      }
-      group {
-        locale
-        value
-      }
       number
       beginAt
       placeHolderHome
       placeHolderAway
-      localizedNames {
-        locale
-        value
-      }
-      matchTeams {
-        nextToken
-      }
-      bets {
-        nextToken
-      }
-      scores {
-        isHome
-        value
-      }
     }
   }
 }
@@ -431,36 +272,17 @@ export const onCreateBet = `subscription OnCreateBet {
     userName
     match {
       id
-      competition {
-        id
-        title
-        from
-        to
-      }
-      group {
-        locale
-        value
-      }
       number
       beginAt
       placeHolderHome
       placeHolderAway
-      localizedNames {
-        locale
-        value
-      }
-      matchTeams {
-        nextToken
-      }
-      bets {
-        nextToken
-      }
-      scores {
-        isHome
-        value
-      }
     }
-    competitionId
+    competition {
+      id
+      title
+      from
+      to
+    }
     scores {
       isHome
       value
@@ -475,36 +297,17 @@ export const onUpdateBet = `subscription OnUpdateBet {
     userName
     match {
       id
-      competition {
-        id
-        title
-        from
-        to
-      }
-      group {
-        locale
-        value
-      }
       number
       beginAt
       placeHolderHome
       placeHolderAway
-      localizedNames {
-        locale
-        value
-      }
-      matchTeams {
-        nextToken
-      }
-      bets {
-        nextToken
-      }
-      scores {
-        isHome
-        value
-      }
     }
-    competitionId
+    competition {
+      id
+      title
+      from
+      to
+    }
     scores {
       isHome
       value
@@ -519,39 +322,65 @@ export const onDeleteBet = `subscription OnDeleteBet {
     userName
     match {
       id
-      competition {
-        id
-        title
-        from
-        to
-      }
-      group {
-        locale
-        value
-      }
       number
       beginAt
       placeHolderHome
       placeHolderAway
-      localizedNames {
-        locale
-        value
-      }
-      matchTeams {
-        nextToken
-      }
-      bets {
-        nextToken
-      }
-      scores {
-        isHome
-        value
-      }
     }
-    competitionId
+    competition {
+      id
+      title
+      from
+      to
+    }
     scores {
       isHome
       value
+    }
+  }
+}
+`;
+export const onCreateResult = `subscription OnCreateResult {
+  onCreateResult {
+    id
+    owner
+    userName
+    value
+    competition {
+      id
+      title
+      from
+      to
+    }
+  }
+}
+`;
+export const onUpdateResult = `subscription OnUpdateResult {
+  onUpdateResult {
+    id
+    owner
+    userName
+    value
+    competition {
+      id
+      title
+      from
+      to
+    }
+  }
+}
+`;
+export const onDeleteResult = `subscription OnDeleteResult {
+  onDeleteResult {
+    id
+    owner
+    userName
+    value
+    competition {
+      id
+      title
+      from
+      to
     }
   }
 }

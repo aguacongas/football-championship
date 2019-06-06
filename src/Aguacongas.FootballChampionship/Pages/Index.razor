@@ -2,7 +2,9 @@
 
 @inherits IndexModel
 
-    <h1>@Resources["Competition"]</h1>
+<Rules/>
+
+<h1>@Resources["Competition"]</h1>
 
 @if (CompetitionList == null)
 {
@@ -22,7 +24,7 @@ else
             @foreach (var competition in CompetitionList)
             {
                 <tr>
-                    <td><a href="/@competition.Id">@competition.LocalizedNames.GetLocalizedValue()</a></td>
+                    <td><a href="@UriHelper.ToAbsoluteUri(competition.Id)">@competition.LocalizedNames.GetLocalizedValue()</a></td>
                     <td>@competition.From.Date.ToLongDateString()</td>
                     <td>@competition.To.Date.ToLongDateString()</td>
                 </tr>

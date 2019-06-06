@@ -24,16 +24,17 @@ else
 
                 <div class="row">
                     <div class="col-4">
-                        <div>@match.BeginAt.ToShortTimeString()</div>
+                        <div>@match.BeginAtLocal.ToShortTimeString()</div>
                         <div class="small"><em>@match.LocalizedNames.GetLocalizedValue()</em></div>
                         <div class="small">@match.Group.GetLocalizedValue()</div>
                         <div>
                             <span class="small">@match.Number</span>
                             @if (CanBet(match))
                             {
-                                <button class="btn btn-primary" type="submit">
+                                <button class="btn btn-primary" type="submit" disabled="@(!match.Bet.ValueChanged)">
                                     <i class="far fa-save"></i>
                                 </button>
+                                <span class="oi@(match.Bet.Saved ? " oi-check" : "")"></span>
                             }
                         </div>
                     </div>
@@ -50,7 +51,7 @@ else
                             <div class="col">
                                 @if (CanBet(match))
                                 {
-                                    <InputNumber Class="bet form-control" bind-Value="@match.Bet.HomeValue" />
+                                    <InputNumber Class="bet form-control" bind-Value="@match.Bet.HomeValue" ParsingErrorMessage="@GetErrorMessage(match, true)" />
                                 }
                                 else
                                 {
@@ -63,7 +64,7 @@ else
                             <div class="col">
                                 @if (CanBet(match))
                                 {
-                                    <InputNumber Class="bet form-control" bind-Value="@match.Bet.AwayValue" />
+                                    <InputNumber Class="bet form-control" bind-Value="@match.Bet.AwayValue" ParsingErrorMessage="@GetErrorMessage(match, true)" />
                                 }
                                 else
                                 {

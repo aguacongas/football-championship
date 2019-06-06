@@ -12,13 +12,12 @@ export const getCompetition = `query GetCompetition($id: ID!) {
     from
     to
     matches {
-      items {
-        id
-        number
-        beginAt
-        placeHolderHome
-        placeHolderAway
-      }
+      nextToken
+    }
+    bets {
+      nextToken
+    }
+    results {
       nextToken
     }
   }
@@ -33,15 +32,8 @@ export const listCompetitions = `query ListCompetitions(
     items {
       id
       title
-      localizedNames {
-        locale
-        value
-      }
       from
       to
-      matches {
-        nextToken
-      }
     }
     nextToken
   }
@@ -53,15 +45,8 @@ export const getMatch = `query GetMatch($id: ID!) {
     competition {
       id
       title
-      localizedNames {
-        locale
-        value
-      }
       from
       to
-      matches {
-        nextToken
-      }
     }
     group {
       locale
@@ -76,19 +61,9 @@ export const getMatch = `query GetMatch($id: ID!) {
       value
     }
     matchTeams {
-      items {
-        id
-        isHome
-      }
       nextToken
     }
     bets {
-      items {
-        id
-        owner
-        userName
-        competitionId
-      }
       nextToken
     }
     scores {
@@ -106,34 +81,10 @@ export const listMatchs = `query ListMatchs(
   listMatchs(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
-      competition {
-        id
-        title
-        from
-        to
-      }
-      group {
-        locale
-        value
-      }
       number
       beginAt
       placeHolderHome
       placeHolderAway
-      localizedNames {
-        locale
-        value
-      }
-      matchTeams {
-        nextToken
-      }
-      bets {
-        nextToken
-      }
-      scores {
-        isHome
-        value
-      }
     }
     nextToken
   }
@@ -148,10 +99,6 @@ export const getTeam = `query GetTeam($id: ID!) {
       value
     }
     matchTeams {
-      items {
-        id
-        isHome
-      }
       nextToken
     }
   }
@@ -166,13 +113,6 @@ export const listTeams = `query ListTeams(
     items {
       id
       name
-      localizedNames {
-        locale
-        value
-      }
-      matchTeams {
-        nextToken
-      }
     }
     nextToken
   }
@@ -185,44 +125,13 @@ export const getMatchTeam = `query GetMatchTeam($id: ID!) {
     team {
       id
       name
-      localizedNames {
-        locale
-        value
-      }
-      matchTeams {
-        nextToken
-      }
     }
     match {
       id
-      competition {
-        id
-        title
-        from
-        to
-      }
-      group {
-        locale
-        value
-      }
       number
       beginAt
       placeHolderHome
       placeHolderAway
-      localizedNames {
-        locale
-        value
-      }
-      matchTeams {
-        nextToken
-      }
-      bets {
-        nextToken
-      }
-      scores {
-        isHome
-        value
-      }
     }
   }
 }
@@ -236,17 +145,6 @@ export const listMatchTeams = `query ListMatchTeams(
     items {
       id
       isHome
-      team {
-        id
-        name
-      }
-      match {
-        id
-        number
-        beginAt
-        placeHolderHome
-        placeHolderAway
-      }
     }
     nextToken
   }
@@ -259,36 +157,17 @@ export const getBet = `query GetBet($id: ID!) {
     userName
     match {
       id
-      competition {
-        id
-        title
-        from
-        to
-      }
-      group {
-        locale
-        value
-      }
       number
       beginAt
       placeHolderHome
       placeHolderAway
-      localizedNames {
-        locale
-        value
-      }
-      matchTeams {
-        nextToken
-      }
-      bets {
-        nextToken
-      }
-      scores {
-        isHome
-        value
-      }
     }
-    competitionId
+    competition {
+      id
+      title
+      from
+      to
+    }
     scores {
       isHome
       value
@@ -302,18 +181,37 @@ export const listBets = `query ListBets($filter: ModelBetFilterInput, $limit: In
       id
       owner
       userName
-      match {
-        id
-        number
-        beginAt
-        placeHolderHome
-        placeHolderAway
-      }
-      competitionId
-      scores {
-        isHome
-        value
-      }
+    }
+    nextToken
+  }
+}
+`;
+export const getResult = `query GetResult($id: ID!) {
+  getResult(id: $id) {
+    id
+    owner
+    userName
+    value
+    competition {
+      id
+      title
+      from
+      to
+    }
+  }
+}
+`;
+export const listResults = `query ListResults(
+  $filter: ModelResultFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listResults(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      owner
+      userName
+      value
     }
     nextToken
   }

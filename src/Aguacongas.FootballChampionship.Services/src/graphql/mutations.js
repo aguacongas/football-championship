@@ -12,13 +12,12 @@ export const createCompetition = `mutation CreateCompetition($input: CreateCompe
     from
     to
     matches {
-      items {
-        id
-        number
-        beginAt
-        placeHolderHome
-        placeHolderAway
-      }
+      nextToken
+    }
+    bets {
+      nextToken
+    }
+    results {
       nextToken
     }
   }
@@ -35,13 +34,12 @@ export const updateCompetition = `mutation UpdateCompetition($input: UpdateCompe
     from
     to
     matches {
-      items {
-        id
-        number
-        beginAt
-        placeHolderHome
-        placeHolderAway
-      }
+      nextToken
+    }
+    bets {
+      nextToken
+    }
+    results {
       nextToken
     }
   }
@@ -58,13 +56,12 @@ export const deleteCompetition = `mutation DeleteCompetition($input: DeleteCompe
     from
     to
     matches {
-      items {
-        id
-        number
-        beginAt
-        placeHolderHome
-        placeHolderAway
-      }
+      nextToken
+    }
+    bets {
+      nextToken
+    }
+    results {
       nextToken
     }
   }
@@ -76,15 +73,8 @@ export const createMatch = `mutation CreateMatch($input: CreateMatchInput!) {
     competition {
       id
       title
-      localizedNames {
-        locale
-        value
-      }
       from
       to
-      matches {
-        nextToken
-      }
     }
     group {
       locale
@@ -99,19 +89,9 @@ export const createMatch = `mutation CreateMatch($input: CreateMatchInput!) {
       value
     }
     matchTeams {
-      items {
-        id
-        isHome
-      }
       nextToken
     }
     bets {
-      items {
-        id
-        owner
-        userName
-        competitionId
-      }
       nextToken
     }
     scores {
@@ -127,15 +107,8 @@ export const updateMatch = `mutation UpdateMatch($input: UpdateMatchInput!) {
     competition {
       id
       title
-      localizedNames {
-        locale
-        value
-      }
       from
       to
-      matches {
-        nextToken
-      }
     }
     group {
       locale
@@ -150,19 +123,9 @@ export const updateMatch = `mutation UpdateMatch($input: UpdateMatchInput!) {
       value
     }
     matchTeams {
-      items {
-        id
-        isHome
-      }
       nextToken
     }
     bets {
-      items {
-        id
-        owner
-        userName
-        competitionId
-      }
       nextToken
     }
     scores {
@@ -178,15 +141,8 @@ export const deleteMatch = `mutation DeleteMatch($input: DeleteMatchInput!) {
     competition {
       id
       title
-      localizedNames {
-        locale
-        value
-      }
       from
       to
-      matches {
-        nextToken
-      }
     }
     group {
       locale
@@ -201,19 +157,9 @@ export const deleteMatch = `mutation DeleteMatch($input: DeleteMatchInput!) {
       value
     }
     matchTeams {
-      items {
-        id
-        isHome
-      }
       nextToken
     }
     bets {
-      items {
-        id
-        owner
-        userName
-        competitionId
-      }
       nextToken
     }
     scores {
@@ -232,10 +178,6 @@ export const createTeam = `mutation CreateTeam($input: CreateTeamInput!) {
       value
     }
     matchTeams {
-      items {
-        id
-        isHome
-      }
       nextToken
     }
   }
@@ -250,10 +192,6 @@ export const updateTeam = `mutation UpdateTeam($input: UpdateTeamInput!) {
       value
     }
     matchTeams {
-      items {
-        id
-        isHome
-      }
       nextToken
     }
   }
@@ -268,10 +206,6 @@ export const deleteTeam = `mutation DeleteTeam($input: DeleteTeamInput!) {
       value
     }
     matchTeams {
-      items {
-        id
-        isHome
-      }
       nextToken
     }
   }
@@ -284,44 +218,13 @@ export const createMatchTeam = `mutation CreateMatchTeam($input: CreateMatchTeam
     team {
       id
       name
-      localizedNames {
-        locale
-        value
-      }
-      matchTeams {
-        nextToken
-      }
     }
     match {
       id
-      competition {
-        id
-        title
-        from
-        to
-      }
-      group {
-        locale
-        value
-      }
       number
       beginAt
       placeHolderHome
       placeHolderAway
-      localizedNames {
-        locale
-        value
-      }
-      matchTeams {
-        nextToken
-      }
-      bets {
-        nextToken
-      }
-      scores {
-        isHome
-        value
-      }
     }
   }
 }
@@ -333,44 +236,13 @@ export const updateMatchTeam = `mutation UpdateMatchTeam($input: UpdateMatchTeam
     team {
       id
       name
-      localizedNames {
-        locale
-        value
-      }
-      matchTeams {
-        nextToken
-      }
     }
     match {
       id
-      competition {
-        id
-        title
-        from
-        to
-      }
-      group {
-        locale
-        value
-      }
       number
       beginAt
       placeHolderHome
       placeHolderAway
-      localizedNames {
-        locale
-        value
-      }
-      matchTeams {
-        nextToken
-      }
-      bets {
-        nextToken
-      }
-      scores {
-        isHome
-        value
-      }
     }
   }
 }
@@ -382,44 +254,13 @@ export const deleteMatchTeam = `mutation DeleteMatchTeam($input: DeleteMatchTeam
     team {
       id
       name
-      localizedNames {
-        locale
-        value
-      }
-      matchTeams {
-        nextToken
-      }
     }
     match {
       id
-      competition {
-        id
-        title
-        from
-        to
-      }
-      group {
-        locale
-        value
-      }
       number
       beginAt
       placeHolderHome
       placeHolderAway
-      localizedNames {
-        locale
-        value
-      }
-      matchTeams {
-        nextToken
-      }
-      bets {
-        nextToken
-      }
-      scores {
-        isHome
-        value
-      }
     }
   }
 }
@@ -431,36 +272,17 @@ export const createBet = `mutation CreateBet($input: CreateBetInput!) {
     userName
     match {
       id
-      competition {
-        id
-        title
-        from
-        to
-      }
-      group {
-        locale
-        value
-      }
       number
       beginAt
       placeHolderHome
       placeHolderAway
-      localizedNames {
-        locale
-        value
-      }
-      matchTeams {
-        nextToken
-      }
-      bets {
-        nextToken
-      }
-      scores {
-        isHome
-        value
-      }
     }
-    competitionId
+    competition {
+      id
+      title
+      from
+      to
+    }
     scores {
       isHome
       value
@@ -475,36 +297,17 @@ export const updateBet = `mutation UpdateBet($input: UpdateBetInput!) {
     userName
     match {
       id
-      competition {
-        id
-        title
-        from
-        to
-      }
-      group {
-        locale
-        value
-      }
       number
       beginAt
       placeHolderHome
       placeHolderAway
-      localizedNames {
-        locale
-        value
-      }
-      matchTeams {
-        nextToken
-      }
-      bets {
-        nextToken
-      }
-      scores {
-        isHome
-        value
-      }
     }
-    competitionId
+    competition {
+      id
+      title
+      from
+      to
+    }
     scores {
       isHome
       value
@@ -519,39 +322,65 @@ export const deleteBet = `mutation DeleteBet($input: DeleteBetInput!) {
     userName
     match {
       id
-      competition {
-        id
-        title
-        from
-        to
-      }
-      group {
-        locale
-        value
-      }
       number
       beginAt
       placeHolderHome
       placeHolderAway
-      localizedNames {
-        locale
-        value
-      }
-      matchTeams {
-        nextToken
-      }
-      bets {
-        nextToken
-      }
-      scores {
-        isHome
-        value
-      }
     }
-    competitionId
+    competition {
+      id
+      title
+      from
+      to
+    }
     scores {
       isHome
       value
+    }
+  }
+}
+`;
+export const createResult = `mutation CreateResult($input: CreateResultInput!) {
+  createResult(input: $input) {
+    id
+    owner
+    userName
+    value
+    competition {
+      id
+      title
+      from
+      to
+    }
+  }
+}
+`;
+export const updateResult = `mutation UpdateResult($input: UpdateResultInput!) {
+  updateResult(input: $input) {
+    id
+    owner
+    userName
+    value
+    competition {
+      id
+      title
+      from
+      to
+    }
+  }
+}
+`;
+export const deleteResult = `mutation DeleteResult($input: DeleteResultInput!) {
+  deleteResult(input: $input) {
+    id
+    owner
+    userName
+    value
+    competition {
+      id
+      title
+      from
+      to
     }
   }
 }

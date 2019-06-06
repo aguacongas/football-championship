@@ -33,6 +33,7 @@
     <Watch Remove="Shared\LangMenu.razor" />
     <Watch Remove="Shared\MainLayout.razor" />
     <Watch Remove="Shared\NavMenu.razor" />
+    <Watch Remove="Shared\Rules.razor" />
     <Watch Remove="Shared\_Imports.razor" />
   </ItemGroup>
 

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Aguacongas.FootballChampionship.Model
+﻿namespace Aguacongas.FootballChampionship.Model
 {
     public static class Mutations
     {
@@ -12,6 +7,9 @@ namespace Aguacongas.FootballChampionship.Model
     id
     userName
     match {
+      id
+    }
+    competition {
       id
     }
     scores {
@@ -28,9 +26,24 @@ namespace Aguacongas.FootballChampionship.Model
     match {
       id
     }
+    competition {
+      id
+    }
     scores {
       isHome
       value
+    }
+  }
+}";
+
+        public const string CREATE_RESULT = @"mutation CreateResult($input: CreateResultInput!) {
+  createResult(input: $input) {
+    id
+    owner
+    userName
+    value
+    competition {
+      id
     }
   }
 }";

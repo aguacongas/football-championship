@@ -60,7 +60,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "aguacongasfootballch-dev-20190522184733-deployment",
-					"S3Key": "amplify-builds/footballauthlambda-1558634899-latest-build.zip"
+					"S3Key": "amplify-builds/footballauthlambda-1559833990-latest-build.zip"
 				}
 			}
 		},

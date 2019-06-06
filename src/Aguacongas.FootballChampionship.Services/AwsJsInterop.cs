@@ -52,7 +52,7 @@ namespace Aguacongas.FootballChampionship.Services
 
         public Task SignOutAsync()
         {
-            return _jsRuntime.InvokeAsync<object>("amplifyWrapper.auth.signout", _awsHelper);
+            return _jsRuntime.InvokeAsync<object>("amplifyWrapper.auth.signout", new DotNetObjectRef(_awsHelper));
         }
 
         public async Task<TResponse> GraphQlAsync<TResponse>(string operation, object parameters = null)
@@ -68,9 +68,9 @@ namespace Aguacongas.FootballChampionship.Services
         public async Task GraphSubscribeAsync<THelper>(string operation, THelper helper, string callback)
         {
             await _jsRuntime
-                .InvokeAsync<object>("amplifyWrapper.graphql.operation",
+                .InvokeAsync<object>("amplifyWrapper.graphql.subsription",
                     operation,
-                    helper,
+                    new DotNetObjectRef(helper),
                     callback);
         }
     }

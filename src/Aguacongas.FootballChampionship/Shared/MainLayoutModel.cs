@@ -1,6 +1,7 @@
 ﻿using Aguacongas.FootballChampionship.Interop;
 using Aguacongas.FootballChampionship.Localization;
 using Aguacongas.FootballChampionship.Model;
+using Aguacongas.FootballChampionship.Service;
 using Aguacongas.FootballChampionship.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Layouts;
@@ -40,6 +41,9 @@ namespace Aguacongas.FootballChampionship.Shared
         [Inject]
         public IBrowserJsInterop BrowserJsInterop { get; set; }
 
+        [Inject]
+        public IGraphQlSubscriber GraphQlSubscriber { private get; set; }
+
         protected IEnumerable<Provider> ProviderList { get; private set; }
 
         protected override async Task OnInitAsync()
@@ -73,26 +77,26 @@ namespace Aguacongas.FootballChampionship.Shared
                 new Provider
                 {
                     Name = "Google",
-                    LoginText = Resources["Login with Google"],
+                    LoginText = "Google",
                     IconUrl = "https://pbs.twimg.com/profile_images/1057899591708753921/PSpUS-Hp_bigger.jpg"
                 },
                 new Provider
                 {
                     Name = "Facebook",
-                    LoginText = Resources["Login with Facebook"],
+                    LoginText = "Facebook",
                     IconUrl = "https://static.xx.fbcdn.net/rsrc.php/yo/r/iRmz9lCMBD2.ico"
                 }
                 ,
                 new Provider
                 {
                     Name = "Microsoft",
-                    LoginText = Resources["Login with Microsoft"],
+                    LoginText = "Microsoft",
                     IconUrl = "https://apps.dev.microsoft.com/favicon.ico?v=2"
                 },
                 new Provider
                 {
                     Name = "LoginWithAmazon",
-                    LoginText = Resources["Login with Amazon"],
+                    LoginText = "Amazon",
                     IconUrl = "https://www.amazon.com/favicon.ico"
                 }
             };
@@ -104,6 +108,10 @@ namespace Aguacongas.FootballChampionship.Shared
             {
                 await AwsJsInterop.ConfigureAsync();
                 await AwsJsInterop.ListenAsync();
+                if (AwsHelper.IsConnected)
+                {
+                    await AwsJsInterop.GraphSubscribeAsync(Subscriptions.ON_UPDATE_MATCH, GraphQlSubscriber, nameof(GraphQlSubscriber.OnMatchUpdated));
+                }
             }
             await base.OnAfterRenderAsync();
         }

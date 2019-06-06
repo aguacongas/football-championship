@@ -16,6 +16,9 @@ namespace Aguacongas.FootballChampionship.Pages
         [Inject]
         public IResources Resources { get; set; }
 
+        [Inject]
+        public IUriHelper UriHelper { get; set; }
+
         protected IEnumerable<Model.Competition> CompetitionList { get; private set; }
 
         protected override  async Task OnInitAsync()

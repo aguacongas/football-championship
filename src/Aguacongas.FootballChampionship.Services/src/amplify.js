@@ -1,4 +1,5 @@
 ﻿import Amplify, { Auth, Hub, API, graphqlOperation } from 'aws-amplify';
+import AWS from 'aws-sdk';
 import awsmobile from './aws-exports';
 
 window.amplifyWrapper = {
@@ -42,25 +43,35 @@ window.amplifyWrapper = {
         },
         signout: dotnetHelper => {
             Auth.signOut()
-                .then(data => dotnetHelper.invokeMethodAsync("SetUser", null, null)
+                .then(data => dotnetHelper.invokeMethodAsync("SetUser", null)
                     .then(_ => {
                         console.log(data);
                     }))
                 .catch(err => console.log(err));
 
+        },
+        getUsers: async () => {
+            var params = {
+                UserPoolId: awsmobile["aws_cognito_identity_pool_id"],
+                AttributesToGet: [
+                    'ATTRIBUTE_NAME'
+                ]
+            };
+            var cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
+            return await cognitoidentityserviceprovider.listUsers(params);
         }
     },
     graphql: {
         operation: async (graphQlQuery, params) => {
             return await API.graphql(graphqlOperation(graphQlQuery, params));
         },
-        subsription: (to, handler, dotnetHelper) => {
-            API.graphql(to)
-            .subscribe({
-                next: (data) => dotnetHelper.invokeMethodAsync(handler, data)
-                    .then(_ => console.log(data))
-                    .catch(err => console.log(err))
-            });
+        subsription: (to, dotnetHelper, handler) => {
+            API.graphql(graphqlOperation(to))
+                .subscribe({
+                    next: (data) => dotnetHelper.invokeMethodAsync(handler, data)
+                        .then(_ => console.log(data))
+                        .catch(err => console.error(err))
+                });
         }
     }
 };

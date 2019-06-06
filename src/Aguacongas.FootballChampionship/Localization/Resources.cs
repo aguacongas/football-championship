@@ -29,10 +29,7 @@ namespace Aguacongas.FootballChampionship.Localization
                 { "fr-FR", new Dictionary<string, string>
                     {
                         { "Loading...", "Chargement..." },
-                        { "Login with Google", "Se connecter avec Google" },
-                        { "Login with Facebook", "Se connecter avec Facebook" },
-                        { "Login with Microsoft", "Se connecter avec Microsoft" },
-                        { "Login with Amazon", "Se connecter avec Amazon" },
+                        { "Login with", "Connecte toi avec" },
                         { "Hello {0}!", "Bonjour {0}!" },
                         { "Logout", "Se déconnecter" },
                         { "Competition", "Compétition" },
@@ -40,16 +37,20 @@ namespace Aguacongas.FootballChampionship.Localization
                         { "Import a competition from FIFA api", "Importer une compétition de l'api FIFA" },
                         { "Title", "Titre" },
                         { "From", "Du" },
-                        { "To", "Au" }
+                        { "To", "Au" },
+                        { "The score for {0} is required.", "Le score pour {0} est requise" },
+                        { "If you find the match score you win", "Si tu trouves le score du match tu gagnes" },
+                        { "If you find the winner of the match you win", "Si tu trouves le vainqueur du match tu gagnes" },
+                        { "You can predict until kick-off. Shootout sessions are not counted.", "Tu peux pronostiquer jusqu'au coup d'envoi. Les séances de tirs au but ne sont pas comptabilisées." },
+                        { "1st wins", "Le 1er gagne" },
+                        { "all my esteem", "toute mon estime" },
+                        { "Prognosis for butter.", "Pronostique pour du beurre." }
                     }
                 },
                 { "de-DE", new Dictionary<string, string>
                     {
                         { "Loading...", "Laden..." },
-                        { "Login with Google", "Mit Google einloggen" },
-                        { "Login with Facebook", "Mit Facebook einloggen" },
-                        { "Login with Microsoft", "Mit Microsoft einloggen" },
-                        { "Login with Amazon", "Mit Amazon einloggen" },
+                        { "Login with", "Verbinden Sie sich mit" },
                         { "Hello {0}!", "Hallo {0}!" },
                         { "Logout", "Ausloggen" },
                         { "Competition", "Wettbewerb" },
@@ -57,7 +58,16 @@ namespace Aguacongas.FootballChampionship.Localization
                         { "Import a competition from FIFA api", "Importieren Sie einen Wettbewerb von FIFA api" },
                         { "Title", "Titel" },
                         { "From", "Vom" },
-                        { "To", "Bis" }
+                        { "To", "Bis" },
+                        { "The score for {0} is required.", "Die Punktzahl für {0} ist erforderlich" },
+                        { "If you find the match score you win", "Wenn Sie das Matchergebnis finden, gewinnen Sie" },
+                        { "3 points", "3 Punkte" },
+                        { "If you find the winner of the match you win", "Wenn Sie den Sieger des Spiels finden, gewinnen Sie" },
+                        { "1 point", "1 Punkt" },
+                        { "You can predict until kick-off. Shootout sessions are not counted.", "Sie können bis zum Anpfiff vorhersagen. Shootout-Sessions werden nicht gezählt." },
+                        { "1st wins", "1. gewinnt" },
+                        { "all my esteem", "meine ganze Wertschätzung" },
+                        { "Prognosis for butter.", "Prognose für Butter." }
                     }
                 }
             };
@@ -97,8 +107,8 @@ namespace Aguacongas.FootballChampionship.Localization
             }
 
             var cultureName = CultureInfo.DefaultThreadCurrentUICulture.ToString();
-            
-            _currentResources = new Dictionary<string, string>(_resources.SelectMany(r => 
+
+            _currentResources = new Dictionary<string, string>(_resources.SelectMany(r =>
                 r.Value.Select(v => v.Key))
                 .Distinct()
                 .ToDictionary(d => d));

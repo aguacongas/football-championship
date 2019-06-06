@@ -9,5 +9,7 @@ namespace Aguacongas.FootballChampionship.Model
         public IEnumerable<Score> Scores { get; set; }
 
         public Match Match { get; set; }
+
+        public Competition Competition { get; set; }
     }
 }

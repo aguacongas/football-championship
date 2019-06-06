@@ -10,7 +10,6 @@ namespace Aguacongas.FootballChampionship.Model
             { "fr-FR" },
             { "de-De" }
         };
-
         public const string LIST_COMPETITIONS = @"query ListCompetitions(
     $filter: ModelCompetitionFilterInput
     $limit: Int
@@ -102,5 +101,20 @@ namespace Aguacongas.FootballChampionship.Model
     nextToken
   }
 }";
-    }    
+        public const string LIST_RESULT = @"query ListResults(
+  $filter: ModelResultFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listResults(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      owner
+      userName
+      value
+    }
+    nextToken
+  }
+}";
+    }
 }
