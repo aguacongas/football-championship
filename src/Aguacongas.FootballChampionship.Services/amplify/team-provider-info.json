@@ -1,0 +1,14 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "aguacongasfootballch-dev-20190522184733-authRole",
+            "UnauthRoleArn": "arn:aws:iam::585251669588:role/aguacongasfootballch-dev-20190522184733-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::585251669588:role/aguacongasfootballch-dev-20190522184733-authRole",
+            "Region": "eu-west-2",
+            "DeploymentBucketName": "aguacongasfootballch-dev-20190522184733-deployment",
+            "UnauthRoleName": "aguacongasfootballch-dev-20190522184733-unauthRole",
+            "StackName": "aguacongasfootballch-dev-20190522184733",
+            "StackId": "arn:aws:cloudformation:eu-west-2:585251669588:stack/aguacongasfootballch-dev-20190522184733/4d715780-7cb1-11e9-9c5e-06db0885f0f6"
+        }
+    }
+}

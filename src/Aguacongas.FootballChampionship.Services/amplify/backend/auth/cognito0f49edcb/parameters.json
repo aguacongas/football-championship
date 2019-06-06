@@ -1,0 +1,83 @@
+{
+    "identityPoolName": "cognito0f49edcb_identitypool_0f49edcb",
+    "allowUnauthenticatedIdentities": false,
+    "lambdaLogPolicy": "cognito0f49edcb_lambda_log_policy",
+    "openIdLambdaRoleName": "cognito0f49edcb_openid_lambda_role",
+    "openIdRolePolicy": "cognito0f49edcb_openid_pass_role_policy",
+    "openIdLambdaIAMPolicy": "cognito0f49edcb_openid_lambda_iam_policy",
+    "openIdLogPolicy": "cognito0f49edcb_openid_lambda_log_policy",
+    "userPoolName": "cognito0f49edcb_userpool_0f49edcb",
+    "autoVerifiedAttributes": [
+        "email"
+    ],
+    "mfaConfiguration": "OFF",
+    "mfaTypes": [
+        "SMS Text Message"
+    ],
+    "roleName": "cognito0f49edcb_sns-role",
+    "roleExternalId": "cognito0f49edcb_role_external_id",
+    "policyName": "cognito0f49edcb-sns-policy",
+    "smsAuthenticationMessage": "Your authentication code is {####}",
+    "smsVerificationMessage": "Your verification code is {####}",
+    "emailVerificationSubject": "Your verification code",
+    "emailVerificationMessage": "Your verification code is {####}",
+    "defaultPasswordPolicy": false,
+    "passwordPolicyMinLength": 8,
+    "passwordPolicyCharacters": [
+        "Requires Lowercase",
+        "Requires Uppercase",
+        "Requires Numbers",
+        "Requires Symbols"
+    ],
+    "requiredAttributes": [
+        "email",
+        "name"
+    ],
+    "userpoolClientName": "cognito0f49edcb_app_client",
+    "userpoolClientGenerateSecret": true,
+    "userpoolClientRefreshTokenValidity": 30,
+    "userpoolClientWriteAttributes": [
+        "email"
+    ],
+    "userpoolClientReadAttributes": [
+        "email"
+    ],
+    "mfaLambdaRole": "cognito0f49edcb_totp_lambda_role",
+    "mfaLambdaLogPolicy": "cognito0f49edcb_totp_lambda_log_policy",
+    "mfaPassRolePolicy": "cognito0f49edcb_totp_pass_role_policy",
+    "mfaLambdaIAMPolicy": "cognito0f49edcb_totp_lambda_iam_policy",
+    "userpoolClientLambdaRole": "cognito0f49edcb_userpoolclient_lambda_role",
+    "userpoolClientLogPolicy": "cognito0f49edcb_userpoolclient_lambda_log_policy",
+    "userpoolClientLambdaPolicy": "cognito0f49edcb_userpoolclient_lambda_iam_policy",
+    "userpoolClientSetAttributes": false,
+    "resourceName": "cognito0f49edcb",
+    "authSelections": "identityPoolAndUserPool",
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "authRoleArn": {
+        "Fn::GetAtt": [
+            "AuthRole",
+            "Arn"
+        ]
+    },
+    "unauthRoleArn": {
+        "Fn::GetAtt": [
+            "UnauthRole",
+            "Arn"
+        ]
+    },
+    "useDefault": "defaultSocial",
+    "hostedUI": true,
+    "hostedUIDomainName": "aguacongasfootballch0f49edcb-0f49edcb",
+    "authProvidersUserPool": [
+        "Facebook",
+        "Google",
+        "LoginWithAmazon"
+    ],
+    "hostedUIProviderMeta": "[{\"ProviderName\":\"Facebook\",\"authorize_scopes\":\"email,public_profile\",\"AttributeMapping\":{\"email\":\"email\",\"name\":\"name\",\"username\":\"id\"}},{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"name\":\"name\",\"username\":\"sub\"}},{\"ProviderName\":\"LoginWithAmazon\",\"authorize_scopes\":\"profile profile:user_id\",\"AttributeMapping\":{\"email\":\"email\",\"name\":\"name\",\"username\":\"user_id\"}}]",
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:51893/\",\"http://localhost:51894/\"],\"LogoutURLs\":[\"http://localhost:51894/\",\"http://localhost:51893/\"]}"
+}
