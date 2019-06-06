@@ -1,5 +1,5 @@
 ﻿import Amplify, { Auth, Hub, API, graphqlOperation } from 'aws-amplify';
-import awsmobile from '../aws-exports';
+import awsmobile from './aws-exports';
 
 window.amplifyWrapper = {
     configure: config => {
