@@ -9,6 +9,13 @@
             "UnauthRoleName": "aguacongasfootballch-dev-20190522184733-unauthRole",
             "StackName": "aguacongasfootballch-dev-20190522184733",
             "StackId": "arn:aws:cloudformation:eu-west-2:585251669588:stack/aguacongasfootballch-dev-20190522184733/4d715780-7cb1-11e9-9c5e-06db0885f0f6"
+        },
+        "categories": {
+            "auth": {
+                "cognito3c04b188": {
+                    "hostedUIProviderCreds": "[{\"ProviderName\":\"Facebook\",\"client_id\":\"426341914812531\",\"client_secret\":\"25f698493304e3044f1f86952ba0e1e0\"},{\"ProviderName\":\"Google\",\"client_id\":\"818322595124-ljo53bar3rr2qcac3u80br4htp0imgd9.apps.googleusercontent.com\",\"client_secret\":\"JOcjgpBx3cJOXsRHAr3Wf32o\"},{\"ProviderName\":\"LoginWithAmazon\",\"client_id\":\"amzn1.application-oa2-client.a171ecc2945f480cb98cbe4b83ee605f\",\"client_secret\":\"f839f0c90306c5843a1844d9bd77268a91c4a33454e808340833bc44d6e3eedd\"}]"
+                }
+            }
         }
     }
 }
