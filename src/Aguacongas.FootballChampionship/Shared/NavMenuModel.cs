@@ -1,5 +1,6 @@
 ﻿using Aguacongas.FootballChampionship.Localization;
 using Aguacongas.FootballChampionship.Model;
+using Aguacongas.FootballChampionship.Service;
 using Aguacongas.FootballChampionship.Services;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -21,6 +22,9 @@ namespace Aguacongas.FootballChampionship.Shared
         [Inject]
         public IResources Resources { get; set; }
 
+        [Inject]
+        public ILiveScoreService LiveScoreService { private get; set; }
+
         protected string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
         protected IEnumerable<Competition> CompetitionList { get; private set; }
@@ -37,9 +41,9 @@ namespace Aguacongas.FootballChampionship.Shared
                 {
                     Filter = new
                     {
-                        From = new
+                        To = new
                         {
-                            Ge = DateTimeOffset.Now
+                            Ge = DateTimeOffset.Now.Date
                         }
                     }
                 });
@@ -49,6 +53,8 @@ namespace Aguacongas.FootballChampionship.Shared
             {
                 StateHasChanged();
             };
+
+            LiveScoreService.Start(CompetitionList);
         }
     }
 }

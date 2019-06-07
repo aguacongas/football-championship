@@ -28,7 +28,9 @@
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="copy src\aws-exports-debug.js src\aws-exports.js" Condition="'$(Configuration)'=='Debug'" />
     <Exec Command="npm run build" Condition="'$(Configuration)'=='Debug'" />
+    <Exec Command="copy src\aws-exports-release.js src\aws-exports.js" Condition="'$(Configuration)'=='Release'" />
     <Exec Command="npm run build-release" Condition="'$(Configuration)'=='Release'" />
   </Target>
 

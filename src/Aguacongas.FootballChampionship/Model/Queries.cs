@@ -10,6 +10,7 @@ namespace Aguacongas.FootballChampionship.Model
             { "fr-FR" },
             { "de-De" }
         };
+
         public const string LIST_COMPETITIONS = @"query ListCompetitions(
     $filter: ModelCompetitionFilterInput
     $limit: Int
@@ -32,7 +33,8 @@ namespace Aguacongas.FootballChampionship.Model
         public const string LIST_MATCH = @"query ListMatchs(
   $filter: ModelMatchFilterInput
   $limit: Int
-  $nextToken: String
+  $nextToken: String,
+  $owner: String!
 ) {
   listMatchs(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
@@ -56,10 +58,20 @@ namespace Aguacongas.FootballChampionship.Model
           team {
             id
             name
+            flagUrl
             localizedNames {
               locale
               value
             }
+          }
+        }
+      }
+      bets (filter: { owner: { eq: $owner} }) {
+        items {
+          id
+          scores {
+           isHome
+           value
           }
         }
       }
@@ -72,7 +84,7 @@ namespace Aguacongas.FootballChampionship.Model
   }
 }";
 
-        public const string GET_COMPETITION = @"query GetCompetition($id: ID!) {
+        public const string GET_COMPETITION = @"query GetCompetition($id: ID!, $owner: String!) {
   getCompetition(id: $id) {
     id
     title
@@ -82,6 +94,14 @@ namespace Aguacongas.FootballChampionship.Model
     }
     from
     to
+    results(filter: { owner: { eq: $owner } }) {
+      items {
+         id
+         userName
+         value
+      }
+      nextToken
+    }
   }
 }";
 
@@ -101,19 +121,23 @@ namespace Aguacongas.FootballChampionship.Model
     nextToken
   }
 }";
-        public const string LIST_RESULT = @"query ListResults(
-  $filter: ModelResultFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listResults(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      owner
-      userName
+        public const string LIST_RESULT = @"query GetCompetition($id: ID!) {
+  getCompetition(id: $id) {
+    id
+    title
+    localizedNames {
+      locale
       value
     }
-    nextToken
+    from
+    to
+    results(sortDirection: DESC, limit: 1000) {
+      items {
+         userName
+         value
+      }
+      nextToken
+    }
   }
 }";
     }

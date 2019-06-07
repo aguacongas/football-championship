@@ -44,7 +44,10 @@ namespace Aguacongas.FootballChampionship.Localization
                         { "You can predict until kick-off. Shootout sessions are not counted.", "Tu peux pronostiquer jusqu'au coup d'envoi. Les séances de tirs au but ne sont pas comptabilisées." },
                         { "1st wins", "Le 1er gagne" },
                         { "all my esteem", "toute mon estime" },
-                        { "Prognosis for butter.", "Pronostique pour du beurre." }
+                        { "Prognosis for butter.", "Pronostique pour du beurre." },
+                        { "Ranking", "Classement" },
+                        { "Rank", "Position" },
+                        { "User", "Utilisateur" },                        
                     }
                 },
                 { "de-DE", new Dictionary<string, string>
@@ -67,7 +70,11 @@ namespace Aguacongas.FootballChampionship.Localization
                         { "You can predict until kick-off. Shootout sessions are not counted.", "Sie können bis zum Anpfiff vorhersagen. Shootout-Sessions werden nicht gezählt." },
                         { "1st wins", "1. gewinnt" },
                         { "all my esteem", "meine ganze Wertschätzung" },
-                        { "Prognosis for butter.", "Prognose für Butter." }
+                        { "Prognosis for butter.", "Prognose für Butter." },
+                        { "Ranking", "Rang" },
+                        { "Rank", "Rang" },
+                        { "User", "Nutzer" },
+                        { "Points", "Punkte" }
                     }
                 }
             };

@@ -84,14 +84,14 @@ namespace Aguacongas.FootballChampionship.Shared
                 {
                     Name = "Facebook",
                     LoginText = "Facebook",
-                    IconUrl = "https://static.xx.fbcdn.net/rsrc.php/yo/r/iRmz9lCMBD2.ico"
+                    IconUrl = "https://img.icons8.com/color/52/000000/facebook.png"
                 }
                 ,
                 new Provider
                 {
                     Name = "Microsoft",
                     LoginText = "Microsoft",
-                    IconUrl = "https://apps.dev.microsoft.com/favicon.ico?v=2"
+                    IconUrl = "https://img.icons8.com/color/96/000000/windows-logo.png"
                 },
                 new Provider
                 {

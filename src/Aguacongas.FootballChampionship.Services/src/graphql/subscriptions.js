@@ -1,6 +1,33 @@
 // eslint-disable
 // this is an auto generated file. This will be overwritten
 
+export const onCreateEnvironment = `subscription OnCreateEnvironment {
+  onCreateEnvironment {
+    id
+    results {
+      nextToken
+    }
+  }
+}
+`;
+export const onUpdateEnvironment = `subscription OnUpdateEnvironment {
+  onUpdateEnvironment {
+    id
+    results {
+      nextToken
+    }
+  }
+}
+`;
+export const onDeleteEnvironment = `subscription OnDeleteEnvironment {
+  onDeleteEnvironment {
+    id
+    results {
+      nextToken
+    }
+  }
+}
+`;
 export const onCreateCompetition = `subscription OnCreateCompetition {
   onCreateCompetition {
     id
@@ -177,6 +204,7 @@ export const onCreateTeam = `subscription OnCreateTeam {
       locale
       value
     }
+    flagUrl
     matchTeams {
       nextToken
     }
@@ -191,6 +219,7 @@ export const onUpdateTeam = `subscription OnUpdateTeam {
       locale
       value
     }
+    flagUrl
     matchTeams {
       nextToken
     }
@@ -205,6 +234,7 @@ export const onDeleteTeam = `subscription OnDeleteTeam {
       locale
       value
     }
+    flagUrl
     matchTeams {
       nextToken
     }
@@ -218,6 +248,7 @@ export const onCreateMatchTeam = `subscription OnCreateMatchTeam {
     team {
       id
       name
+      flagUrl
     }
     match {
       id
@@ -236,6 +267,7 @@ export const onUpdateMatchTeam = `subscription OnUpdateMatchTeam {
     team {
       id
       name
+      flagUrl
     }
     match {
       id
@@ -254,6 +286,7 @@ export const onDeleteMatchTeam = `subscription OnDeleteMatchTeam {
     team {
       id
       name
+      flagUrl
     }
     match {
       id
@@ -381,6 +414,42 @@ export const onDeleteResult = `subscription OnDeleteResult {
       title
       from
       to
+    }
+  }
+}
+`;
+export const onCreateGlobalResult = `subscription OnCreateGlobalResult {
+  onCreateGlobalResult {
+    id
+    owner
+    userName
+    value
+    environment {
+      id
+    }
+  }
+}
+`;
+export const onUpdateGlobalResult = `subscription OnUpdateGlobalResult {
+  onUpdateGlobalResult {
+    id
+    owner
+    userName
+    value
+    environment {
+      id
+    }
+  }
+}
+`;
+export const onDeleteGlobalResult = `subscription OnDeleteGlobalResult {
+  onDeleteGlobalResult {
+    id
+    owner
+    userName
+    value
+    environment {
+      id
     }
   }
 }

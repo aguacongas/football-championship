@@ -41,10 +41,26 @@ else
                     <div class="col">
                         <div class="row">
                             <div class="col">
-                                <div><b>@GetTeamName(match, true)</b></div>
+                                <div class="row justify-content-end">
+                                    <div class="col">
+                                        @if (GetTeamUrl(match, true) != null)
+                                        {
+                                            <img class="flag" src="@GetTeamUrl(match, true)" />
+                                        }
+                                        <b>@GetTeamName(match, true)</b>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col">
-                                <div><b>@GetTeamName(match, false)</b></div>
+                                <div class="row justify-content-start">
+                                    <div class="col">
+                                        @if (GetTeamUrl(match, false) != null)
+                                        {
+                                            <img class="flag" src="@GetTeamUrl(match, false)" />
+                                        }
+                                        <b>@GetTeamName(match, false)</b>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="row">
@@ -55,7 +71,7 @@ else
                                 }
                                 else
                                 {
-                                    <em>@match.Scores.First(s => s.IsHome).Value</em>
+                                    <em>@match.Scores?.First(s => s.IsHome)?.Value</em>
                                     <div class="small">
                                         @match.Bet.HomeValue
                                     </div>
@@ -68,7 +84,7 @@ else
                                 }
                                 else
                                 {
-                                    <em>@match.Scores.First(s => !s.IsHome).Value</em>
+                                    <em>@match.Scores?.First(s => !s.IsHome)?.Value</em>
                                     <div class="small">
                                         @match.Bet.AwayValue
                                     </div>

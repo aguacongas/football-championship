@@ -28,9 +28,9 @@ namespace Aguacongas.FootballChampionship.Pages
                 {
                     Filter = new
                     {
-                        From = new
+                        To = new
                         {
-                            Ge = DateTimeOffset.Now
+                            Ge = DateTimeOffset.Now.Date
                         }
                     }
                 });

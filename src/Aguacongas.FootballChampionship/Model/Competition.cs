@@ -17,5 +17,9 @@ namespace Aguacongas.FootballChampionship.Model
         public IEnumerable<LocalizedName> LocalizedNames { get; set; }
 
         public AwsGraphQlList<Match> Matches { get; set; }
+
+        public AwsGraphQlList<Result> Results { get; set; }
+
+        public AwsGraphQlList<Bet> Bets { get; set; }
     }
 }

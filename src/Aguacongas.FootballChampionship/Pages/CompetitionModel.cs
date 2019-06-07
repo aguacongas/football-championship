@@ -72,6 +72,16 @@ namespace Aguacongas.FootballChampionship.Pages
             return match.PlaceHolderAway;
         }
 
+        protected string GetTeamUrl(Match match, bool isHome)
+        {
+            var matchTeam = match.MatchTeams.Items.FirstOrDefault(m => m.IsHome == isHome);
+            if (matchTeam != null)
+            {
+                return matchTeam.Team.FlagUrl.Replace("{format}-{size}", "wwc2019-4");
+            }
+            return null;
+        }
+
         protected string GetErrorMessage(Match match, bool isHome)
         {
             return string.Format(Resources["The score for {0} is required."], GetTeamName(match, isHome));

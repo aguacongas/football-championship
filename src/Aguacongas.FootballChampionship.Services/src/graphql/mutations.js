@@ -1,6 +1,33 @@
 // eslint-disable
 // this is an auto generated file. This will be overwritten
 
+export const createEnvironment = `mutation CreateEnvironment($input: CreateEnvironmentInput!) {
+  createEnvironment(input: $input) {
+    id
+    results {
+      nextToken
+    }
+  }
+}
+`;
+export const updateEnvironment = `mutation UpdateEnvironment($input: UpdateEnvironmentInput!) {
+  updateEnvironment(input: $input) {
+    id
+    results {
+      nextToken
+    }
+  }
+}
+`;
+export const deleteEnvironment = `mutation DeleteEnvironment($input: DeleteEnvironmentInput!) {
+  deleteEnvironment(input: $input) {
+    id
+    results {
+      nextToken
+    }
+  }
+}
+`;
 export const createCompetition = `mutation CreateCompetition($input: CreateCompetitionInput!) {
   createCompetition(input: $input) {
     id
@@ -177,6 +204,7 @@ export const createTeam = `mutation CreateTeam($input: CreateTeamInput!) {
       locale
       value
     }
+    flagUrl
     matchTeams {
       nextToken
     }
@@ -191,6 +219,7 @@ export const updateTeam = `mutation UpdateTeam($input: UpdateTeamInput!) {
       locale
       value
     }
+    flagUrl
     matchTeams {
       nextToken
     }
@@ -205,6 +234,7 @@ export const deleteTeam = `mutation DeleteTeam($input: DeleteTeamInput!) {
       locale
       value
     }
+    flagUrl
     matchTeams {
       nextToken
     }
@@ -218,6 +248,7 @@ export const createMatchTeam = `mutation CreateMatchTeam($input: CreateMatchTeam
     team {
       id
       name
+      flagUrl
     }
     match {
       id
@@ -236,6 +267,7 @@ export const updateMatchTeam = `mutation UpdateMatchTeam($input: UpdateMatchTeam
     team {
       id
       name
+      flagUrl
     }
     match {
       id
@@ -254,6 +286,7 @@ export const deleteMatchTeam = `mutation DeleteMatchTeam($input: DeleteMatchTeam
     team {
       id
       name
+      flagUrl
     }
     match {
       id
@@ -381,6 +414,42 @@ export const deleteResult = `mutation DeleteResult($input: DeleteResultInput!) {
       title
       from
       to
+    }
+  }
+}
+`;
+export const createGlobalResult = `mutation CreateGlobalResult($input: CreateGlobalResultInput!) {
+  createGlobalResult(input: $input) {
+    id
+    owner
+    userName
+    value
+    environment {
+      id
+    }
+  }
+}
+`;
+export const updateGlobalResult = `mutation UpdateGlobalResult($input: UpdateGlobalResultInput!) {
+  updateGlobalResult(input: $input) {
+    id
+    owner
+    userName
+    value
+    environment {
+      id
+    }
+  }
+}
+`;
+export const deleteGlobalResult = `mutation DeleteGlobalResult($input: DeleteGlobalResultInput!) {
+  deleteGlobalResult(input: $input) {
+    id
+    owner
+    userName
+    value
+    environment {
+      id
     }
   }
 }

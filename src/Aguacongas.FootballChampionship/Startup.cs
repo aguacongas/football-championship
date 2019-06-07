@@ -14,6 +14,7 @@ namespace Aguacongas.FootballChampionship
                 .AddBrowserJsInterop()
                 .AddSingleton<IResources, Resources>()
                 .AddSingleton<IGraphQlSubscriber, GraphQlSubscriber>()
+                .AddSingleton<ILiveScoreService, LiveScoreService>()
                 .AddTransient<ICompetitionService, CompetitionService>();
         }
 

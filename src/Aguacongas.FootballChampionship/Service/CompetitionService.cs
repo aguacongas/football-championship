@@ -31,12 +31,20 @@ namespace Aguacongas.FootballChampionship.Service
 
         public async Task Initialize(string competitionId)
         {
-            var competitionResponses = await _awsJsInterop.GraphQlAsync<CompetitionResponses>(Queries.GET_COMPETITION, new { id = competitionId });
+            var competitionResponses = await _awsJsInterop.GraphQlAsync<CompetitionResponses>(Queries.GET_COMPETITION,
+                new {
+                    id = competitionId,
+                    owner = _awsHelper.User.Username
+                });
+
             Competition = competitionResponses.GetCompetition;
 
-            var matchesResponseTask = _awsJsInterop.GraphQlAsync<MatchesResponse>(Queries.LIST_MATCH,
+            _createResult = !Competition.Results.Items.Any();
+
+            var matchesResponse = await _awsJsInterop.GraphQlAsync<MatchesResponse>(Queries.LIST_MATCH,
             new
             {
+                Owner = _awsHelper.User.Username,
                 Filter = new
                 {
                     MatchCompetitionId = new
@@ -47,64 +55,16 @@ namespace Aguacongas.FootballChampionship.Service
                 Limit = 1000
             });
 
-            var betsResponseTask = _awsJsInterop.GraphQlAsync<BetResponses>(Queries.LIST_BET,
-            new
-            {
-                Filter = new
-                {
-                    Owner = new
-                    {
-                        Eq = _awsHelper.User.Username
-                    },
-                    And = new
-                    {
-                        BetCompetitionId = new
-                        {
-                            Eq = competitionId
-                        }
-                    }
-                },
-                Limit = 1000
-            });
-
-            var resultResponseTask = _awsJsInterop.GraphQlAsync<ResultResponses>(Queries.LIST_RESULT,
-            new
-            {                
-                Filter = new
-                {
-                    Owner = new
-                    {
-                        Eq = _awsHelper.User.Username
-                    },
-                    And = new
-                    {
-                        ResultCompetitionId = new
-                        {
-                            Eq = competitionId
-                        }
-                    }
-                }            
-            });
-
-            await Task.WhenAll(matchesResponseTask, betsResponseTask, resultResponseTask);
-            var matchesResponse = matchesResponseTask.Result;
-
             Matches = matchesResponse.ListMatchs.Items;
-
-            var betsResponse = betsResponseTask.Result;
-            var betsScore = betsResponse.ListBets.Items.Select(b => new BetScore
-            {
-                Id = b.Id,
-                MatchId = b.Match.Id,
-                HomeValue = b.Scores.FirstOrDefault(s => s.IsHome)?.Value,
-                AwayValue = b.Scores.FirstOrDefault(s => !s.IsHome)?.Value
-            });
 
             foreach (var match in Matches)
             {
-                var betScore = betsScore.FirstOrDefault(b => b.MatchId == match.Id) ?? new BetScore
+                var bet = match.Bets.Items.FirstOrDefault();
+                var betScore = new BetScore
                 {
-                    MatchId = match.Id
+                    Id = bet?.Id ?? Guid.NewGuid().ToString(),
+                    HomeValue = bet?.Scores.FirstOrDefault(s => s.IsHome)?.Value ?? 0,
+                    AwayValue = bet?.Scores.FirstOrDefault(s => !s.IsHome)?.Value ?? 0
                 };
                 betScore.ValueChanged = false;
                 match.Bet = betScore;
@@ -114,8 +74,6 @@ namespace Aguacongas.FootballChampionship.Service
             MatchGroup = Matches
                 .OrderBy(m => m.BeginAt)
                 .GroupBy(m => m.BeginAt.Date);
-
-            _createResult = !resultResponseTask.Result.ListResults.Items.Any();
         }
 
         public async Task SaveBet(BetScore bet)

@@ -1,3 +1,9 @@
+type Environment @model
+{
+	id: ID!
+	results: [GlobalResult!]! @connection(name: "EnvironmentResults", sortField: "value")
+}
+
 type Competition 
   @model 
   @auth(rules: [
@@ -11,8 +17,8 @@ type Competition
   from: AWSDate!
   to: AWSDate!
   matches: [Match!]! @connection(name: "CompetitionMatches", sortField: "beginAt")
-  bets: [Bet!] @connection(name: "CompetitionBets")
-  results: [Result!] @connection(name: "CompetitionResults", sortField: "value")
+  bets: [Bet!]! @connection(name: "CompetitionBets")
+  results: [Result!]! @connection(name: "CompetitionResults", sortField: "value")
 }
 
 type Match
@@ -45,6 +51,7 @@ type Team
   id: ID!
   name: String!
   localizedNames: [LocalizedName!]
+  flagUrl: String
   matchTeams: [MatchTeam!]! @connection(name: "MatchTeamTeams")
 }
 
@@ -80,7 +87,6 @@ type Result
   @model
   @auth(rules: [
 	  {allow: owner},
-      {allow: groups, groups: ["Admin"], queries: [get, list], mutations: [create, update, delete]},
       {allow: groups, groups: ["User"], queries: [get, list], mutations: null}
     ])
  {
@@ -88,7 +94,21 @@ type Result
    owner: String!
    userName: String!
    value: Int!
-   competition: Competition! @connection(name: "CompetitionResults")  
+   competition: Competition! @connection(name: "CompetitionResults")
+ }
+
+ type GlobalResult
+  @model
+  @auth(rules: [
+	  {allow: owner},
+      {allow: groups, groups: ["User"], queries: [get, list], mutations: null}
+    ])
+ {
+   id: ID!
+   owner: String!
+   userName: String!
+   value: Int!
+   environment: Environment! @connection(name: "EnvironmentResults")
  }
 
 type Score {

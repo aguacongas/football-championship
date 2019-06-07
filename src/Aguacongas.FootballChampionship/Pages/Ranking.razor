@@ -1,0 +1,36 @@
+﻿@page "/{id}/{stage}/rank"
+
+@inherits RankModel
+
+@if (Competition != null)
+{
+    <h1>@Competition.LocalizedNames.GetLocalizedValue()</h1>
+    <h3>@Resources["Ranking"]</h3>
+}
+@if (Results == null)
+{
+    <p><em>@Resources["Loading..."]</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@Resources["Rank"]</th>
+                <th>@Resources["User"]</th>
+                <th>@Resources["Points"]</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{var i = 1;}
+            @foreach (var result in Results)
+            {
+                <tr>
+                    <td>@(i++)</td>
+                    <td>@result.UserName</td>
+                    <td>@result.Value</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

@@ -4,7 +4,7 @@
     <a class="navbar-brand" href="">Football Championship</a>
     <LangMenu />
     <button class="navbar-toggler" onclick="@ToggleNavMenu">
-        <span class="navbar-toggler-icon"></span> 
+        <span class="navbar-toggler-icon"></span>
     </button>
 </div>
 
@@ -20,13 +20,16 @@
             @foreach (var competition in CompetitionList)
             {
                 <li class="nav-item px-3">
-                    <NavLink class="nav-link" href="@competition.Id">
+                    <NavLink class="nav-link" href="@competition.Id" Match="NavLinkMatch.All">
                         <span class="oi oi-globe" aria-hidden="true"></span> @competition.LocalizedNames.GetLocalizedValue()
+                    </NavLink>
+                    <NavLink class="nav-link sub-nav-link" href="@string.Format("{0}/rank", competition.Id)" Match="NavLinkMatch.All">
+                        <span class="oi oi-resize-height" aria-hidden="true"></span> @Resources["Ranking"]
                     </NavLink>
                 </li>
             }
         }
-        @if (AwsHelper.User !=null && AwsHelper.User.IsAdmin())
+        @if (AwsHelper.User != null && AwsHelper.User.IsAdmin())
         {
             <li class="nav-item px-3">
                 <NavLink class="nav-link" href="admin">

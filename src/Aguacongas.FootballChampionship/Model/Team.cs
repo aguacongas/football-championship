@@ -12,6 +12,8 @@ namespace Aguacongas.FootballChampionship.Model
 
         public string Name { get; set; }
 
+        public string FlagUrl { get; set; }
+
         public IEnumerable<LocalizedName> LocalizedNames { get; set; }
 
         public AwsGraphQlList<MatchTeam> MatchTeams { get; set; }

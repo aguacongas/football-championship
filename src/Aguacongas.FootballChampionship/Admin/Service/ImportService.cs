@@ -48,7 +48,7 @@ namespace Aguacongas.FootballChampionship.Admin.Service
             }
 
             var competitionId = $"{importCompetition.CompetitionId}/{importCompetition.SeasonId}";
-            var competitionResponses = await _awsJsInterop.GraphQlAsync<CompetitionResponses>(FootballChampionship.Model.Queries.GET_COMPETITION, new { id = competitionId });
+            var competitionResponses = await _awsJsInterop.GraphQlAsync<CompetitionResponses>(FootballChampionship.Model.Queries.GET_COMPETITION, new { id = competitionId, owner = "null" });
             var competition = competitionResponses.GetCompetition;
             if (competition == null)
             {
@@ -58,6 +58,7 @@ namespace Aguacongas.FootballChampionship.Admin.Service
             var matchesResponse = await _awsJsInterop.GraphQlAsync<MatchesResponse>(FootballChampionship.Model.Queries.LIST_MATCH,
             new
             {
+                Owner = "null",
                 Filter = new
                 {
                     MatchCompetitionId = new
@@ -268,6 +269,7 @@ namespace Aguacongas.FootballChampionship.Admin.Service
                     input = new
                     {
                         id = team.IdTeam,
+                        flagUrl = team.PictureUrl,
                         name = team.TeamName.First().Description,
                         localizedNames = team.TeamName.Select(n => new LocalizedName { Locale = n.Locale, Value = n.Description})
                     }
@@ -282,6 +284,7 @@ namespace Aguacongas.FootballChampionship.Admin.Service
                     input = new
                     {
                         id = team.IdTeam,
+                        flagUrl = team.PictureUrl,
                         localizedNames = savedTeam.LocalizedNames.Concat(team.TeamName
                             .Select(n => new LocalizedName { Locale = n.Locale, Value = n.Description }))
                             .Distinct(_localizedNameComparer)

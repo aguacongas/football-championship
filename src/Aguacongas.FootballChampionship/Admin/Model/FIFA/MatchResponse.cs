@@ -37,7 +37,7 @@ namespace Aguacongas.FootballChampionship.Admin.Model.FIFA
 
     public class Team
     {
-        public object Score { get; set; }
+        public int Score { get; set; }
         public object Side { get; set; }
         public string IdTeam { get; set; }
         public string PictureUrl { get; set; }
@@ -115,6 +115,9 @@ namespace Aguacongas.FootballChampionship.Admin.Model.FIFA
         public DateTime LocalDate { get; set; }
         public Team Home { get; set; }
         public Team Away { get; set; }
+        public Team HomeTeam { get; set; }
+        public Team AwayTeam { get; set; }
+
         public object HomeTeamScore { get; set; }
         public object AwayTeamScore { get; set; }
         public object AggregateHomeTeamScore { get; set; }

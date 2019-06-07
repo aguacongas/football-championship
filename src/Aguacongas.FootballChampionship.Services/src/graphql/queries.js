@@ -1,6 +1,28 @@
 // eslint-disable
 // this is an auto generated file. This will be overwritten
 
+export const getEnvironment = `query GetEnvironment($id: ID!) {
+  getEnvironment(id: $id) {
+    id
+    results {
+      nextToken
+    }
+  }
+}
+`;
+export const listEnvironments = `query ListEnvironments(
+  $filter: ModelEnvironmentFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listEnvironments(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+    }
+    nextToken
+  }
+}
+`;
 export const getCompetition = `query GetCompetition($id: ID!) {
   getCompetition(id: $id) {
     id
@@ -98,6 +120,7 @@ export const getTeam = `query GetTeam($id: ID!) {
       locale
       value
     }
+    flagUrl
     matchTeams {
       nextToken
     }
@@ -113,6 +136,7 @@ export const listTeams = `query ListTeams(
     items {
       id
       name
+      flagUrl
     }
     nextToken
   }
@@ -125,6 +149,7 @@ export const getMatchTeam = `query GetMatchTeam($id: ID!) {
     team {
       id
       name
+      flagUrl
     }
     match {
       id
@@ -207,6 +232,34 @@ export const listResults = `query ListResults(
   $nextToken: String
 ) {
   listResults(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      owner
+      userName
+      value
+    }
+    nextToken
+  }
+}
+`;
+export const getGlobalResult = `query GetGlobalResult($id: ID!) {
+  getGlobalResult(id: $id) {
+    id
+    owner
+    userName
+    value
+    environment {
+      id
+    }
+  }
+}
+`;
+export const listGlobalResults = `query ListGlobalResults(
+  $filter: ModelGlobalResultFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listGlobalResults(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
       owner
