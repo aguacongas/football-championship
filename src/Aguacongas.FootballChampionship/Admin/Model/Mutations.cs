@@ -81,6 +81,10 @@
         }
       }
     }
+    scores {
+      isHome
+      value
+    }
   }
 }";
         public const string CREATE_TEAM = @"mutation CreateTeam($input: CreateTeamInput!) {

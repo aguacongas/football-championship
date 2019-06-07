@@ -167,7 +167,7 @@ namespace Aguacongas.FootballChampionship.Admin.Service
                 mutation = Model.Mutations.UPDATE_MATCH;
             }
             
-            var matchResponses = await _awsJsInterop.GraphQlAsync<MatchResponses>(mutation, new
+            var matchResponses = await _awsJsInterop.GraphQlAsync<Model.MatchResponses>(mutation, new
             {
                 input = new
                 {

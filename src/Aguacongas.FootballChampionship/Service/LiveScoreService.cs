@@ -57,8 +57,8 @@ namespace Aguacongas.FootballChampionship.Service
                                 Id = fifaMatch.IdMatch,
                                 Scores = new List<Score>
                                 {
-                                    new Score{ IsHome = true, Value = 0},
-                                    new Score{ IsHome = false, Value = 0}
+                                    new Score{ IsHome = true, Value = fifaMatch.HomeTeam.Score},
+                                    new Score{ IsHome = false, Value = fifaMatch.AwayTeam.Score}
                                 }
                             };
                             ((List<Model.Match>)matches).Add(match);
@@ -83,7 +83,6 @@ namespace Aguacongas.FootballChampionship.Service
                                 scores = match.Scores
                             }
                         });
-
                     }
                 }
             }, null, 0, 5000);
