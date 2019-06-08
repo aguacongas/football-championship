@@ -48,9 +48,10 @@ namespace Aguacongas.FootballChampionship.Service
                 var bet = match.Bets.Items.FirstOrDefault();
                 var betScore = new BetScore
                 {
-                    Id = bet?.Id ?? Guid.NewGuid().ToString(),
-                    HomeValue = bet?.Scores.FirstOrDefault(s => s.IsHome)?.Value ?? 0,
-                    AwayValue = bet?.Scores.FirstOrDefault(s => !s.IsHome)?.Value ?? 0
+                    Id = bet?.Id,
+                    MatchId = match.Id,
+                    HomeValue = bet?.Scores.FirstOrDefault(s => s.IsHome)?.Value,
+                    AwayValue = bet?.Scores.FirstOrDefault(s => !s.IsHome)?.Value
                 };
                 betScore.ValueChanged = false;
                 match.Bet = betScore;

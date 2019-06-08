@@ -2,6 +2,7 @@
 using Aguacongas.FootballChampionship.Model;
 using Aguacongas.FootballChampionship.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,7 +46,7 @@ namespace Aguacongas.FootballChampionship.Service
                 foreach (var competition in competitions)
                 {
                     var response = await _httpClient.GetJsonAsync<FifaResponse<Admin.Model.FIFA.Match>>("https://api.fifa.com/api/v1/live/football/recent/" + competition.Id);
-                    var fifaMatches = response.Results.Where(m => m.Date <= DateTime.Now);
+                    var fifaMatches = response.Results.Where(m => m.MatchStatus == 3);
                     var matches = competition.Matches.Items;
                     foreach (var fifaMatch in fifaMatches)
                     {
@@ -74,6 +75,7 @@ namespace Aguacongas.FootballChampionship.Service
                             homeScore.Value = fifaMatch.HomeTeam.Score;
                             awayScore.Value = fifaMatch.AwayTeam.Score;
                         }
+                        Console.WriteLine($"Update score {Json.Serialize(match)}");
                         await _awsJsInterop.GraphQlAsync<MatchesResponse>(Admin.Model.Mutations.UPDATE_MATCH,
                         new
                         {
