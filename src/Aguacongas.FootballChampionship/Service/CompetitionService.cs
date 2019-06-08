@@ -40,22 +40,8 @@ namespace Aguacongas.FootballChampionship.Service
             Competition = competitionResponses.GetCompetition;
 
             _createResult = !Competition.Results.Items.Any();
-
-            var matchesResponse = await _awsJsInterop.GraphQlAsync<MatchesResponse>(Queries.LIST_MATCH,
-            new
-            {
-                Owner = _awsHelper.User.Username,
-                Filter = new
-                {
-                    MatchCompetitionId = new
-                    {
-                        Eq = competitionId
-                    }
-                },
-                Limit = 1000
-            });
-
-            Matches = matchesResponse.ListMatchs.Items;
+            
+            Matches = Competition.Matches.Items;
 
             foreach (var match in Matches)
             {

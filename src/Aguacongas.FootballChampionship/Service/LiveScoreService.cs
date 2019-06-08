@@ -45,7 +45,7 @@ namespace Aguacongas.FootballChampionship.Service
                 foreach (var competition in competitions)
                 {
                     var response = await _httpClient.GetJsonAsync<FifaResponse<Admin.Model.FIFA.Match>>("https://api.fifa.com/api/v1/live/football/recent/" + competition.Id);
-                    var fifaMatches = response.Results;
+                    var fifaMatches = response.Results.Where(m => m.Date <= DateTime.Now);
                     var matches = competition.Matches.Items;
                     foreach (var fifaMatch in fifaMatches)
                     {

@@ -30,59 +30,6 @@ namespace Aguacongas.FootballChampionship.Model
       nextToken
     }
 }";
-        public const string LIST_MATCH = @"query ListMatchs(
-  $filter: ModelMatchFilterInput
-  $limit: Int
-  $nextToken: String,
-  $owner: String!
-) {
-  listMatchs(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id 
-      beginAt
-      group {
-        locale
-        value
-      }
-      number
-      placeHolderAway
-      placeHolderHome
-      localizedNames {
-        locale
-        value
-      }
-      matchTeams {
-        items {
-          id
-          isHome
-          team {
-            id
-            name
-            flagUrl
-            localizedNames {
-              locale
-              value
-            }
-          }
-        }
-      }
-      bets (filter: { owner: { eq: $owner} }) {
-        items {
-          id
-          scores {
-           isHome
-           value
-          }
-        }
-      }
-      scores {
-        isHome
-        value
-      }
-    }
-    nextToken
-  }
-}";
 
         public const string GET_COMPETITION = @"query GetCompetition($id: ID!, $owner: String!) {
   getCompetition(id: $id) {
@@ -94,6 +41,52 @@ namespace Aguacongas.FootballChampionship.Model
     }
     from
     to
+    matches(limit: 100, sortDirection: ASC) {
+      items {
+        id 
+        beginAt
+        group {
+          locale
+          value
+        }
+        number
+        placeHolderAway
+        placeHolderHome
+        localizedNames {
+          locale
+          value
+        }
+        matchTeams {
+          items {
+            id
+            isHome
+            team {
+              id
+              name
+              flagUrl
+              localizedNames {
+                locale
+                value
+              }
+            }
+          }
+        }
+        bets (filter: { owner: { eq: $owner} }) {
+          items {
+            id
+            scores {
+             isHome
+             value
+            }
+          }
+        }
+        scores {
+          isHome
+          value
+        }
+      }
+      nextToken
+    }
     results(filter: { owner: { eq: $owner } }) {
       items {
          id

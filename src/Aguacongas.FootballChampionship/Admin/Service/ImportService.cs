@@ -52,25 +52,14 @@ namespace Aguacongas.FootballChampionship.Admin.Service
             var competition = competitionResponses.GetCompetition;
             if (competition == null)
             {
-                competition = new Competition();
-            }
-
-            var matchesResponse = await _awsJsInterop.GraphQlAsync<MatchesResponse>(FootballChampionship.Model.Queries.LIST_MATCH,
-            new
-            {
-                Owner = "null",
-                Filter = new
+                competition = new Competition
                 {
-                    MatchCompetitionId = new
+                    Matches = new AwsGraphQlList<FootballChampionship.Model.Match>
                     {
-                        Eq = competition.Id
+                        Items = new List<FootballChampionship.Model.Match>()
                     }
-                },
-                Limit = 1000
-            });
-
-            var importedMatchList = matchesResponse.ListMatchs.Items.OrderBy(m => m.BeginAt);
-            matchesResponse.ListMatchs.Items = importedMatchList;
+                };
+            }
 
             var mutation = competition.Id == null ? Model.Mutations.CREATE_COMPETITION : Model.Mutations.UPDATE_COMPETITION;
             
@@ -80,6 +69,8 @@ namespace Aguacongas.FootballChampionship.Admin.Service
 
             DateTime fromDate = firstMatch.Date;
             DateTime toDate = lastMatch.Date;
+
+            var importedMatchList = competition.Matches.Items;
             if (importedMatchList.Any())
             {
                 var firstDate = importedMatchList.First().BeginAt;
@@ -102,8 +93,7 @@ namespace Aguacongas.FootballChampionship.Admin.Service
 
             competition = competition.Id == null ? competitionResponses.CreateCompetition : competitionResponses.UpdateCompetition;
 
-            competition.Matches = matchesResponse.ListMatchs;
-            competition.Matches.Items = competition.Matches.Items.ToList();
+            competition.Matches.Items = importedMatchList.ToList();
 
             CompetitionUpdated?.Invoke(competition);
 
