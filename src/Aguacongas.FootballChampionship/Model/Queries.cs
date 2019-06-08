@@ -133,5 +133,37 @@ namespace Aguacongas.FootballChampionship.Model
     }
   }
 }";
+
+        public const string GET_COMPETITION_WITH_RESULTS = @"query GetCompetition($id: ID!) {
+  getCompetition(id: $id) {
+    id
+    title
+    localizedNames {
+      locale
+      value
+    }
+    from
+    to
+    matches(limit: 100) {
+      items {
+        bets(limit: 1000) {
+          items {
+            owner
+            userName
+            scores {
+              isHome
+              value
+            }
+          }
+        }
+        scores {
+          isHome
+          value
+        }
+      }
+      nextToken
+    }
+  }
+}";
     }
 }

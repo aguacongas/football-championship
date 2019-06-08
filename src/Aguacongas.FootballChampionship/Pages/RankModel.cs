@@ -1,10 +1,8 @@
 ﻿using Aguacongas.FootballChampionship.Localization;
 using Aguacongas.FootballChampionship.Model;
-using Aguacongas.FootballChampionship.Services;
+using Aguacongas.FootballChampionship.Service;
 using Microsoft.AspNetCore.Components;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Aguacongas.FootballChampionship.Pages
@@ -18,7 +16,7 @@ namespace Aguacongas.FootballChampionship.Pages
         protected string Stage { get; set; }
 
         [Inject]
-        public IAwsJsInterop AwsJsInterop { get; set; }
+        public IRankingService RankingService { private get; set; }
 
         [Inject]
         public IResources Resources { get; set; }
@@ -35,14 +33,10 @@ namespace Aguacongas.FootballChampionship.Pages
                 StateHasChanged();
             };
 
-            var rankResponse = await AwsJsInterop.GraphQlAsync<CompetitionResponses>(Queries.LIST_RESULT,
-            new
-            {
-                id = $"{Id}/{Stage}"
-            });
 
-            Competition = rankResponse.GetCompetition;
-            Results = rankResponse.GetCompetition.Results.Items;
+            Results = await RankingService.ComputeResultList($"{Id}/{Stage}");
+            
+            Competition = RankingService.Competition;
         }
     }
 }

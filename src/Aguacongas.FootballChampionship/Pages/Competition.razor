@@ -36,6 +36,19 @@ else
                                 </button>
                                 <span class="oi@(match.Bet.Saved ? " oi-check" : "")"></span>
                             }
+                            else if (match.Bet.HomeValue.HasValue)
+                            {
+                                var points = match.Scores.ComputeResult(match.Bet.HomeValue.Value, match.Bet.AwayValue.Value);
+                                <b>@points</b>
+                                @if (points > 1)
+                                {
+                                    <span class="text-lowercase">@Resources["Points"]</span>
+                                }
+                                else
+                                {
+                                    <span class="text-lowercase">@Resources["Point"]</span>
+                                }
+                            }
                         </div>
                     </div>
                     <div class="col">
@@ -71,7 +84,7 @@ else
                                 }
                                 else
                                 {
-                                    <em>@match.Scores?.First(s => s.IsHome)?.Value</em>
+                                    <b><em>@match.Scores?.First(s => s.IsHome)?.Value</em></b>
                                     <div class="small">
                                         @match.Bet.HomeValue
                                     </div>
@@ -84,7 +97,7 @@ else
                                 }
                                 else
                                 {
-                                    <em>@match.Scores?.First(s => !s.IsHome)?.Value</em>
+                                    <b><em>@match.Scores?.First(s => !s.IsHome)?.Value</em></b>
                                     <div class="small">
                                         @match.Bet.AwayValue
                                     </div>
@@ -95,6 +108,5 @@ else
                 </div>
             </EditForm>
         }
-
     }
 }

@@ -74,7 +74,8 @@ namespace Aguacongas.FootballChampionship.Localization
                         { "Ranking", "Rang" },
                         { "Rank", "Rang" },
                         { "User", "Nutzer" },
-                        { "Points", "Punkte" }
+                        { "Points", "Punkte" },
+                        { "Point", "Punkt" }
                     }
                 }
             };

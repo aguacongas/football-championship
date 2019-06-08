@@ -15,7 +15,8 @@ namespace Aguacongas.FootballChampionship
                 .AddSingleton<IResources, Resources>()
                 .AddSingleton<IGraphQlSubscriber, GraphQlSubscriber>()
                 .AddSingleton<ILiveScoreService, LiveScoreService>()
-                .AddTransient<ICompetitionService, CompetitionService>();
+                .AddTransient<ICompetitionService, CompetitionService>()
+                .AddTransient<IRankingService, RankingService>();
         }
 
         public void Configure(IComponentsApplicationBuilder app)
