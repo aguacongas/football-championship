@@ -1,0 +1,32 @@
+version: 1.0.{build}
+skip_tags: true
+skip_commits: /$chore:/
+  message: /
+skip_commits:
+  message: /^chore(release)/
+branches:
+  only:
+  - master
+image: 
+- Visual Studio 2019 Preview
+environment:
+  GH_TOKEN: 
+    secure: 0NJdORJRFjpB0dwUYv7bVNsbkldkoBhnvWik/CTOwAF/k9kP+/uTWMFnDcpEpt8E
+init:
+  - cmd: git config --global core.autocrlf true
+install:
+  - ps: .\dotnet-install.ps1 -Version 3.0.100-preview5-011568
+  - cmd: dotnet new -i Microsoft.AspNetCore.Blazor.Templates::3.0.0-preview5-19227-01
+  - ps: ./appveyorinit.ps1
+build_script:
+  - ps: ./publish.cmd
+test_script:
+  - cmd: git config --global credential.helper store 
+  - ps: if ($isWindows) { Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:GH_TOKEN):x-oauth-basic@github.com`n" }
+  - cmd: git config --global user.email "aguacongas@gmail.com"
+  - cmd: git config --global user.name "Olivier Lefebvre"
+  - cmd: git commit docs -m "chore: Appveyor build succed %VERSION%"
+  - cmd: git push
+artifacts:
+  - path: artifacts/**/*.nupkg
+    name: nuget    

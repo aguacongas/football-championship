@@ -16,6 +16,8 @@ namespace Aguacongas.FootballChampionship.Service
         private readonly IBrowserDateTime _browserDateTime;
         private readonly IJSRuntime _jsRuntime;
 
+        private bool _hasScrolled;
+
         public Competition Competition { get; private set; }
         public IEnumerable<Match> Matches { get; private set; }
         public IEnumerable<IGrouping<DateTime, Match>> MatchGroup { get; private set; }
@@ -133,7 +135,7 @@ namespace Aguacongas.FootballChampionship.Service
                 nextMatch = MatchGroup.Last();
             }
 
-            await _jsRuntime.InvokeAsync<bool>("scrollElementIntoView", $"day{nextMatch.Key.ToAwsDate()}");
+            _hasScrolled = await _jsRuntime.InvokeAsync<bool>("browserJsFunctions.scrollElementIntoView", $"day{nextMatch.Key.ToAwsDate()}");
         }
     }
 }
