@@ -102,6 +102,11 @@ app {
     color: red;
 }
 
+.match-list {
+    height: calc(100vh - 134px);
+    overflow-x: hidden;
+    overflow-y: auto;
+}
 .match-data {
     width: 200px;
 }
@@ -146,7 +151,6 @@ app {
 
     .main > div {
         padding-left: 2rem !important;
-        padding-right: 1.5rem !important;
     }
 
     .navbar-toggler {

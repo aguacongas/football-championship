@@ -12,101 +12,105 @@
 }
 else
 {
-    foreach (var group in MatchGroup)
-    {
-        <h3>@group.Key.ToLongDateString()</h3>
-        <hr />
-        @foreach (var match in group)
+    <div class="match-list">
+        @foreach (var group in MatchGroup)
         {
-            <EditForm Model="@match.Bet" OnValidSubmit="@(async () => await SaveBet(match.Bet))">
-                <DataAnnotationsValidator />
-                <ValidationSummary />
+            <div id="@string.Format("day{0}", group.Key.ToAwsDate())">
+                <h3>@group.Key.ToLongDateString()</h3>
+                <hr />
+                @foreach (var match in group)
+                {
+                    <EditForm Model="@match.Bet" OnValidSubmit="@(async () => await SaveBet(match.Bet))">
+                        <DataAnnotationsValidator />
+                        <ValidationSummary />
 
-                <div class="row">
-                    <div class="col-4">
-                        <div>@match.BeginAtLocal.ToShortTimeString()</div>
-                        <div class="small"><em>@match.LocalizedNames.GetLocalizedValue()</em></div>
-                        <div class="small">@match.Group.GetLocalizedValue()</div>
-                        <div>
-                            <span class="small">@match.Number</span>
-                            @if (CanBet(match))
-                            {
-                                <button class="btn btn-primary" type="submit" disabled="@(!match.Bet.ValueChanged)">
-                                    <i class="far fa-save"></i>
-                                </button>
-                                <span class="oi@(match.Bet.Saved ? " oi-check" : "")"></span>
-                            }
-                            else if (match.Bet.HomeValue.HasValue)
-                            {
-                                var points = match.Scores.ComputeResult(match.Bet.HomeValue.Value, match.Bet.AwayValue.Value);
-                                <b>@points</b>
-                                @if (points > 1)
-                                {
-                                    <span class="text-lowercase">@Resources["Points"]</span>
-                                }
-                                else
-                                {
-                                    <span class="text-lowercase">@Resources["Point"]</span>
-                                }
-                            }
-                        </div>
-                    </div>
-                    <div class="col">
                         <div class="row">
-                            <div class="col">
-                                <div class="row justify-content-end">
-                                    <div class="col">
-                                        @if (GetTeamUrl(match, true) != null)
+                            <div class="col-4">
+                                <div>@match.BeginAtLocal.ToShortTimeString()</div>
+                                <div class="small"><em>@match.LocalizedNames.GetLocalizedValue()</em></div>
+                                <div class="small">@match.Group.GetLocalizedValue()</div>
+                                <div>
+                                    <span class="small">@match.Number</span>
+                                    @if (CanBet(match))
+                                    {
+                                        <button class="btn btn-primary" type="submit" disabled="@(!match.Bet.ValueChanged)">
+                                            <i class="far fa-save"></i>
+                                        </button>
+                                        <span class="oi@(match.Bet.Saved ? " oi-check" : "")"></span>
+                                    }
+                                    else if (match.Bet.HomeValue.HasValue)
+                                    {
+                                        var points = match.Scores.ComputeResult(match.Bet.HomeValue.Value, match.Bet.AwayValue.Value);
+                                        <b>@points</b>
+                                        @if (points > 1)
                                         {
-                                            <img class="flag" src="@GetTeamUrl(match, true)" />
+                                            <span class="text-lowercase">@Resources["Points"]</span>
                                         }
-                                        <b>@GetTeamName(match, true)</b>
-                                    </div>
+                                        else
+                                        {
+                                            <span class="text-lowercase">@Resources["Point"]</span>
+                                        }
+                                    }
                                 </div>
                             </div>
                             <div class="col">
-                                <div class="row justify-content-start">
+                                <div class="row">
                                     <div class="col">
-                                        @if (GetTeamUrl(match, false) != null)
+                                        <div class="row justify-content-end">
+                                            <div class="col">
+                                                @if (GetTeamUrl(match, true) != null)
+                                                {
+                                                    <img class="flag" src="@GetTeamUrl(match, true)" />
+                                                }
+                                                <b>@GetTeamName(match, true)</b>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="row justify-content-start">
+                                            <div class="col">
+                                                @if (GetTeamUrl(match, false) != null)
+                                                {
+                                                    <img class="flag" src="@GetTeamUrl(match, false)" />
+                                                }
+                                                <b>@GetTeamName(match, false)</b>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        @if (CanBet(match))
                                         {
-                                            <img class="flag" src="@GetTeamUrl(match, false)" />
+                                            <InputNumber Class="bet form-control" bind-Value="@match.Bet.HomeValue" ParsingErrorMessage="@GetErrorMessage(match, true)" />
                                         }
-                                        <b>@GetTeamName(match, false)</b>
+                                        else
+                                        {
+                                            <b><em>@match.Scores?.First(s => s.IsHome)?.Value</em></b>
+                                            <div class="small">
+                                                @match.Bet.HomeValue
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="col">
+                                        @if (CanBet(match))
+                                        {
+                                            <InputNumber Class="bet form-control" bind-Value="@match.Bet.AwayValue" ParsingErrorMessage="@GetErrorMessage(match, true)" />
+                                        }
+                                        else
+                                        {
+                                            <b><em>@match.Scores?.First(s => !s.IsHome)?.Value</em></b>
+                                            <div class="small">
+                                                @match.Bet.AwayValue
+                                            </div>
+                                        }
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                @if (CanBet(match))
-                                {
-                                    <InputNumber Class="bet form-control" bind-Value="@match.Bet.HomeValue" ParsingErrorMessage="@GetErrorMessage(match, true)" />
-                                }
-                                else
-                                {
-                                    <b><em>@match.Scores?.First(s => s.IsHome)?.Value</em></b>
-                                    <div class="small">
-                                        @match.Bet.HomeValue
-                                    </div>
-                                }
-                            </div>
-                            <div class="col">
-                                @if (CanBet(match))
-                                {
-                                    <InputNumber Class="bet form-control" bind-Value="@match.Bet.AwayValue" ParsingErrorMessage="@GetErrorMessage(match, true)" />
-                                }
-                                else
-                                {
-                                    <b><em>@match.Scores?.First(s => !s.IsHome)?.Value</em></b>
-                                    <div class="small">
-                                        @match.Bet.AwayValue
-                                    </div>
-                                }
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </EditForm>
+                    </EditForm>
+                }
+            </div>
         }
-    }
+    </div>
 }

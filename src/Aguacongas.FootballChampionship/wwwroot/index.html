@@ -7,6 +7,19 @@
     <base href="/" />
     <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
     <link href="css/site.css" rel="stylesheet" />
+    <script type="text/javascript">
+        window.scrollElementIntoView = function (id, behavior, block, inline) {
+            behavior = behavior || 'smooth';
+            block = block || 'start';
+            inline = inline || 'nearest';
+            const element = document.querySelector('#' + id);
+            if (element) {
+                element.scrollIntoView({ behavior: behavior, block: block });
+                return true;
+            }
+            return false
+        };
+    </script>
 </head>
 <body>
     <app>

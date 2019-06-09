@@ -14,5 +14,6 @@ namespace Aguacongas.FootballChampionship.Service
 
         Task Initialize(string competitionId);
         Task SaveBet(BetScore bet);
+        Task ScrollToDate();
     }
 }

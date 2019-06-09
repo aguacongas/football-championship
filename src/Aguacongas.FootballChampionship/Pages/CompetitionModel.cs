@@ -72,6 +72,12 @@ namespace Aguacongas.FootballChampionship.Pages
             return match.PlaceHolderAway;
         }
 
+        protected override async Task OnAfterRenderAsync()
+        {
+            await base.OnAfterRenderAsync();
+            await CompetitionService.ScrollToDate();
+        }
+
         protected string GetTeamUrl(Match match, bool isHome)
         {
             var matchTeam = match.MatchTeams.Items.FirstOrDefault(m => m.IsHome == isHome);
