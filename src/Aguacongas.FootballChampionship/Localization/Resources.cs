@@ -47,7 +47,20 @@ namespace Aguacongas.FootballChampionship.Localization
                         { "Prognosis for butter.", "Pronostique pour du beurre." },
                         { "Ranking", "Classement" },
                         { "Rank", "Position" },
-                        { "User", "Utilisateur" },                        
+                        { "User", "Utilisateur" },
+                        { "About", "A propos" },
+                        { "This site is an open source project build with", "Ce site est un projet open source construit avec" },
+                        { "and", "et" },
+                        { "erstellt wurde", "" },
+                        { "The source is code is published on ", "Le code source est publié sur " },
+                        { "veröffentlicht wird", "" },
+                        { "Follow", "Suivez" }
+                    }
+                },
+                { "en-GB", new Dictionary<string, string>
+                    {
+                        { "erstellt wurde", "" },
+                        { "veröffentlicht wird", "" },
                     }
                 },
                 { "de-DE", new Dictionary<string, string>
@@ -75,7 +88,12 @@ namespace Aguacongas.FootballChampionship.Localization
                         { "Rank", "Rang" },
                         { "User", "Nutzer" },
                         { "Points", "Punkte" },
-                        { "Point", "Punkt" }
+                        { "Point", "Punkt" },
+                        { "About", "Über" },
+                        { "This site is an open source project build with", "Diese Seite ist ein Open Source Projekt, das mit" },
+                        { "and", "und" },
+                        { "The source is code is published on ", "Die Quelle ist Code, der auf " },
+                        { "Follow", "Folgen Sie" }
                     }
                 }
             };

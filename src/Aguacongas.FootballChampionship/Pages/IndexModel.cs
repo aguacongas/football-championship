@@ -1,6 +1,7 @@
 ﻿using Aguacongas.FootballChampionship.Localization;
 using Aguacongas.FootballChampionship.Model;
 using Aguacongas.FootballChampionship.Services;
+using Aguacongas.FootballChampionship.Shared;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
@@ -8,13 +9,10 @@ using System.Threading.Tasks;
 
 namespace Aguacongas.FootballChampionship.Pages
 {
-    public class IndexModel : ComponentBase
+    public class IndexModel : LocalizedComponentBase
     {
         [Inject]
         public IAwsJsInterop AwsJsInterop { get; set; }
-
-        [Inject]
-        public IResources Resources { get; set; }
 
         [Inject]
         public IUriHelper UriHelper { get; set; }
@@ -35,11 +33,6 @@ namespace Aguacongas.FootballChampionship.Pages
                     }
                 });
             CompetitionList = response.ListCompetitions.Items;
-
-            Resources.CultureChanged += (e, a) =>
-            {
-                StateHasChanged();
-            };
         }
     }
 }

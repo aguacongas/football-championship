@@ -29,6 +29,7 @@
     <Watch Remove="Admin\Pages\Admin.razor" />
     <Watch Remove="Admin\Pages\_Imports.razor" />
     <Watch Remove="Admin\_Imports.razor" />
+    <Watch Remove="Pages\About.razor" />
     <Watch Remove="Pages\Competition.razor" />
     <Watch Remove="Pages\Ranking.razor" />
     <Watch Remove="Shared\LangMenu.razor" />

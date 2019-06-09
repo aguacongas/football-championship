@@ -1,19 +1,6 @@
-﻿using Aguacongas.FootballChampionship.Localization;
-using Microsoft.AspNetCore.Components;
-
-namespace Aguacongas.FootballChampionship.Shared
+﻿namespace Aguacongas.FootballChampionship.Shared
 {
-    public class RulesModel : ComponentBase
+    public class RulesModel : LocalizedComponentBase
     {
-        [Inject]
-        public IResources Resources { get; set; }
-
-        protected override void OnInit()
-        {
-            Resources.CultureChanged += (e, a) =>
-            {
-                StateHasChanged();
-            };
-        }
     }
 }

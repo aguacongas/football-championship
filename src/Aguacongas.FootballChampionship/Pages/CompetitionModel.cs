@@ -1,6 +1,6 @@
-﻿using Aguacongas.FootballChampionship.Localization;
-using Aguacongas.FootballChampionship.Model;
+﻿using Aguacongas.FootballChampionship.Model;
 using Aguacongas.FootballChampionship.Service;
+using Aguacongas.FootballChampionship.Shared;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Aguacongas.FootballChampionship.Pages
 {
-    public class CompetitionModel : ComponentBase
+    public class CompetitionModel : LocalizedComponentBase
     {
         [Parameter]
         protected string Id { get; set; }
@@ -19,9 +19,6 @@ namespace Aguacongas.FootballChampionship.Pages
 
         [Inject]
         public ICompetitionService CompetitionService { private get; set; }
-
-        [Inject]
-        public IResources Resources { get; set; }
 
         [Inject]
         public IGraphQlSubscriber GraphQlSubscriber { private get; set; }
@@ -43,11 +40,6 @@ namespace Aguacongas.FootballChampionship.Pages
                     cm.Scores = match.Scores;
                     StateHasChanged();
                 }
-            };
-            
-            Resources.CultureChanged += (e, a) =>
-            {
-                StateHasChanged();
             };
 
             await CompetitionService.Initialize($"{Id}/{Stage}");

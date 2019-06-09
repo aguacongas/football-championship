@@ -38,7 +38,7 @@ else
                                         </button>
                                         <span class="oi@(match.Bet.Saved ? " oi-check" : "")"></span>
                                     }
-                                    else if (match.Bet.HomeValue.HasValue)
+                                    else if (match.Bet.HomeValue.HasValue && match.Scores != null)
                                     {
                                         var points = match.Scores.ComputeResult(match.Bet.HomeValue.Value, match.Bet.AwayValue.Value);
                                         <b>@points</b>

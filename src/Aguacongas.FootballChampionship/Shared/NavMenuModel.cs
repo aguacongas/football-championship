@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Aguacongas.FootballChampionship.Shared
 {
-    public class NavMenuModel : ComponentBase
+    public class NavMenuModel : LocalizedComponentBase
     {
         private bool collapseNavMenu = true;
 
@@ -18,9 +18,6 @@ namespace Aguacongas.FootballChampionship.Shared
 
         [Inject]
         public IAwsHelper AwsHelper { get; set; }
-
-        [Inject]
-        public IResources Resources { get; set; }
 
         [Inject]
         public ILiveScoreService LiveScoreService { private get; set; }
@@ -48,11 +45,6 @@ namespace Aguacongas.FootballChampionship.Shared
                     }
                 });
             CompetitionList = response.ListCompetitions.Items;
-
-            Resources.CultureChanged += (e, a) =>
-            {
-                StateHasChanged();
-            };
 
             LiveScoreService.Start(CompetitionList);
         }
