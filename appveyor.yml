@@ -1,9 +1,7 @@
 version: 1.0.{build}
 skip_tags: true
-skip_commits: /$chore:/
-  message: /
 skip_commits:
-  message: /^chore(release)/
+  message: /$chore:/
 branches:
   only:
   - master
@@ -21,12 +19,7 @@ install:
 build_script:
   - ps: ./publish.cmd
 test_script:
-  - cmd: git config --global credential.helper store 
-  - ps: if ($isWindows) { Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:GH_TOKEN):x-oauth-basic@github.com`n" }
-  - cmd: git config --global user.email "aguacongas@gmail.com"
-  - cmd: git config --global user.name "Olivier Lefebvre"
-  - cmd: git commit docs -m "chore: Appveyor build succed %VERSION%"
-  - cmd: git push
+  - ps: deploy.ps1
 artifacts:
   - path: artifacts/**/*.nupkg
     name: nuget    
