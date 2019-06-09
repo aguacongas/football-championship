@@ -18,37 +18,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Watch Include="**\*.razor" />
+    <Watch Include="..\**\*.razor" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Shared\MainLayoutModel.cs~RF423201b.TMP" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Watch Remove="Admin\Pages\Admin.razor" />
-    <Watch Remove="Admin\Pages\_Imports.razor" />
-    <Watch Remove="Admin\_Imports.razor" />
-    <Watch Remove="Pages\About.razor" />
-    <Watch Remove="Pages\Competition.razor" />
-    <Watch Remove="Pages\Ranking.razor" />
-    <Watch Remove="Shared\LangMenu.razor" />
-    <Watch Remove="Shared\MainLayout.razor" />
-    <Watch Remove="Shared\NavMenu.razor" />
-    <Watch Remove="Shared\Rules.razor" />
-    <Watch Remove="Shared\_Imports.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Aguacongas.FootballChampionship.AwsLogin.Components\Aguacongas.FootballChampionship.AwsLogin.Components.csproj" />
+    <ProjectReference Include="..\Aguacongas.AwsComponents\Aguacongas.AwsComponents.csproj" />
+    <ProjectReference Include="..\Aguacongas.AwsServices\Aguacongas.AwsServices.csproj" />
     <ProjectReference Include="..\Aguacongas.FootballChampionship.Interop\Aguacongas.FootballChampionship.Interop.csproj" />
-    <ProjectReference Include="..\Aguacongas.FootballChampionship.Services\Aguacongas.FootballChampionship.Services.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Admin\Pages\Admin.fr.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

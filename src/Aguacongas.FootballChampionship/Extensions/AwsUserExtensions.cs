@@ -1,4 +1,4 @@
-﻿namespace Aguacongas.FootballChampionship.Services
+﻿namespace Aguacongas.AwsServices
 {
     public static class AwsUserExtensions
     {

@@ -1,7 +1,7 @@
 ﻿using Aguacongas.FootballChampionship.Localization;
 using Aguacongas.FootballChampionship.Model;
 using Aguacongas.FootballChampionship.Service;
-using Aguacongas.FootballChampionship.Services;
+using Aguacongas.AwsServices;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;

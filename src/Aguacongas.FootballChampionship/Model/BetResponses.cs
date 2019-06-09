@@ -1,4 +1,4 @@
-﻿using Aguacongas.FootballChampionship.Services;
+﻿using Aguacongas.AwsServices;
 
 namespace Aguacongas.FootballChampionship.Model
 {

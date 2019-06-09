@@ -1,6 +1,6 @@
 ﻿using System;
 using Aguacongas.FootballChampionship.Model;
-using Aguacongas.FootballChampionship.Services;
+using Aguacongas.AwsServices;
 
 namespace Aguacongas.FootballChampionship.Service
 {

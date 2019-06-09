@@ -1,6 +1,6 @@
 ﻿using Aguacongas.FootballChampionship.Interop;
 using Aguacongas.FootballChampionship.Model;
-using Aguacongas.FootballChampionship.Services;
+using Aguacongas.AwsServices;
 using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
@@ -122,6 +122,10 @@ namespace Aguacongas.FootballChampionship.Service
 
         public async Task ScrollToDate()
         {
+            if (MatchGroup == null)
+            {
+                return;
+            }
             var now = DateTime.Now;
             var nextMatch = MatchGroup.FirstOrDefault(m => m.Key.Date >= now.Date);
             if (nextMatch == null)

@@ -1,5 +1,5 @@
 ﻿using Aguacongas.FootballChampionship.Model;
-using Aguacongas.FootballChampionship.Services;
+using Aguacongas.AwsServices;
 using Microsoft.JSInterop;
 using System;
 

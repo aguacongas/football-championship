@@ -2,7 +2,7 @@
 using Aguacongas.FootballChampionship.Localization;
 using Aguacongas.FootballChampionship.Model;
 using Aguacongas.FootballChampionship.Service;
-using Aguacongas.FootballChampionship.Services;
+using Aguacongas.AwsServices;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Layouts;
 using System;
@@ -43,6 +43,9 @@ namespace Aguacongas.FootballChampionship.Shared
 
         [Inject]
         public IGraphQlSubscriber GraphQlSubscriber { private get; set; }
+
+        [Inject]
+        public IUriHelper UriHelper { get; set; }
 
         protected IEnumerable<Provider> ProviderList { get; private set; }
 
@@ -106,7 +109,33 @@ namespace Aguacongas.FootballChampionship.Shared
         {
             if (ComponentContext.IsConnected)
             {
-                await AwsJsInterop.ConfigureAsync();
+                var config = new AwsConfig
+                {
+                    Aws_cognito_identity_pool_id = "eu-west-2:5ad8c79a-2cdc-4da4-a94c-1c42becdf301",
+                    Aws_cognito_region = "eu-west-2",
+                    Aws_user_pools_id = "eu-west-2_MUFO3Qdac",
+                    Aws_user_pools_web_client_id = "1ou6jkhe2u8j7sj14rek4a6mcq",
+                    Oauth = new AwsOAuth
+                    {
+                        Domain = "football-championship-dev.auth.eu-west-2.amazoncognito.com",
+                        Scope = new string[]
+                        {
+                            "phone",
+                            "email",
+                            "openid",
+                            "profile",
+                            "aws.cognito.signin.user.admin"
+                        },
+                        RedirectSignIn = UriHelper.GetBaseUri(),
+                        RedirectSignOut = UriHelper.GetBaseUri(),
+                        ResponseType = "code"
+                    },
+                    FederationTarget = "COGNITO_USER_POOLS",
+                    Aws_appsync_graphqlEndpoint = "https://pod5c66d6ze73b62evt7xqpn4q.appsync-api.eu-west-2.amazonaws.com/graphql",
+                    Aws_appsync_region = "eu-west-2",
+                    Aws_appsync_authenticationType = "AMAZON_COGNITO_USER_POOLS"
+                };
+                await AwsJsInterop.ConfigureAsync(config);
                 await AwsJsInterop.ListenAsync();
                 if (AwsHelper.IsConnected)
                 {

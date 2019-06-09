@@ -1,6 +1,6 @@
 ﻿using Aguacongas.FootballChampionship.Admin.Model.FIFA;
 using Aguacongas.FootballChampionship.Model;
-using Aguacongas.FootballChampionship.Services;
+using Aguacongas.AwsServices;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System;

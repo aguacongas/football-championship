@@ -1,4 +1,4 @@
-﻿using Aguacongas.FootballChampionship.Services;
+﻿using Aguacongas.AwsServices;
 using System;
 using System.Collections.Generic;
 

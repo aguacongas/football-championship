@@ -2,7 +2,7 @@
 using Aguacongas.FootballChampionship.Admin.Model.FIFA;
 using Aguacongas.FootballChampionship.Model;
 using Aguacongas.FootballChampionship.Model.Admin;
-using Aguacongas.FootballChampionship.Services;
+using Aguacongas.AwsServices;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Http.Extensions;
 using System;
