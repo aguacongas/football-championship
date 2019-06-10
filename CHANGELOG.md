@@ -1,3 +1,11 @@
+# [1.1.0](https://github.com/aguacongas/football-championship/compare/1.0.0...1.1.0) (2019-06-10)
+
+
+### Features
+
+* match status ([17ed79b](https://github.com/aguacongas/football-championship/commit/17ed79b))
+* notifications ([35da6d5](https://github.com/aguacongas/football-championship/commit/35da6d5))
+
 # 1.0.0 (2019-06-10)
 
 
