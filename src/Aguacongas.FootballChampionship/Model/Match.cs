@@ -31,6 +31,6 @@ namespace Aguacongas.FootballChampionship.Model
         public BetScore Bet { get; set; }
 
         public AwsGraphQlList<Bet> Bets { get; set; }
-
+        public bool IsFinished { get; set; }
     }
 }

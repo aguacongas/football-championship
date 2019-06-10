@@ -125,6 +125,7 @@ export const onCreateMatch = `subscription OnCreateMatch {
       isHome
       value
     }
+    isFinished
   }
 }
 `;
@@ -159,6 +160,7 @@ export const onUpdateMatch = `subscription OnUpdateMatch {
       isHome
       value
     }
+    isFinished
   }
 }
 `;
@@ -193,6 +195,7 @@ export const onDeleteMatch = `subscription OnDeleteMatch {
       isHome
       value
     }
+    isFinished
   }
 }
 `;
@@ -256,6 +259,7 @@ export const onCreateMatchTeam = `subscription OnCreateMatchTeam {
       beginAt
       placeHolderHome
       placeHolderAway
+      isFinished
     }
   }
 }
@@ -275,6 +279,7 @@ export const onUpdateMatchTeam = `subscription OnUpdateMatchTeam {
       beginAt
       placeHolderHome
       placeHolderAway
+      isFinished
     }
   }
 }
@@ -294,6 +299,7 @@ export const onDeleteMatchTeam = `subscription OnDeleteMatchTeam {
       beginAt
       placeHolderHome
       placeHolderAway
+      isFinished
     }
   }
 }
@@ -309,6 +315,7 @@ export const onCreateBet = `subscription OnCreateBet {
       beginAt
       placeHolderHome
       placeHolderAway
+      isFinished
     }
     competition {
       id
@@ -334,6 +341,7 @@ export const onUpdateBet = `subscription OnUpdateBet {
       beginAt
       placeHolderHome
       placeHolderAway
+      isFinished
     }
     competition {
       id
@@ -359,6 +367,7 @@ export const onDeleteBet = `subscription OnDeleteBet {
       beginAt
       placeHolderHome
       placeHolderAway
+      isFinished
     }
     competition {
       id

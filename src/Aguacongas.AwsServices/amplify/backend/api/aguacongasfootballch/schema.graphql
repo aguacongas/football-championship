@@ -39,6 +39,7 @@ type Match
   matchTeams: [MatchTeam!]! @connection(name: "MatchTeamMatchs")
   bets: [Bet!]! @connection(name: "MatchBets")
   scores: [Score!]
+  isFinished: Boolean
 }
 
 type Team

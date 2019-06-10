@@ -92,6 +92,7 @@ export const getMatch = `query GetMatch($id: ID!) {
       isHome
       value
     }
+    isFinished
   }
 }
 `;
@@ -107,6 +108,7 @@ export const listMatchs = `query ListMatchs(
       beginAt
       placeHolderHome
       placeHolderAway
+      isFinished
     }
     nextToken
   }
@@ -157,6 +159,7 @@ export const getMatchTeam = `query GetMatchTeam($id: ID!) {
       beginAt
       placeHolderHome
       placeHolderAway
+      isFinished
     }
   }
 }
@@ -186,6 +189,7 @@ export const getBet = `query GetBet($id: ID!) {
       beginAt
       placeHolderHome
       placeHolderAway
+      isFinished
     }
     competition {
       id

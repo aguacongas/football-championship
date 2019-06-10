@@ -10,8 +10,6 @@ namespace Aguacongas.FootballChampionship.Model
 
         public Team Team { get; set; }
 
-        public IEnumerable<LocalizedName> LocalizedNames { get; set; }
-
         public Match Match { get; set; }
     }
 }

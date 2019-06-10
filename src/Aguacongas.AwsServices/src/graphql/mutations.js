@@ -125,6 +125,7 @@ export const createMatch = `mutation CreateMatch($input: CreateMatchInput!) {
       isHome
       value
     }
+    isFinished
   }
 }
 `;
@@ -159,6 +160,7 @@ export const updateMatch = `mutation UpdateMatch($input: UpdateMatchInput!) {
       isHome
       value
     }
+    isFinished
   }
 }
 `;
@@ -193,6 +195,7 @@ export const deleteMatch = `mutation DeleteMatch($input: DeleteMatchInput!) {
       isHome
       value
     }
+    isFinished
   }
 }
 `;
@@ -256,6 +259,7 @@ export const createMatchTeam = `mutation CreateMatchTeam($input: CreateMatchTeam
       beginAt
       placeHolderHome
       placeHolderAway
+      isFinished
     }
   }
 }
@@ -275,6 +279,7 @@ export const updateMatchTeam = `mutation UpdateMatchTeam($input: UpdateMatchTeam
       beginAt
       placeHolderHome
       placeHolderAway
+      isFinished
     }
   }
 }
@@ -294,6 +299,7 @@ export const deleteMatchTeam = `mutation DeleteMatchTeam($input: DeleteMatchTeam
       beginAt
       placeHolderHome
       placeHolderAway
+      isFinished
     }
   }
 }
@@ -309,6 +315,7 @@ export const createBet = `mutation CreateBet($input: CreateBetInput!) {
       beginAt
       placeHolderHome
       placeHolderAway
+      isFinished
     }
     competition {
       id
@@ -334,6 +341,7 @@ export const updateBet = `mutation UpdateBet($input: UpdateBetInput!) {
       beginAt
       placeHolderHome
       placeHolderAway
+      isFinished
     }
     competition {
       id
@@ -359,6 +367,7 @@ export const deleteBet = `mutation DeleteBet($input: DeleteBetInput!) {
       beginAt
       placeHolderHome
       placeHolderAway
+      isFinished
     }
     competition {
       id

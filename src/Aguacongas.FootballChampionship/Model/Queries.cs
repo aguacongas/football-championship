@@ -84,6 +84,7 @@ namespace Aguacongas.FootballChampionship.Model
           isHome
           value
         }
+        isFinished
       }
       nextToken
     }

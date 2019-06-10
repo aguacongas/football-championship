@@ -12,10 +12,7 @@
       items {
         isHome
         team {
-          localizedNames {
-            locale,
-            value
-          }
+          name
         }
       }
     }
@@ -23,6 +20,7 @@
       isHome
       value
     }
+    isFinished
   }
 }";
     }    

@@ -38,6 +38,7 @@ namespace Aguacongas.FootballChampionship.Pages
                 if (cm != null)
                 {
                     cm.Scores = match.Scores;
+                    cm.IsFinished = match.IsFinished;
                     StateHasChanged();
                 }
             };

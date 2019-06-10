@@ -46,11 +46,12 @@ namespace Aguacongas.FootballChampionship.Service
                 foreach (var competition in competitions)
                 {
                     var response = await _httpClient.GetJsonAsync<FifaResponse<Admin.Model.FIFA.Match>>("https://api.fifa.com/api/v1/live/football/recent/" + competition.Id);
-                    var fifaMatches = response.Results.Where(m => m.MatchStatus == 3);
+                    var fifaMatches = response.Results.Where(m => m.MatchStatus == 3 || m.MatchStatus == 0);
                     var matches = competition.Matches.Items;
                     foreach (var fifaMatch in fifaMatches)
                     {
                         var match = matches.FirstOrDefault(m => m.Id == fifaMatch.IdMatch);
+                        var isFinished = fifaMatch.MatchStatus == 0;
                         if (match == null)
                         {
                             match = new Model.Match
@@ -62,13 +63,17 @@ namespace Aguacongas.FootballChampionship.Service
                                     new Score{ IsHome = false, Value = fifaMatch.AwayTeam.Score}
                                 }
                             };
-                            ((List<Model.Match>)matches).Add(match);
+                            match.IsFinished = isFinished;
+                            ((List<Model.Match>)matches).Add(match);                            
                         }
                         else
                         {
                             var homeScore = match.Scores.First(s => s.IsHome);
                             var awayScore = match.Scores.First(s => !s.IsHome);
-                            if (homeScore.Value == fifaMatch.HomeTeam.Score && awayScore.Value == fifaMatch.AwayTeam.Score)
+
+                            if (homeScore.Value == fifaMatch.HomeTeam.Score && 
+                                awayScore.Value == fifaMatch.AwayTeam.Score &&
+                                match.IsFinished == isFinished)
                             {
                                 continue;
                             }
@@ -82,7 +87,8 @@ namespace Aguacongas.FootballChampionship.Service
                             input = new
                             {
                                 id = match.Id,
-                                scores = match.Scores
+                                scores = match.Scores,
+                                isFinished
                             }
                         });
                     }

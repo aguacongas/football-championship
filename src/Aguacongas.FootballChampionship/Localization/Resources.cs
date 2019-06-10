@@ -54,7 +54,7 @@ namespace Aguacongas.FootballChampionship.Localization
                         { "erstellt wurde", "" },
                         { "The source is code is published on ", "Le code source est publié sur " },
                         { "veröffentlicht wird", "" },
-                        { "Follow", "Suivez" }
+                        { "Finished", "Terminer" }
                     }
                 },
                 { "en-GB", new Dictionary<string, string>
@@ -93,7 +93,7 @@ namespace Aguacongas.FootballChampionship.Localization
                         { "This site is an open source project build with", "Diese Seite ist ein Open Source Projekt, das mit" },
                         { "and", "und" },
                         { "The source is code is published on ", "Die Quelle ist Code, der auf " },
-                        { "Follow", "Folgen Sie" }
+                        { "Finished", "Abgeschlossen" }
                     }
                 }
             };

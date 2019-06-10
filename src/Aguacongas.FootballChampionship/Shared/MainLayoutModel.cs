@@ -143,8 +143,8 @@ namespace Aguacongas.FootballChampionship.Shared
                     var matches = new List<Match>();
                     GraphQlSubscriber.MatchUpdated += async (e, match) =>
                     {
-                        var homeTeam = match.MatchTeams.Items.First(t => t.IsHome);
-                        var awayTeam = match.MatchTeams.Items.First(t => !t.IsHome);
+                        var homeTeam = match.MatchTeams.Items.First(t => t.IsHome).Team;
+                        var awayTeam = match.MatchTeams.Items.First(t => !t.IsHome).Team;
                         var homeScore = match.Scores.First(s => s.IsHome).Value;
                         var awayScore = match.Scores.First(s => !s.IsHome).Value;
 
@@ -154,18 +154,21 @@ namespace Aguacongas.FootballChampionship.Shared
                             return;
                         }
 
-                        if (homeScore == 0 && awayScore == 0)
+                        var started = matches.First(m => m.Id == match.Id);
+
+                        var message = $"{homeTeam.Name} - {awayTeam.Name}\n{homeScore} - {awayScore}";
+
+                        if (match.IsFinished != started.IsFinished)
                         {
+                            await BrowserJsInterop.Notify(Resources["Finished"], message);
+                            match.IsFinished = match.IsFinished;
                             return;
                         }
 
-                        var started = matches.First(m => m.Id == match.Id);
-
-                        foreach(var score in match.Scores)
+                        foreach (var score in match.Scores)
                         {
                             if (started.Scores.Any(s => s.IsHome == score.IsHome && s.Value != score.Value))
                             {
-                                var message = $"{homeTeam.LocalizedNames.GetLocalizedValue()} - {awayTeam.LocalizedNames.GetLocalizedValue()}\n{homeScore} - {awayScore}";
                                 await BrowserJsInterop.Notify("Gooooal!", message);
                                 started.Scores = match.Scores;
                                 return;
