@@ -32,7 +32,7 @@ namespace Aguacongas.FootballChampionship.Pages
         {
             await base.OnInitAsync();
             
-            GraphQlSubscriber.MatchUpdated = match =>
+            GraphQlSubscriber.MatchUpdated += (e, match) =>
             {
                 var cm = CompetitionService.Matches.FirstOrDefault(m => m.Id == match.Id);
                 if (cm != null)

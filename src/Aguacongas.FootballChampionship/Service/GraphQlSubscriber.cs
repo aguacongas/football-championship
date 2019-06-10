@@ -7,12 +7,12 @@ namespace Aguacongas.FootballChampionship.Service
 {
     public class GraphQlSubscriber : IGraphQlSubscriber
     {
-        public Action<Match> MatchUpdated { get; set; }
+        public event EventHandler<Match> MatchUpdated;
 
         [JSInvokable]
         public void OnMatchUpdated(AwsEvent<OnUpdateMatchSubscription> evt)
         {
-            MatchUpdated?.Invoke(evt.Value.Data.OnUpdateMatch);
+            MatchUpdated?.Invoke(this, evt.Value.Data.OnUpdateMatch);
         }
     }
 }

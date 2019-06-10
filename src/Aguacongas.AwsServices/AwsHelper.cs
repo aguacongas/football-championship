@@ -22,7 +22,6 @@ namespace Aguacongas.AwsServices
             UserName = user?.Attributes.Name ?? user?.Attributes.Email;
             IsConnected = user != null;
             UserChanged?.Invoke(this, new EventArgs());
-            Console.WriteLine(Json.Serialize(user));
         }
     }
 }

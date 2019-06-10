@@ -8,6 +8,17 @@
     competition {
       id
     }
+    matchTeams {
+      items {
+        isHome
+        team {
+          localizedNames {
+            locale,
+            value
+          }
+        }
+      }
+    }
     scores {
       isHome
       value

@@ -62,13 +62,12 @@ namespace Aguacongas.AwsServices
                 .InvokeAsync<GraphQlData<TResponse>>("amplifyWrapper.graphql.operation",
                     operation,
                     parameters);
-            Console.WriteLine(Json.Serialize(result));
             return result.Data;
         }
 
-        public async Task GraphSubscribeAsync<THelper>(string operation, THelper helper, string callback)
+        public Task GraphSubscribeAsync<THelper>(string operation, THelper helper, string callback)
         {
-            await _jsRuntime
+            return _jsRuntime
                 .InvokeAsync<object>("amplifyWrapper.graphql.subsription",
                     operation,
                     new DotNetObjectRef(helper),

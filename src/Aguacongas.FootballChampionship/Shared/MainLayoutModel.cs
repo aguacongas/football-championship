@@ -139,6 +139,39 @@ namespace Aguacongas.FootballChampionship.Shared
                 await AwsJsInterop.ListenAsync();
                 if (AwsHelper.IsConnected)
                 {
+                    await BrowserJsInterop.NotificationOptIn();
+                    var matches = new List<Match>();
+                    GraphQlSubscriber.MatchUpdated += async (e, match) =>
+                    {
+                        var homeTeam = match.MatchTeams.Items.First(t => t.IsHome);
+                        var awayTeam = match.MatchTeams.Items.First(t => !t.IsHome);
+                        var homeScore = match.Scores.First(s => s.IsHome).Value;
+                        var awayScore = match.Scores.First(s => !s.IsHome).Value;
+
+                        if (!matches.Any(m => m.Id == match.Id))
+                        {
+                            matches.Add(match);
+                            return;
+                        }
+
+                        if (homeScore == 0 && awayScore == 0)
+                        {
+                            return;
+                        }
+
+                        var started = matches.First(m => m.Id == match.Id);
+
+                        foreach(var score in match.Scores)
+                        {
+                            if (started.Scores.Any(s => s.IsHome == score.IsHome && s.Value != score.Value))
+                            {
+                                var message = $"{homeTeam.LocalizedNames.GetLocalizedValue()} - {awayTeam.LocalizedNames.GetLocalizedValue()}\n{homeScore} - {awayScore}";
+                                await BrowserJsInterop.Notify("Gooooal!", message);
+                                started.Scores = match.Scores;
+                                return;
+                            }
+                        }
+                    };
                     await AwsJsInterop.GraphSubscribeAsync(Subscriptions.ON_UPDATE_MATCH, GraphQlSubscriber, nameof(GraphQlSubscriber.OnMatchUpdated));
                 }
             }

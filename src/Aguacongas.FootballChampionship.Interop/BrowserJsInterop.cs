@@ -23,38 +23,48 @@ namespace Aguacongas.FootballChampionship.Interop
         {
             _jsRuntime = jsRuntime;
         }
-        public async Task<string> GetLanguage()
+        public Task<string> GetLanguage()
         {
-            return await _jsRuntime.InvokeAsync<string>("browserJsFunctions.getLanguage");
+            return _jsRuntime.InvokeAsync<string>("browserJsFunctions.getLanguage");
         }
 
-        public async Task SetItem<T>(string key, T value)
+        public Task SetItem<T>(string key, T value)
         {
-            await _jsRuntime.InvokeAsync<object>(
+            return _jsRuntime.InvokeAsync<object>(
                 "browserJsFunctions.storage.setItem",
                 key,
                 value);
         }
 
-        public async Task<T> GetItem<T>(string key)
+        public Task<T> GetItem<T>(string key)
         {
-            return await _jsRuntime.InvokeAsync<T>(
+            return _jsRuntime.InvokeAsync<T>(
                 "browserJsFunctions.storage.getItem",
                 key);
         }
 
-        public async Task<string> GetPathName()
+        public Task<string> GetPathName()
         {
-            return await _jsRuntime.InvokeAsync<string>("browserJsFunctions.location.pathname");
+            return _jsRuntime.InvokeAsync<string>("browserJsFunctions.location.pathname");
         }
 
-        public async Task<bool> ScrollElementIntoView(string elementId, ScrollBehavior? behavior = null, ScrollPosition? block = null, ScrollPosition? inline = null)
+        public Task<bool> ScrollElementIntoView(string elementId, ScrollBehavior? behavior = null, ScrollPosition? block = null, ScrollPosition? inline = null)
         {
-            return await _jsRuntime.InvokeAsync<bool>("browserJsFunctions.scrollElementIntoView",
+            return _jsRuntime.InvokeAsync<bool>("browserJsFunctions.scrollElementIntoView",
                 elementId,
                 behavior?.ToString(),
                 block?.ToString(),
                 inline?.ToString());
+        }
+
+        public Task NotificationOptIn()
+        {
+            return _jsRuntime.InvokeAsync<object>("browserJsFunctions.notification.requestPermission");
+        }
+
+        public Task Notify(string title, string message)
+        {
+            return _jsRuntime.InvokeAsync<object>("browserJsFunctions.notification.notify", title, message);
         }
     }
 }

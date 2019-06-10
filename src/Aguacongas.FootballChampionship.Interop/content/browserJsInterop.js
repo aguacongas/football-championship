@@ -31,5 +31,25 @@ window.browserJsFunctions = {
         pathname: function() {
             return location.pathname;
         }
+    },
+    notification: {
+        requestPermission: function () {
+            Notification.requestPermission()
+                .then(function (permission) {
+                    console.log(permission);
+                });
+        },
+        notify: function (title, message) {
+            if (Notification.permission !== 'granted') {
+                return;
+            }
+            const option = {
+                body: message
+            };
+            const n = new Notification(title, option);
+            n.onclick = () => {
+                n.close.bind(n);
+            };
+        }
     }
 };

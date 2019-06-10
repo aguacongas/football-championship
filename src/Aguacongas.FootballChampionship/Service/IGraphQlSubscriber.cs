@@ -6,7 +6,7 @@ namespace Aguacongas.FootballChampionship.Service
 {
     public interface IGraphQlSubscriber
     {
-        Action<Match> MatchUpdated { get; set; }
+        event EventHandler<Match> MatchUpdated;
 
         void OnMatchUpdated(AwsEvent<OnUpdateMatchSubscription> evt);
     }
