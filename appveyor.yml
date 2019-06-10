@@ -19,7 +19,7 @@ install:
 build_script:
   - ps: ./publish.cmd
 test_script:
-  - ps: deploy.ps1
+  - ps: ./deploy.ps1
 artifacts:
   - path: artifacts/**/*.nupkg
     name: nuget    
