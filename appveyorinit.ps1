@@ -3,7 +3,7 @@ if (test-path ./nextversion.txt)
 {
     Remove-Item ./nextversion.txt
 }
-semantic-release -b $env:APPVEYOR_REPO_BRANCH
+semantic-release -b $env:APPVEYOR_REPO_BRANCH -d
 $nextversion = Get-Content ./nextversion.txt
 $nextversion = $nextversion.Trim();
 
