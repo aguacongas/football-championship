@@ -1,4 +1,15 @@
 window.browserJsFunctions = {
+    scrollElementIntoView: function (id, behavior, block, inline) {
+        behavior = behavior || 'smooth';
+        block = block || 'start';
+        inline = inline || 'nearest';
+        const element = document.querySelector('#' + id);
+        if (element) {
+            element.scrollIntoView({ behavior: behavior, block: block });
+            return true;
+        }
+        return false
+    },
     getLanguage: function () {
         return navigator.language || navigator.userLanguage;
     },

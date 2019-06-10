@@ -14,7 +14,7 @@ namespace Aguacongas.FootballChampionship.Service
         private readonly IAwsJsInterop _awsJsInterop;
         private readonly IAwsHelper _awsHelper;
         private readonly IBrowserDateTime _browserDateTime;
-        private readonly IJSRuntime _jsRuntime;
+        private readonly IBrowserJsInterop _browserJsInterop;
 
         private bool _hasScrolled;
 
@@ -27,12 +27,12 @@ namespace Aguacongas.FootballChampionship.Service
         public CompetitionService(IAwsJsInterop awsJsInterop,
             IAwsHelper awsHelper,
             IBrowserDateTime browserDateTime,
-            IJSRuntime jsRuntime)
+            IBrowserJsInterop browserJsInterop)
         {
             _awsJsInterop = awsJsInterop;
             _awsHelper = awsHelper;
             _browserDateTime = browserDateTime;
-            _jsRuntime = jsRuntime;
+            _browserJsInterop = browserJsInterop;
         }
 
         public async Task Initialize(string competitionId)
@@ -124,7 +124,7 @@ namespace Aguacongas.FootballChampionship.Service
 
         public async Task ScrollToDate()
         {
-            if (MatchGroup == null)
+            if (MatchGroup == null || _hasScrolled)
             {
                 return;
             }
@@ -135,7 +135,7 @@ namespace Aguacongas.FootballChampionship.Service
                 nextMatch = MatchGroup.Last();
             }
 
-            _hasScrolled = await _jsRuntime.InvokeAsync<bool>("browserJsFunctions.scrollElementIntoView", $"day{nextMatch.Key.ToAwsDate()}");
+            _hasScrolled = await _browserJsInterop.ScrollElementIntoView($"day{nextMatch.Key.ToAwsDate()}");
         }
     }
 }

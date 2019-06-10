@@ -3,6 +3,18 @@ using System.Threading.Tasks;
 
 namespace Aguacongas.FootballChampionship.Interop
 {
+    public enum ScrollBehavior
+    {
+        Auto,
+        Smooth
+    }
+    public enum ScrollPosition
+    {
+        Start,
+        Center,
+        End,
+        Nearest
+    }
     public class BrowserJsInterop : IBrowserJsInterop
     {
         private readonly IJSRuntime _jsRuntime;
@@ -36,14 +48,13 @@ namespace Aguacongas.FootballChampionship.Interop
             return await _jsRuntime.InvokeAsync<string>("browserJsFunctions.location.pathname");
         }
 
-        public async Task<int> GetBrowserTimeZoneOffset()
+        public async Task<bool> ScrollElementIntoView(string elementId, ScrollBehavior? behavior = null, ScrollPosition? block = null, ScrollPosition? inline = null)
         {
-            return await _jsRuntime.InvokeAsync<int>("browserJsFunctions.getBrowserTimeZoneOffset");
-        }
-
-        public async Task<string> GetBrowserTimeZoneIdentifier()
-        {
-            return await _jsRuntime.InvokeAsync<string>("browserJsFunctions.getBrowserTimeZoneIdentifier");
+            return await _jsRuntime.InvokeAsync<bool>("browserJsFunctions.scrollElementIntoView",
+                elementId,
+                behavior?.ToString(),
+                block?.ToString(),
+                inline?.ToString());
         }
     }
 }

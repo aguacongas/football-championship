@@ -11,5 +11,7 @@ namespace Aguacongas.FootballChampionship.Interop
         Task<T> GetItem<T>(string key);
 
         Task<string> GetPathName();
+
+        Task<bool> ScrollElementIntoView(string elementId, ScrollBehavior? behavior = null, ScrollPosition? block = null, ScrollPosition? inline = null);
     }
 }
