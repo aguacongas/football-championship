@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aguacongas.AwsServices", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aguacongas.AwsComponents", "src\Aguacongas.AwsComponents\Aguacongas.AwsComponents.csproj", "{B1444CFF-E217-4E85-B3F3-3B4BE6C2DA13}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aguacongas.AwsServices.Test", "test\Aguacongas.AwsServices.Test\Aguacongas.AwsServices.Test.csproj", "{731E06A1-E58C-4D1E-89B0-B99242F45722}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,18 @@ Global
 		{B1444CFF-E217-4E85-B3F3-3B4BE6C2DA13}.Release|x64.Build.0 = Release|Any CPU
 		{B1444CFF-E217-4E85-B3F3-3B4BE6C2DA13}.Release|x86.ActiveCfg = Release|Any CPU
 		{B1444CFF-E217-4E85-B3F3-3B4BE6C2DA13}.Release|x86.Build.0 = Release|Any CPU
+		{731E06A1-E58C-4D1E-89B0-B99242F45722}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{731E06A1-E58C-4D1E-89B0-B99242F45722}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{731E06A1-E58C-4D1E-89B0-B99242F45722}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{731E06A1-E58C-4D1E-89B0-B99242F45722}.Debug|x64.Build.0 = Debug|Any CPU
+		{731E06A1-E58C-4D1E-89B0-B99242F45722}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{731E06A1-E58C-4D1E-89B0-B99242F45722}.Debug|x86.Build.0 = Debug|Any CPU
+		{731E06A1-E58C-4D1E-89B0-B99242F45722}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{731E06A1-E58C-4D1E-89B0-B99242F45722}.Release|Any CPU.Build.0 = Release|Any CPU
+		{731E06A1-E58C-4D1E-89B0-B99242F45722}.Release|x64.ActiveCfg = Release|Any CPU
+		{731E06A1-E58C-4D1E-89B0-B99242F45722}.Release|x64.Build.0 = Release|Any CPU
+		{731E06A1-E58C-4D1E-89B0-B99242F45722}.Release|x86.ActiveCfg = Release|Any CPU
+		{731E06A1-E58C-4D1E-89B0-B99242F45722}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -82,6 +96,7 @@ Global
 		{9CEB2F00-B18C-43FA-BCFA-E19B7CB034D3} = {C4750428-6BC9-491C-A164-73E017713648}
 		{53D9392A-4FD6-4DB9-8870-40B58EACF750} = {C4750428-6BC9-491C-A164-73E017713648}
 		{B1444CFF-E217-4E85-B3F3-3B4BE6C2DA13} = {C4750428-6BC9-491C-A164-73E017713648}
+		{731E06A1-E58C-4D1E-89B0-B99242F45722} = {68F09278-0E9D-413B-9E2C-2A2A23079319}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {64AF4FCE-CA30-40A5-8F60-FB30E8C7C65F}

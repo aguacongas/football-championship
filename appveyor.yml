@@ -21,5 +21,5 @@ build_script:
 test_script:
   - ps: ./deploy.ps1
 artifacts:
-  - path: artifacts/**/*.nupkg
+  - path: ./**/*.nupkg
     name: nuget    
