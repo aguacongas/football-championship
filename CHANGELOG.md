@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/aguacongas/football-championship/compare/1.1.0...1.1.1) (2019-06-10)
+
+
+### Bug Fixes
+
+* deployement ([4285d42](https://github.com/aguacongas/football-championship/commit/4285d42))
+
 # [1.1.0](https://github.com/aguacongas/football-championship/compare/1.0.0...1.1.0) (2019-06-10)
 
 
