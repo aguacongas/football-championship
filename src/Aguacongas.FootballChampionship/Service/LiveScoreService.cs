@@ -63,7 +63,6 @@ namespace Aguacongas.FootballChampionship.Service
                                     new Score{ IsHome = false, Value = fifaMatch.AwayTeam.Score}
                                 }
                             };
-                            match.IsFinished = isFinished;
                             ((List<Model.Match>)matches).Add(match);                            
                         }
                         else
@@ -80,6 +79,7 @@ namespace Aguacongas.FootballChampionship.Service
                             homeScore.Value = fifaMatch.HomeTeam.Score;
                             awayScore.Value = fifaMatch.AwayTeam.Score;
                         }
+                        match.IsFinished = isFinished;
                         Console.WriteLine($"Update score {Json.Serialize(match)}");
                         await _awsJsInterop.GraphQlAsync<MatchesResponse>(Admin.Model.Mutations.UPDATE_MATCH,
                         new

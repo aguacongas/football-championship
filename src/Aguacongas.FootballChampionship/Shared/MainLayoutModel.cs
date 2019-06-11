@@ -156,7 +156,7 @@ namespace Aguacongas.FootballChampionship.Shared
 
                         var started = matches.First(m => m.Id == match.Id);
 
-                        var message = $"{homeTeam.Name} - {awayTeam.Name}\n{homeScore} - {awayScore}";
+                        var message = $"{homeTeam.LocalizedNames.GetLocalizedValue()} - {awayTeam.LocalizedNames.GetLocalizedValue()}\n{homeScore} - {awayScore}";
 
                         if (match.IsFinished != started.IsFinished)
                         {

@@ -1,6 +1,7 @@
 ﻿using System;
 using Aguacongas.FootballChampionship.Model;
 using Aguacongas.AwsServices;
+using System.Threading.Tasks;
 
 namespace Aguacongas.FootballChampionship.Service
 {
@@ -8,6 +9,6 @@ namespace Aguacongas.FootballChampionship.Service
     {
         event EventHandler<Match> MatchUpdated;
 
-        void OnMatchUpdated(AwsEvent<OnUpdateMatchSubscription> evt);
+        Task OnMatchUpdated(AwsEvent<OnUpdateMatchSubscription> evt);
     }
 }
