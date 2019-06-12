@@ -2,6 +2,7 @@
 using Aguacongas.FootballChampionship.Model;
 using Microsoft.JSInterop;
 using System;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Aguacongas.FootballChampionship.Service

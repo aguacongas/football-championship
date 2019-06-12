@@ -13,7 +13,7 @@ environment:
 init:
   - cmd: git config --global core.autocrlf true
 install:
-  - ps: .\dotnet-install.ps1 -Version 3.0.100-preview5-011568
+  - ps: .\dotnet-install.ps1 -Version 3.0.100-preview6-012264
   - cmd: dotnet new -i Microsoft.AspNetCore.Blazor.Templates::3.0.0-preview5-19227-01
   - ps: ./appveyorinit.ps1
 build_script:

@@ -2,12 +2,12 @@
 using Aguacongas.FootballChampionship.Model;
 using Aguacongas.AwsServices;
 using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
+using System.Text.Json.Serialization;
 
 namespace Aguacongas.FootballChampionship.Service
 {
@@ -45,7 +45,9 @@ namespace Aguacongas.FootballChampionship.Service
             {
                 foreach (var competition in competitions)
                 {
-                    var response = await _httpClient.GetJsonAsync<FifaResponse<Admin.Model.FIFA.Match>>("https://api.fifa.com/api/v1/live/football/recent/" + competition.Id);
+                    var message = await _httpClient.GetAsync("https://api.fifa.com/api/v1/live/football/recent/" + competition.Id);
+                    var content = await message.Content.ReadAsStringAsync();
+                    var response = JsonSerializer.Parse<FifaResponse<Admin.Model.FIFA.Match>>(content);
                     var fifaMatches = response.Results.Where(m => m.MatchStatus == 3 || m.MatchStatus == 0);
                     var matches = competition.Matches.Items;
                     foreach (var fifaMatch in fifaMatches)
@@ -80,7 +82,7 @@ namespace Aguacongas.FootballChampionship.Service
                             awayScore.Value = fifaMatch.AwayTeam.Score;
                         }
                         match.IsFinished = isFinished;
-                        Console.WriteLine($"Update score {Json.Serialize(match)}");
+                        Console.WriteLine($"Update score {JsonSerializer.ToString(match)}");
                         await _awsJsInterop.GraphQlAsync<MatchesResponse>(Admin.Model.Mutations.UPDATE_MATCH,
                         new
                         {

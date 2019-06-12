@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Text.Json.Serialization;
 
 namespace Aguacongas.FootballChampionship.Admin.Service
 {
@@ -40,7 +41,10 @@ namespace Aguacongas.FootballChampionship.Admin.Service
             {
                 queryBuilder.Add("idStage", importCompetition.StageId.Value.ToString());
             }
-            var response = await _client.GetJsonAsync<FifaResponse<Model.FIFA.Match>>($"https://api.fifa.com/api/v1/calendar/matches?{queryBuilder.ToQueryString()}");
+
+            var message = await _client.GetAsync($"https://api.fifa.com/api/v1/calendar/matches?{queryBuilder.ToQueryString()}");
+            var content = await message.Content.ReadAsStringAsync();
+            var response = JsonSerializer.Parse<FifaResponse<Model.FIFA.Match>>(content);
 
             if (!response.Results.Any())
             {

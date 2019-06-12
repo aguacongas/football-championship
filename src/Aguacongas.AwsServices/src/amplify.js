@@ -64,7 +64,7 @@ window.amplifyWrapper = {
             return await API.graphql(graphqlOperation(graphQlQuery, params));
         },
         subsription: (to, dotnetHelper, handler) => {
-            const subscription = API.graphql(graphqlOperation(to))
+            API.graphql(graphqlOperation(to))
                 .subscribe({
                     next: (data) => dotnetHelper.invokeMethodAsync(handler, data)
                         .then(_ => console.log(data))

@@ -15,7 +15,7 @@ namespace Aguacongas.AwsServices.Test
             var awsHelperMock = new Mock<IAwsHelper>();
 
             jsRuntimeMock.Setup(m => m.InvokeAsync<object>(It.Is<string>(s => s == "amplifyWrapper.hub.listen"),
-                It.Is<DotNetObjectRef>(r => r.Value == awsHelperMock.Object)))
+                It.Is<IAwsHelper>(r => r == awsHelperMock.Object)))
                 .ReturnsAsync(new object())
                 .Verifiable();
 
@@ -25,7 +25,7 @@ namespace Aguacongas.AwsServices.Test
             await sut.ListenAsync();
 
             jsRuntimeMock.Verify(m => m.InvokeAsync<object>(It.Is<string>(s => s == "amplifyWrapper.hub.listen"),
-                It.Is<DotNetObjectRef>(r => r.Value == awsHelperMock.Object)), Times.Exactly(1));
+                It.Is<IAwsHelper>(r => r == awsHelperMock.Object)), Times.Exactly(1));
         }
 
         [Fact]
@@ -79,7 +79,7 @@ namespace Aguacongas.AwsServices.Test
             var awsHelperMock = new Mock<IAwsHelper>();
 
             jsRuntimeMock.Setup(m => m.InvokeAsync<object>(It.Is<string>(s => s == "amplifyWrapper.auth.signout"),
-                It.Is<DotNetObjectRef>(r => r.Value == awsHelperMock.Object)))
+                It.Is<IAwsHelper>(r => r == awsHelperMock.Object)))
                 .ReturnsAsync(new object())
                 .Verifiable();
 
@@ -88,7 +88,7 @@ namespace Aguacongas.AwsServices.Test
             await sut.SignOutAsync();
 
             jsRuntimeMock.Verify(m => m.InvokeAsync<object>(It.Is<string>(s => s == "amplifyWrapper.auth.federatedSignIn"),
-                It.Is<DotNetObjectRef>(r => r.Value == awsHelperMock.Object)), Times.Exactly(1));
+                It.Is<IAwsHelper>(r => r == awsHelperMock.Object)), Times.Exactly(1));
         }
 
         [Fact]
@@ -124,7 +124,7 @@ namespace Aguacongas.AwsServices.Test
             var awsHelperMock = new Mock<IAwsHelper>();
 
             jsRuntimeMock.Setup(m => m.InvokeAsync<object>(It.Is<string>(s => s == "amplifyWrapper.graphql.subsription"),
-                It.Is<DotNetObjectRef>(r => r.Value == awsHelperMock.Object),
+                It.Is<IAwsHelper>(r => r == awsHelperMock.Object),
                 It.IsAny<string>()))
                 .ReturnsAsync(new object())
                 .Verifiable();
@@ -134,7 +134,7 @@ namespace Aguacongas.AwsServices.Test
             await sut.GraphSubscribeAsync("test", awsHelperMock.Object, "test");
 
             jsRuntimeMock.Verify(m => m.InvokeAsync<object>(It.Is<string>(s => s == "amplifyWrapper.graphql.subsription"),
-                It.Is<DotNetObjectRef>(r => r.Value == awsHelperMock.Object),
+                It.Is<IAwsHelper>(r => r == awsHelperMock.Object),
                 It.IsAny<string>()), Times.Exactly(1));
         }
     }

@@ -50,10 +50,10 @@ else
                                         {
                                             <span class="text-lowercase">@Resources["Point"]</span>
                                         }
-                                        if (match.IsFinished)
-                                        {
-                                            <div class="small"><em>@Resources["Finished"]</em></div>
-                                        }
+                                    }
+                                    @if (match.IsFinished.HasValue && match.IsFinished.Value)
+                                    {
+                                        <div class="small"><em>@Resources["Finished"]</em></div>
                                     }
                                 </div>
                             </div>

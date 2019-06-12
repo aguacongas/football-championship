@@ -16,6 +16,5 @@ namespace Aguacongas.AwsComponents
 
         [Parameter]
         public string IconUrl { get; set; }
-
     }
 }
