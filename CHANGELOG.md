@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/aguacongas/football-championship/compare/1.1.1...1.1.2) (2019-06-11)
+
+
+### Bug Fixes
+
+* notification not localized ([d21e949](https://github.com/aguacongas/football-championship/commit/d21e949))
+
 ## [1.1.1](https://github.com/aguacongas/football-championship/compare/1.1.0...1.1.1) (2019-06-10)
 
 
