@@ -12,17 +12,17 @@
 
     <div class="form-group">
         <label for="competitionId">Competition Id</label>
-        <InputNumber id="competitionId" bind-Value="@ImportCompetition.CompetitionId" />
+        <InputNumber id="competitionId" @bind-Value="@ImportCompetition.CompetitionId" />
     </div>
 
     <div class="form-group">
         <label for="seasonIdId">Season Id</label>
-        <InputNumber id="seasonId" bind-Value="@ImportCompetition.SeasonId" />
+        <InputNumber id="seasonId" @bind-Value="@ImportCompetition.SeasonId" />
     </div>
 
     <div class="form-group">
         <label for="stageId">Stage Id</label>
-        <InputNumber id="stageId" bind-Value="@ImportCompetition.StageId" />
+        <InputNumber id="stageId" @bind-Value="@ImportCompetition.StageId" />
     </div>
 
     <button type="submit" disabled="@Pending">Submit</button>

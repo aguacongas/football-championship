@@ -86,7 +86,7 @@ else
                                     <div class="col">
                                         @if (CanBet(match))
                                         {
-                                            <InputNumber Class="bet form-control" bind-Value="@match.Bet.HomeValue" ParsingErrorMessage="@GetErrorMessage(match, true)" />
+                                            <InputNumber Class="bet form-control" @bind-Value="@match.Bet.HomeValue" />
                                         }
                                         else
                                         {
@@ -99,7 +99,7 @@ else
                                     <div class="col">
                                         @if (CanBet(match))
                                         {
-                                            <InputNumber Class="bet form-control" bind-Value="@match.Bet.AwayValue" ParsingErrorMessage="@GetErrorMessage(match, true)" />
+                                            <InputNumber  Class="bet form-control" @bind-Value="@match.Bet.AwayValue" />
                                         }
                                         else
                                         {
