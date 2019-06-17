@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/aguacongas/football-championship/compare/1.2.0...1.2.1) (2019-06-17)
+
+
+### Bug Fixes
+
+* set correct location after page refresh ([434ae00](https://github.com/aguacongas/football-championship/commit/434ae00))
+
 # [1.2.0](https://github.com/aguacongas/football-championship/compare/1.1.2...1.2.0) (2019-06-12)
 
 
