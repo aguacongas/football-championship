@@ -167,8 +167,8 @@ namespace Aguacongas.FootballChampionship.Shared
 
                         if (match.IsFinished != started.IsFinished)
                         {
+                            started.IsFinished = match.IsFinished;
                             await BrowserJsInterop.Notify(Resources["Finished"], message);
-                            match.IsFinished = match.IsFinished;
                             return;
                         }
 
@@ -176,8 +176,8 @@ namespace Aguacongas.FootballChampionship.Shared
                         {
                             if (started.Scores.Any(s => s.IsHome == score.IsHome && s.Value != score.Value))
                             {
-                                await BrowserJsInterop.Notify("Gooooal!", message);
                                 started.Scores = match.Scores;
+                                await BrowserJsInterop.Notify("Gooooal!", message);
                                 return;
                             }
                         }
