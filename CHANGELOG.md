@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/aguacongas/football-championship/compare/1.2.1...1.2.2) (2019-06-17)
+
+
+### Bug Fixes
+
+* too much notification ([87bd074](https://github.com/aguacongas/football-championship/commit/87bd074))
+
 ## [1.2.1](https://github.com/aguacongas/football-championship/compare/1.2.0...1.2.1) (2019-06-17)
 
 
