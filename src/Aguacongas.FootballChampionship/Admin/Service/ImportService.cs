@@ -61,7 +61,8 @@ namespace Aguacongas.FootballChampionship.Admin.Service
                     Matches = new AwsGraphQlList<FootballChampionship.Model.Match>
                     {
                         Items = new List<FootballChampionship.Model.Match>()
-                    }
+                    },
+                    From = DateTimeOffset.MaxValue
                 };
             }
 
@@ -71,8 +72,8 @@ namespace Aguacongas.FootballChampionship.Admin.Service
             var firstMatch = matches.First();
             var lastMatch = matches.Last();
 
-            DateTime fromDate = firstMatch.Date;
-            DateTime toDate = lastMatch.Date;
+            var fromDate = competition.From;
+            var toDate = competition.To;
 
             var importedMatchList = competition.Matches.Items;
             if (importedMatchList.Any())
@@ -89,8 +90,8 @@ namespace Aguacongas.FootballChampionship.Admin.Service
                 {
                     Id = competitionId,
                     Title = firstMatch.CompetitionName.First().Description,
-                    From =  firstMatch.Date.ToAwsDate(),
-                    To = lastMatch.Date > competition.To ? lastMatch.Date.ToAwsDate() : competition.To.Date.ToAwsDate(),
+                    From =  fromDate.Date.ToAwsDate(),
+                    To = toDate.Date.ToAwsDate(),
                     localizedNames = firstMatch.CompetitionName.Select(n => new LocalizedName { Locale = n.Locale, Value = n.Description })
                 }
             });

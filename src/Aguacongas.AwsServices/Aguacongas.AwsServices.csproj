@@ -10,6 +10,11 @@
     <LangVersion>7.3</LangVersion>
     <RazorLangVersion>3.0</RazorLangVersion>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+    <Description>Amazon Web Service interops for Blazor</Description>
+    <PackageTags>Blazor AWS</PackageTags>
+    <RepositoryUrl>https://github.com/aguacongas/football-championship/tree/master/src/Aguacongas.AwsServices</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>https://github.com/aguacongas/football-championship</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>

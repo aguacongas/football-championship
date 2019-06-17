@@ -71,6 +71,13 @@ namespace Aguacongas.FootballChampionship.Shared
                 CreateProviderList();
                 StateHasChanged();
             };
+
+            var location = UriHelper.GetAbsoluteUri();
+            Console.WriteLine(location);
+            if (location.Contains("/?p="))
+            {
+                UriHelper.NavigateTo(location.Replace("/?p=", ""));
+            }
         }
 
         private void CreateProviderList()
