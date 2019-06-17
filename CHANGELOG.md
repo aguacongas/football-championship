@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/aguacongas/football-championship/compare/1.1.2...1.2.0) (2019-06-12)
+
+
+### Features
+
+* update to .net core 3.0.0-preview6 ([eb71e72](https://github.com/aguacongas/football-championship/commit/eb71e72))
+
 ## [1.1.2](https://github.com/aguacongas/football-championship/compare/1.1.1...1.1.2) (2019-06-11)
 
 
