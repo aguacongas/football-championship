@@ -1,3 +1,10 @@
+## [1.2.3](https://github.com/aguacongas/football-championship/compare/1.2.2...1.2.3) (2019-06-18)
+
+
+### Bug Fixes
+
+* admin update matches ([7384579](https://github.com/aguacongas/football-championship/commit/7384579))
+
 ## [1.2.2](https://github.com/aguacongas/football-championship/compare/1.2.1...1.2.2) (2019-06-17)
 
 
