@@ -98,7 +98,10 @@ namespace Aguacongas.FootballChampionship.Admin.Service
 
             competition = competition.Id == null ? competitionResponses.CreateCompetition : competitionResponses.UpdateCompetition;
 
-            competition.Matches.Items = importedMatchList.ToList();
+            competition.Matches = new AwsGraphQlList<FootballChampionship.Model.Match>
+            {
+                Items = importedMatchList.ToList()
+            };
 
             CompetitionUpdated?.Invoke(competition);
 
@@ -118,7 +121,10 @@ namespace Aguacongas.FootballChampionship.Admin.Service
                 { "language", language }
             };
 
-            var response = await _client.GetJsonAsync<FifaResponse<Model.FIFA.Match>>($"https://api.fifa.com/api/v1/calendar/matches?{qb.ToQueryString()}");
+            var message = await _client.GetAsync($"https://api.fifa.com/api/v1/calendar/matches?{qb.ToQueryString()}");
+            var content = await message.Content.ReadAsStringAsync();
+            var response = JsonSerializer.Parse<FifaResponse<Model.FIFA.Match>>(content);
+
             var matches = response.Results.OrderBy(r => r.Date);
             var firstMatch = matches.First();
 

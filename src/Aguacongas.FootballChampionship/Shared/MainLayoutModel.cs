@@ -150,6 +150,12 @@ namespace Aguacongas.FootballChampionship.Shared
                     var matches = new List<Match>();
                     GraphQlSubscriber.MatchUpdated += async (e, match) =>
                     {
+                        if (match.MatchTeams?.Items == null ||
+                            match.Scores == null)
+                        {
+                            return;
+                        }
+
                         var homeTeam = match.MatchTeams.Items.First(t => t.IsHome).Team;
                         var awayTeam = match.MatchTeams.Items.First(t => !t.IsHome).Team;
                         var homeScore = match.Scores.First(s => s.IsHome).Value;

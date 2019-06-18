@@ -37,19 +37,10 @@ namespace Aguacongas.FootballChampionship.Admin.Model.FIFA
 
     public class Team
     {
-        public int Score { get; set; }
-        public object Side { get; set; }
+        public int? Score { get; set; }
         public string IdTeam { get; set; }
         public string PictureUrl { get; set; }
-        public string IdCountry { get; set; }
-        public object Tactics { get; set; }
-        public int TeamType { get; set; }
-        public int AgeType { get; set; }
         public List<TeamName> TeamName { get; set; }
-        public string Abbreviation { get; set; }
-        public int FootballType { get; set; }
-        public int Gender { get; set; }
-        public string IdAssociation { get; set; }
     }
 
     public class Name

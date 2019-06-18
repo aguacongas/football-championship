@@ -61,8 +61,8 @@ namespace Aguacongas.FootballChampionship.Service
                                 Id = fifaMatch.IdMatch,
                                 Scores = new List<Score>
                                 {
-                                    new Score{ IsHome = true, Value = fifaMatch.HomeTeam.Score},
-                                    new Score{ IsHome = false, Value = fifaMatch.AwayTeam.Score}
+                                    new Score{ IsHome = true, Value = fifaMatch.HomeTeam.Score.Value},
+                                    new Score{ IsHome = false, Value = fifaMatch.AwayTeam.Score.Value}
                                 }
                             };
                             ((List<Model.Match>)matches).Add(match);                            
@@ -78,8 +78,8 @@ namespace Aguacongas.FootballChampionship.Service
                             {
                                 continue;
                             }
-                            homeScore.Value = fifaMatch.HomeTeam.Score;
-                            awayScore.Value = fifaMatch.AwayTeam.Score;
+                            homeScore.Value = fifaMatch.HomeTeam.Score.Value;
+                            awayScore.Value = fifaMatch.AwayTeam.Score.Value;
                         }
                         match.IsFinished = isFinished;
                         Console.WriteLine($"Update score {JsonSerializer.ToString(match)}");
