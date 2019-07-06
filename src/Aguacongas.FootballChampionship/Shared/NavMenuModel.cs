@@ -33,17 +33,7 @@ namespace Aguacongas.FootballChampionship.Shared
 
         protected override async Task OnInitAsync()
         {
-            var response = await AwsJsInterop.GraphQlAsync<CompetitionList>(Queries.LIST_COMPETITIONS,
-                new
-                {
-                    Filter = new
-                    {
-                        To = new
-                        {
-                            Ge = DateTimeOffset.Now.Date
-                        }
-                    }
-                });
+            var response = await AwsJsInterop.GraphQlAsync<CompetitionList>(Queries.LIST_COMPETITIONS);
             CompetitionList = response.ListCompetitions.Items;
 
             LiveScoreService.Start(CompetitionList);
