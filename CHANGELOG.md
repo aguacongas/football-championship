@@ -1,3 +1,10 @@
+## [1.2.4](https://github.com/aguacongas/football-championship/compare/1.2.3...1.2.4) (2019-07-06)
+
+
+### Bug Fixes
+
+* do not filter compétitions ([22382b6](https://github.com/aguacongas/football-championship/commit/22382b6))
+
 ## [1.2.3](https://github.com/aguacongas/football-championship/compare/1.2.2...1.2.3) (2019-06-18)
 
 
