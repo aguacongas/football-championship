@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/aguacongas/football-championship/compare/1.2.4...1.3.0) (2019-08-17)
+
+
+### Features
+
+* blazor preview8 ([9fb4301](https://github.com/aguacongas/football-championship/commit/9fb4301))
+
 ## [1.2.4](https://github.com/aguacongas/football-championship/compare/1.2.3...1.2.4) (2019-07-06)
 
 
