@@ -4,7 +4,6 @@ using Aguacongas.FootballChampionship.Model;
 using Aguacongas.FootballChampionship.Service;
 using Aguacongas.AwsServices;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Layouts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,9 +48,9 @@ namespace Aguacongas.FootballChampionship.Shared
 
         protected IEnumerable<Provider> ProviderList { get; private set; }
 
-        protected override async Task OnInitAsync()
+        protected override async Task OnInitializedAsync()
         {
-            await base.OnInitAsync();
+            await base.OnInitializedAsync();
             
             var culture = await BrowserJsInterop.GetItem<string>("culture");
             if (culture == null)

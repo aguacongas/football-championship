@@ -8,9 +8,9 @@ namespace Aguacongas.FootballChampionship.Shared
         [Inject]
         public IResources Resources { get; set; }
 
-        protected override void OnInit()
+        protected override void OnInitialized()
         {
-            base.OnInit();
+            base.OnInitialized();
 
             Resources.CultureChanged += (e, a) =>
             {

@@ -18,7 +18,7 @@ namespace Aguacongas.FootballChampionship.Pages
 
         protected IEnumerable<Model.Competition> CompetitionList { get; private set; }
 
-        protected override  async Task OnInitAsync()
+        protected override  async Task OnInitializedAsync()
         {
             var response = await AwsJsInterop.GraphQlAsync<CompetitionList>(Queries.LIST_COMPETITIONS);
             CompetitionList = response.ListCompetitions.Items;

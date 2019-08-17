@@ -31,7 +31,7 @@ namespace Aguacongas.FootballChampionship.Shared
             collapseNavMenu = !collapseNavMenu;
         }
 
-        protected override async Task OnInitAsync()
+        protected override async Task OnInitializedAsync()
         {
             var response = await AwsJsInterop.GraphQlAsync<CompetitionList>(Queries.LIST_COMPETITIONS);
             CompetitionList = response.ListCompetitions.Items;

@@ -11,10 +11,10 @@ namespace Aguacongas.FootballChampionship.Pages
     public class RankModel : LocalizedComponentBase
     {
         [Parameter]
-        protected string Id { get; set; }
+        public string Id { get; set; }
 
         [Parameter]
-        protected string Stage { get; set; }
+        public string Stage { get; set; }
 
         [Inject]
         public IRankingService RankingService { private get; set; }
@@ -22,9 +22,9 @@ namespace Aguacongas.FootballChampionship.Pages
         protected Model.Competition Competition { get; private set; }
         protected IEnumerable<Result> Results { get; private set; }
 
-        protected override async Task OnInitAsync()
+        protected override async Task OnInitializedAsync()
         {
-            await base.OnInitAsync();
+            await base.OnInitializedAsync();
 
             Results = await RankingService.ComputeResultList($"{Id}/{Stage}");
             

@@ -12,10 +12,10 @@ namespace Aguacongas.FootballChampionship.Pages
     public class CompetitionModel : LocalizedComponentBase
     {
         [Parameter]
-        protected string Id { get; set; }
+        public string Id { get; set; }
 
         [Parameter]
-        protected string Stage { get; set; }
+        public string Stage { get; set; }
 
         [Inject]
         public ICompetitionService CompetitionService { private get; set; }
@@ -28,9 +28,9 @@ namespace Aguacongas.FootballChampionship.Pages
 
         protected IEnumerable<IGrouping<DateTime, Match>> MatchGroup { get; private set; }
 
-        protected override async Task OnInitAsync()
+        protected override async Task OnInitializedAsync()
         {
-            await base.OnInitAsync();
+            await base.OnInitializedAsync();
             
             GraphQlSubscriber.MatchUpdated += (e, match) =>
             {

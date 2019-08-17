@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Text.Json.Serialization;
+using System.Text.Json;
 
 namespace Aguacongas.FootballChampionship.Service
 {
@@ -47,7 +48,7 @@ namespace Aguacongas.FootballChampionship.Service
                 {
                     var message = await _httpClient.GetAsync("https://api.fifa.com/api/v1/live/football/recent/" + competition.Id);
                     var content = await message.Content.ReadAsStringAsync();
-                    var response = JsonSerializer.Parse<FifaResponse<Admin.Model.FIFA.Match>>(content);
+                    var response = JsonSerializer.Deserialize<FifaResponse<Admin.Model.FIFA.Match>>(content);
                     var fifaMatches = response.Results.Where(m => m.MatchStatus == 3 || m.MatchStatus == 0);
                     var matches = competition.Matches.Items;
                     foreach (var fifaMatch in fifaMatches)
@@ -82,7 +83,7 @@ namespace Aguacongas.FootballChampionship.Service
                             awayScore.Value = fifaMatch.AwayTeam.Score.Value;
                         }
                         match.IsFinished = isFinished;
-                        Console.WriteLine($"Update score {JsonSerializer.ToString(match)}");
+                        Console.WriteLine($"Update score {JsonSerializer.Serialize(match)}");
                         await _awsJsInterop.GraphQlAsync<MatchesResponse>(Admin.Model.Mutations.UPDATE_MATCH,
                         new
                         {

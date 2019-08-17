@@ -29,9 +29,9 @@ namespace Aguacongas.FootballChampionship.Admin.Pages
             MatchList = new List<Match>();
         }
 
-        protected override void OnInit()
+        protected override void OnInitialized()
         {
-            base.OnInit();
+            base.OnInitialized();
 
             ImportService.MatchUpdated = match =>
             {

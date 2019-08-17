@@ -1,6 +1,6 @@
 ﻿@inherits LoginButtonModel
 
-<button class="fc-loginbtn btn btn-primary" onclick="@(async () => await AwsJsInterop.SignInAsync(Provider))">
+<button class="fc-loginbtn btn btn-primary" @onclick="@(async () => await AwsJsInterop.SignInAsync(Provider))">
     @if (!string.IsNullOrEmpty(IconUrl))
     {
         <img src="@IconUrl" />

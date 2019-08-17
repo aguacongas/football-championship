@@ -11,6 +11,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Text.Json.Serialization;
+using System.Text.Json;
 
 namespace Aguacongas.FootballChampionship.Admin.Service
 {
@@ -44,7 +45,7 @@ namespace Aguacongas.FootballChampionship.Admin.Service
 
             var message = await _client.GetAsync($"https://api.fifa.com/api/v1/calendar/matches?{queryBuilder.ToQueryString()}");
             var content = await message.Content.ReadAsStringAsync();
-            var response = JsonSerializer.Parse<FifaResponse<Model.FIFA.Match>>(content);
+            var response = JsonSerializer.Deserialize<FifaResponse<Model.FIFA.Match>>(content);
 
             if (!response.Results.Any())
             {
@@ -123,7 +124,7 @@ namespace Aguacongas.FootballChampionship.Admin.Service
 
             var message = await _client.GetAsync($"https://api.fifa.com/api/v1/calendar/matches?{qb.ToQueryString()}");
             var content = await message.Content.ReadAsStringAsync();
-            var response = JsonSerializer.Parse<FifaResponse<Model.FIFA.Match>>(content);
+            var response = JsonSerializer.Deserialize<FifaResponse<Model.FIFA.Match>>(content);
 
             var matches = response.Results.OrderBy(r => r.Date);
             var firstMatch = matches.First();

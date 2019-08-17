@@ -4,7 +4,7 @@
         @if (AwsHelper.IsConnected)
         {
             <div class="fc-login-header-greating-text">@string.Format(GreetingTemplate, AwsHelper.UserName)</div>
-            <button class="btn btn-primary" onclick="@(async () => await AwsJsInterop.SignOutAsync())">
+            <button class="btn btn-primary" @onclick="@(async () => await AwsJsInterop.SignOutAsync())">
                 <span class="oi oi-account-logout" aria-hidden="true"></span> @LogoutText
             </button>
         }

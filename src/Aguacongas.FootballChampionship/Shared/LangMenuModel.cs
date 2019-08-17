@@ -24,9 +24,9 @@ namespace Aguacongas.FootballChampionship.Shared
 
         protected IEnumerable<string> LanguageList { get; private set; }
 
-        protected override async Task OnInitAsync()
+        protected override async Task OnInitializedAsync()
         {
-            await base.OnInitAsync();
+            await base.OnInitializedAsync();
 
             LanguageList = Queries.CULTURE_LIST.Select(c => c.Split('-')[0]);
 
