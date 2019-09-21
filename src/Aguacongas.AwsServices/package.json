@@ -10,9 +10,10 @@
   "author": "Olivier Lefebvre",
   "license": "Apache 2.0",
   "dependencies": {
-    "aws-amplify": "^1.1.28",
+    "aws-amplify": "^1.1.40",
     "axios": ">=0.18.1",
-    "querystringify": ">=2.0.0"
+    "querystringify": ">=2.0.0",
+    "set-value": ">=2.0.1"
   },
   "devDependencies": {
     "webpack": "^4.17.1",
