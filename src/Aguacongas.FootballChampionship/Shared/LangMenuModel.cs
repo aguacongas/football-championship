@@ -18,7 +18,7 @@ namespace Aguacongas.FootballChampionship.Shared
         public IBrowserJsInterop BrowserJsInterop { private get; set; }
 
         [Inject]
-        public IUriHelper UriHelper { protected get; set; }
+        public NavigationManager NavigationManager { protected get; set; }
 
         protected string Language { get; private set; }
 
@@ -33,7 +33,7 @@ namespace Aguacongas.FootballChampionship.Shared
             var culture = CultureInfo.DefaultThreadCurrentUICulture.ToString();
             Language = culture.Split('-')[0];
 
-            UriHelper.OnLocationChanged += (e, a) =>
+            NavigationManager.LocationChanged += (e, a) =>
             {
                 StateHasChanged();
             };

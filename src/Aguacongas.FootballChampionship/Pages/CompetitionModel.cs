@@ -65,9 +65,9 @@ namespace Aguacongas.FootballChampionship.Pages
             return match.PlaceHolderAway;
         }
 
-        protected override async Task OnAfterRenderAsync()
+        protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            await base.OnAfterRenderAsync();
+            await base.OnAfterRenderAsync(firstRender);
             await CompetitionService.ScrollToDate();
         }
 
