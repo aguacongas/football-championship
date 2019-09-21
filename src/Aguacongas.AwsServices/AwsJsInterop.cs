@@ -24,8 +24,8 @@ namespace Aguacongas.AwsServices
                 listing = true;
                 return _jsRuntime.InvokeAsync<object>(
                     "amplifyWrapper.hub.listen",
-                    DotNetObjectRef.Create(_awsHelper)
-                );
+                    DotNetObjectReference.Create(_awsHelper)
+                ).AsTask();
             }
             return Task.CompletedTask;
         }
@@ -37,7 +37,8 @@ namespace Aguacongas.AwsServices
                 configured = true;
                 return _jsRuntime.InvokeAsync<object>(
                     "amplifyWrapper.configure",
-                    config);
+                    config)
+                    .AsTask();
             }
             return Task.CompletedTask;
         }
@@ -46,12 +47,15 @@ namespace Aguacongas.AwsServices
         {
             return _jsRuntime.InvokeAsync<object>(
                 "amplifyWrapper.auth.federatedSignIn",
-                provider);
+                provider)
+                .AsTask();
         }
 
         public Task SignOutAsync()
         {
-            return _jsRuntime.InvokeAsync<object>("amplifyWrapper.auth.signout", DotNetObjectRef.Create(_awsHelper));
+            return _jsRuntime.InvokeAsync<object>("amplifyWrapper.auth.signout",
+                DotNetObjectReference.Create(_awsHelper))
+                .AsTask();
         }
 
         public async Task<TResponse> GraphQlAsync<TResponse>(string operation, object parameters = null)
@@ -68,8 +72,9 @@ namespace Aguacongas.AwsServices
             return _jsRuntime
                 .InvokeAsync<object>("amplifyWrapper.graphql.subsription",
                     operation,
-                    DotNetObjectRef.Create(helper),
-                    callback);
+                    DotNetObjectReference.Create(helper),
+                    callback)
+                .AsTask();
         }
     }
 }

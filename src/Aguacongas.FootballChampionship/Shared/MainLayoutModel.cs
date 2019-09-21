@@ -29,9 +29,6 @@ namespace Aguacongas.FootballChampionship.Shared
         }
 
         [Inject]
-        public IComponentContext ComponentContext { get; set; }
-
-        [Inject]
         public IAwsJsInterop AwsJsInterop { get; set; }
 
         [Inject]
@@ -44,7 +41,7 @@ namespace Aguacongas.FootballChampionship.Shared
         public IGraphQlSubscriber GraphQlSubscriber { private get; set; }
 
         [Inject]
-        public IUriHelper UriHelper { get; set; }
+        public NavigationManager NavigationManager { get; set; }
 
         protected IEnumerable<Provider> ProviderList { get; private set; }
 
@@ -71,11 +68,11 @@ namespace Aguacongas.FootballChampionship.Shared
                 StateHasChanged();
             };
 
-            var location = UriHelper.GetAbsoluteUri();
+            var location = NavigationManager.Uri;
             Console.WriteLine(location);
             if (location.Contains("/?p="))
             {
-                UriHelper.NavigateTo(location.Replace("/?p=", ""));
+                NavigationManager.NavigateTo(location.Replace("/?p=", ""));
             }
         }
 
@@ -111,9 +108,9 @@ namespace Aguacongas.FootballChampionship.Shared
             };
         }
 
-        protected override async Task OnAfterRenderAsync()
+        protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            if (ComponentContext.IsConnected)
+            if (firstRender)
             {
                 var config = new AwsConfig
                 {
@@ -132,8 +129,8 @@ namespace Aguacongas.FootballChampionship.Shared
                             "profile",
                             "aws.cognito.signin.user.admin"
                         },
-                        RedirectSignIn = UriHelper.GetBaseUri(),
-                        RedirectSignOut = UriHelper.GetBaseUri(),
+                        RedirectSignIn = NavigationManager.BaseUri,
+                        RedirectSignOut = NavigationManager.BaseUri,
                         ResponseType = "code"
                     },
                     FederationTarget = "COGNITO_USER_POOLS",
@@ -190,7 +187,7 @@ namespace Aguacongas.FootballChampionship.Shared
                     await AwsJsInterop.GraphSubscribeAsync(Subscriptions.ON_UPDATE_MATCH, GraphQlSubscriber, nameof(GraphQlSubscriber.OnMatchUpdated));
                 }
             }
-            await base.OnAfterRenderAsync();
+            await base.OnAfterRenderAsync(firstRender);
         }
     }
 }

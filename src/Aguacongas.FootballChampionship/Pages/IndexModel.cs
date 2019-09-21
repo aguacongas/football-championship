@@ -14,7 +14,7 @@ namespace Aguacongas.FootballChampionship.Pages
         public IAwsJsInterop AwsJsInterop { get; set; }
 
         [Inject]
-        public IUriHelper UriHelper { get; set; }
+        public NavigationManager NavigationManager { get; set; }
 
         protected IEnumerable<Model.Competition> CompetitionList { get; private set; }
 

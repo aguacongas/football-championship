@@ -9,7 +9,7 @@
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             @foreach (var language in LanguageList)
             {
-                <a class="dropdown-item" href="@UriHelper.GetAbsoluteUri()" @onclick="@(async () => await SetLanguage(language))">@language</a>
+                <a class="dropdown-item" href="@NavigationManager.Uri" @onclick="@(async () => await SetLanguage(language))">@language</a>
             }
         </div>
     </div>

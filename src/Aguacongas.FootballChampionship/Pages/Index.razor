@@ -24,7 +24,7 @@ else
             @foreach (var competition in CompetitionList)
             {
                 <tr>
-                    <td><a href="@UriHelper.ToAbsoluteUri(competition.Id)">@competition.LocalizedNames.GetLocalizedValue()</a></td>
+                    <td><a href="@NavigationManager.ToAbsoluteUri(competition.Id)">@competition.LocalizedNames.GetLocalizedValue()</a></td>
                     <td>@competition.From.Date.ToLongDateString()</td>
                     <td>@competition.To.Date.ToLongDateString()</td>
                 </tr>

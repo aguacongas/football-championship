@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace Aguacongas.FootballChampionship.Shared
 {
@@ -26,7 +27,7 @@ namespace Aguacongas.FootballChampionship.Shared
 
         protected IEnumerable<Competition> CompetitionList { get; private set; }
 
-        protected void ToggleNavMenu()
+        protected void ToggleNavMenu(MouseEventArgs e)
         {
             collapseNavMenu = !collapseNavMenu;
         }
